@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
+
     <style>
         :root {
             --bg:#0b0b0d;
@@ -192,10 +193,26 @@
                 <button id="resetZoom" style="padding:6px 12px;font-size:12px;">Fit Screen</button>
             </div>
             <div class="modal-meta" id="modalMeta"></div>
-            <div class="modal-meta" id="mapViewCount" style="margin-top:4px;color:var(--accent);font-weight:600"></div>
         </div>
     </div>
 </div>
+
+<script>
+    async function updateViewCount() {
+        const namespace = "dtm_mapart_gallery";
+        const key = "global_views";
+
+        try {
+            const res = await fetch(`https://countapi.dev/hit/${namespace}/${key}`);
+            const data = await res.json();
+            document.getElementById("viewCount").textContent =
+                data.value.toLocaleString();
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    updateViewCount();
+</script>
 
 <script>
     async function loadMaps() {
@@ -229,7 +246,6 @@
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     const modalMeta = document.getElementById('modalMeta');
-    const mapViewCountEl = document.getElementById('mapViewCount');
     const zoomSlider = document.getElementById('zoomSlider');
     const panzoom = document.getElementById('panzoom');
     const hoverPreview = document.getElementById('hoverPreview');
@@ -264,7 +280,7 @@
     function showHover(src) { clearTimeout(hoverTimeout); hoverPreview.src = src; hoverPreview.classList.add('visible'); }
     function hideHover() { hoverTimeout = setTimeout(() => hoverPreview.classList.remove('visible'), 200); }
 
-    async function openModal(m) {
+    function openModal(m) {
         modal.classList.add('open');
         modalImg.src = m.image;
         modalImg.alt = m.title;
@@ -280,15 +296,6 @@
             ${m.artistCredit ? `Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>` : ''}
             ${m.description ? `<em style="color:#b8c4d6">${m.description}</em>` : ''}
         `;
-
-        // Increment map-specific view counter
-        try {
-            const mapRes = await fetch(`https://api.countapi.xyz/hit/dtm_mapart_gallery/${encodeURIComponent(m.title)}`);
-            const mapData = await mapRes.json();
-            mapViewCountEl.textContent = `Views: ${mapData.value.toLocaleString()}`;
-        } catch (e) {
-            mapViewCountEl.textContent = '';
-        }
 
         modalImg.onload = () => {
             requestAnimationFrame(() => requestAnimationFrame(fitToScreen));
@@ -440,20 +447,11 @@
     };
 
     updateSortButtons();
-    searchInput.oninput = () => setTimeout(render, 150);
 
-    async function updateViewCount() {
-        const namespace = "dtm_mapart_gallery";
-        const key = "total_views";
-        try {
-            const res = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
-            const data = await res.json();
-            document.getElementById("viewCount").textContent = data.value.toLocaleString();
-        } catch(e) { console.error("Failed to update view counter", e); }
-    }
-    updateViewCount();
+    searchInput.oninput = () => setTimeout(render, 150);
 
     render().catch(console.error);
 </script>
+
 </body>
 </html>

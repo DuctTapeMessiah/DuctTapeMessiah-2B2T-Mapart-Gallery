@@ -162,6 +162,7 @@
         <div class="stats" id="stats">
             <div>Entries: <span id="totalCount">0</span></div>
             <div>Total: <span id="totalTiles">0</span> maps</div>
+            <div>Views: <span id="viewCount">0</span></div>
         </div>
     </header>
 
@@ -434,7 +435,15 @@
     render().catch(console.error);
 </script>
 
-<!-- Vercel Web Analytics -->
+<script>
+    fetch('https://api.countapi.xyz/hit/dtm_mapart_gallery/global')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('viewCount').textContent = Number(d.value).toLocaleString();
+      })
+      .catch(() => {});
+</script>
+
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

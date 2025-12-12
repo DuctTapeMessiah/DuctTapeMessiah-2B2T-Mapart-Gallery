@@ -436,12 +436,12 @@
 </script>
 
 <script>
-    fetch('https://api.countapi.xyz/hit/dtm_mapart_gallery/global')
-      .then(r => r.json())
-      .then(d => {
-        document.getElementById('viewCount').textContent = Number(d.value).toLocaleString();
-      })
-      .catch(() => {});
+  fetch('https://api.count.kevinlin.xyz/hit?key=dtm-mapart')
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById('viewCount').textContent = Number(d.count).toLocaleString();
+    }))
+    .catch(() => { document.getElementById('viewCount').textContent = '—'; });
 </script>
 
 <script defer src="/_vercel/insights/script.js"></script>

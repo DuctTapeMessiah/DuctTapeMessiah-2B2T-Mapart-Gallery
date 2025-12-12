@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
-
     <style>
         :root {
             --bg:#0b0b0d;
@@ -163,7 +162,6 @@
         <div class="stats" id="stats">
             <div>Entries: <span id="totalCount">0</span></div>
             <div>Total: <span id="totalTiles">0</span> maps</div>
-            <div>Views: <span id="viewCount">0</span></div>
         </div>
     </header>
 
@@ -196,23 +194,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    async function updateViewCount() {
-        const namespace = "dtm_mapart_gallery";
-        const key = "global_views";
-
-        try {
-            const res = await fetch(`https://countapi.dev/hit/${namespace}/${key}`);
-            const data = await res.json();
-            document.getElementById("viewCount").textContent =
-                data.value.toLocaleString();
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    updateViewCount();
-</script>
 
 <script>
     async function loadMaps() {
@@ -452,6 +433,5 @@
 
     render().catch(console.error);
 </script>
-
 </body>
 </html>

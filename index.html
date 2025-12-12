@@ -42,16 +42,16 @@ h1{font-size:20px;margin:0;font-weight:600;}
 .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;}
 .modal-panzoom:active{cursor:grabbing;}
 .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none;transition:transform .15s ease-out;}
-.modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10;display:flex;flex-direction:column;align-items:flex-start;gap:6px;}
-.modal-controls > div:first-child{display:flex;flex-direction:column;gap:6px;width:100%;}
-.modal-controls label{font-size:13px;color:var(--muted);}
-.modal-controls input[type="range"]{width:100%;height:6px;margin:0;padding:0;background:rgba(255,255,255,0.1);border-radius:4px;appearance:none;cursor:pointer;}
-.modal-controls input[type="range"]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent);cursor:pointer;}
+.modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10;display:flex;flex-direction:column;gap:10px;}
+.modal-controls > div:first-child{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:0;}
 .modal-meta{color:var(--muted);font-size:13px;line-height:1.6;margin-top:6px;}
-.close-x{z-index:20;}
+.slider-column{display:flex;flex-direction:column;gap:6px;width:120px;}
+.slider-column label{font-size:12px;color:var(--muted);}
+.slider-column input[type="range"]{width:100%;height:6px;appearance:none;background:rgba(255,255,255,0.1);border-radius:4px;cursor:pointer;}
+.slider-column input[type="range"]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;background:var(--accent);border-radius:50%;cursor:pointer;}
+.slider-column input[type="range"]::-moz-range-thumb{width:12px;height:12px;background:var(--accent);border-radius:50%;cursor:pointer;}
 @media (max-width:768px){
-  .modal-controls{display:none;}
-  .thumb-preview{max-width:95vw;max-height:95vh;}
+  .slider-column{display:none;}
 }
 </style>
 </head>
@@ -90,15 +90,19 @@ h1{font-size:20px;margin:0;font-weight:600;}
 </div>
 </div>
 <div class="modal-controls">
-<div>
-<label>Zoom</label>
+<div class="slider-column">
+<label for="zoomSlider">Zoom</label>
 <input type="range" id="zoomSlider" min="30" max="500" value="100" step="5">
-<label>Pan X</label>
-<input type="range" id="panX" min="-2000" max="2000" value="0" step="5">
-<label>Pan Y</label>
-<input type="range" id="panY" min="-2000" max="2000" value="0" step="5">
-<button id="resetZoom" style="width:100%;padding:6px;font-size:12px;">Fit Screen</button>
 </div>
+<div class="slider-column">
+<label for="panX">Pan X</label>
+<input type="range" id="panX" min="-2000" max="2000" value="0" step="5">
+</div>
+<div class="slider-column">
+<label for="panY">Pan Y</label>
+<input type="range" id="panY" min="-2000" max="2000" value="0" step="5">
+</div>
+<button id="resetZoom" style="padding:6px 12px;font-size:12px;width:120px;">Fit Screen</button>
 <div class="modal-meta" id="modalMeta"></div>
 </div>
 </div>
@@ -126,7 +130,7 @@ const panXSlider=document.getElementById('panX');
 const panYSlider=document.getElementById('panY');
 
 const isMobile='ontouchstart' in window||navigator.maxTouchPoints>0;
-if(isMobile){zoomSlider.closest('.modal-controls').style.display='none';document.getElementById('hoverPreview').style.display='none';}
+if(isMobile){zoomSlider.parentElement.style.display='none';panXSlider.parentElement.style.display='none';panYSlider.parentElement.style.display='none';document.getElementById('hoverPreview').style.display='none';}
 
 let currentScale=1,translateX=0,translateY=0,isPanning=false,startX=0,startY=0,currentSort='date-desc';
 

@@ -18,41 +18,288 @@
     <meta name="theme-color" content="#6ee7b7">
     <link rel="icon" href="/images/DTM.png">
     <style>
-        :root{--bg:#0b0b0d;--panel:#0f1113;--muted:#94a3b8;--accent:#6ee7b7;--glass:rgba(255,255,255,0.03);--card-shadow:0 6px 18px rgba(2,6,23,0.6);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
-        html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
-        .wrap{max-width:1200px;margin:28px auto;padding:18px}
-        header{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wrap}
-        .logo{width:80px;height:80px;border-radius:12px;overflow:hidden;flex-shrink:0}
-        .logo img{width:100%;height:100%;object-fit:cover}
-        h1{font-size:20px;margin:0;font-weight:600}
-        .controls{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap}
-        .sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,0.08);padding:9px 16px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:all .2s}
-        .sort-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
-        .sort-btn:hover:not(.active){background:rgba(255,255,255,0.06)}
-        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px}
-        .stats{margin-left:auto;display:flex;gap:16px;align-items:center;color:var(--muted);font-size:14px;font-weight:500}
-        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:16px}
-        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02);box-shadow:var(--card-shadow);transition:transform .12s;display:flex;flex-direction:column}
-        .card:hover{transform:translateY(-6px)}
-        .thumb-wrapper{position:relative;width:100%;max-width:384px;max-height:320px;align-self:center;overflow:hidden;border-radius:6px}
-        .thumb{width:100%;height:100%;object-fit:contain;background:#000;image-rendering:pixelated;box-shadow:inset 0 -30px 60px rgba(0,0,0,0.4);cursor:pointer}
-        .thumb-preview{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:75vw;max-height:75vh;border:4px solid var(--accent);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.9);pointer-events:none;z-index:999;opacity:0;transition:opacity .3s;image-rendering:pixelated;object-fit:contain;background:#000}
-        .thumb-preview.visible{opacity:1}
-        .meta{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between}
-        .title{font-weight:600;font-size:14px;line-height:1.3}
-        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(110,231,183,0.15);color:var(--accent);font-weight:600}
-        .close-x{position:absolute;top:18px;right:20px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;z-index:100;font-size:18px;line-height:1}
-        .modal{position:fixed;inset:0;background:rgba(3,6,10,0.94);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:opacity .25s}
-        .modal.open{opacity:1;pointer-events:auto}
-        #modalInner{display:flex;flex-direction:column;width:calc(100vw-40px);height:calc(100vh-40px);max-width:1400px;border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:0 40px 100px rgba(0,0,0,0.9)}
-        .modal-viewport{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000;position:relative}
-        .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none}
-        .modal-panzoom:active{cursor:grabbing}
-        .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none;transition:transform .15s ease-out}
-        .modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10}
-        .modal-controls > div:first-child{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-        .modal-meta{color:var(--muted);font-size:13px;line-height:1.6}
-        @media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}.wrap{margin:12px;padding:12px}.stats{gap:10px;font-size:13px}.thumb-preview{max-width:92vw;max-height:88vh}#modalInner{width:100vw;height:100vh;border-radius:0}.controls{gap:8px}.search-input{min-width:180px}}
+        :root{
+            --bg:#0b0b0d;
+            --panel:#0f1113;
+            --muted:#94a3b8;
+            --accent:#6ee7b7;
+            --glass:rgba(255,255,255,0.03);
+            --card-shadow:0 6px 18px rgba(2,6,23,0.6);
+            font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+        }
+        html,body{
+            margin:0;
+            height:100%;
+            background:linear-gradient(180deg,var(--bg),#050506 120%);
+            color:#e6eef6;
+        }
+        .wrap{
+            max-width:1200px;
+            margin:28px auto;
+            padding:18px;
+        }
+        header{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin-bottom:24px;
+            flex-wrap:wrap;
+        }
+        .logo{
+            width:80px;
+            height:80px;
+            border-radius:12px;
+            overflow:hidden;
+            flex-shrink:0;
+        }
+        .logo img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        h1{
+            font-size:20px;
+            margin:0;
+            font-weight:600;
+        }
+        .controls{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            margin:12px 0;
+            flex-wrap:wrap;
+            justify-content:space-between;
+        }
+        .sort-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+            min-width:320px;
+            max-width:720px;
+            width:60%;
+        }
+        .sort-btn{
+            background:var(--panel);
+            border:1px solid rgba(255,255,255,0.08);
+            padding:9px 12px;
+            border-radius:10px;
+            color:inherit;
+            font-size:14px;
+            cursor:pointer;
+            transition:all .12s;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .sort-btn.active{
+            background:var(--accent);
+            color:#000;
+            font-weight:600;
+            border-color:var(--accent);
+        }
+        .sort-btn:hover:not(.active){
+            background:rgba(255,255,255,0.06);
+        }
+        .search-input{
+            background:var(--panel);
+            border:1px solid rgba(255,255,255,0.03);
+            padding:8px 12px;
+            border-radius:8px;
+            color:inherit;
+            font-size:14px;
+            min-width:240px;
+        }
+        .stats{
+            margin-left:auto;
+            display:flex;
+            gap:16px;
+            align-items:center;
+            color:var(--muted);
+            font-size:14px;
+            font-weight:500;
+        }
+        .grid{
+            display:grid;
+            grid-auto-flow:dense;
+            grid-template-columns:repeat(auto-fill,minmax(128px,1fr));
+            gap:12px;
+            margin-top:16px;
+        }
+        .card{
+            background:var(--glass);
+            border-radius:10px;
+            overflow:hidden;
+            border:1px solid rgba(255,255,255,0.02);
+            box-shadow:var(--card-shadow);
+            transition:transform .12s;
+            display:flex;
+            flex-direction:column;
+        }
+        .card:hover{
+            transform:translateY(-6px);
+        }
+        .thumb-wrapper{
+            position:relative;
+            width:100%;
+            max-width:384px;
+            max-height:320px;
+            align-self:center;
+            overflow:hidden;
+            border-radius:6px;
+        }
+        .thumb{
+            width:100%;
+            height:100%;
+            object-fit:contain;
+            background:#000;
+            image-rendering:pixelated;
+            box-shadow:inset 0 -30px 60px rgba(0,0,0,0.4);
+            cursor:pointer;
+        }
+        .thumb-preview{
+            position:fixed;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            max-width:75vw;
+            max-height:75vh;
+            border:4px solid var(--accent);
+            border-radius:12px;
+            box-shadow:0 30px 80px rgba(0,0,0,0.9);
+            pointer-events:none;
+            z-index:999;
+            opacity:0;
+            transition:opacity .18s;
+            image-rendering:pixelated;
+            object-fit:contain;
+            background:#000;
+        }
+        .thumb-preview.visible{
+            opacity:1;
+        }
+        .meta{
+            padding:8px 10px 10px;
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+            flex:1;
+            justify-content:space-between;
+        }
+        .title{
+            font-weight:600;
+            font-size:14px;
+            line-height:1.3;
+        }
+        .maps-tag{
+            align-self:flex-start;
+            font-size:12px;
+            padding:4px 8px;
+            border-radius:999px;
+            background:rgba(110,231,183,0.15);
+            color:var(--accent);
+            font-weight:600;
+        }
+        .close-x{
+            position:absolute;
+            top:18px;
+            right:20px;
+            background:var(--panel);
+            border-radius:8px;
+            padding:8px;
+            cursor:pointer;
+            z-index:100;
+            font-size:18px;
+            line-height:1;
+        }
+        .modal{
+            position:fixed;
+            inset:0;
+            background:rgba(3,6,10,0.94);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            z-index:80;
+            opacity:0;
+            pointer-events:none;
+            transition:opacity .25s;
+        }
+        .modal.open{
+            opacity:1;
+            pointer-events:auto;
+        }
+        #modalInner{
+            display:flex;
+            flex-direction:column;
+            width:calc(100vw - 40px);
+            height:75vh;
+            max-width:1400px;
+            border-radius:12px;
+            overflow:hidden;
+            background:var(--panel);
+            box-shadow:0 40px 100px rgba(0,0,0,0.9);
+        }
+        .modal-viewport{
+            flex:1;
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#000;
+            position:relative;
+        }
+        .modal-panzoom{
+            width:100%;
+            height:100%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:grab;
+            touch-action:none;
+            user-select:none;
+        }
+        .modal-panzoom:active{
+            cursor:grabbing;
+        }
+        .modal-img{
+            max-width:none;
+            max-height:none;
+            image-rendering:pixelated;
+            user-select:none;
+            pointer-events:none;
+            transition:transform .15s ease-out;
+        }
+        .modal-controls{
+            background:rgba(15,17,19,0.95);
+            backdrop-filter:blur(12px);
+            padding:16px;
+            z-index:10;
+        }
+        .modal-controls > div:first-child{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-bottom:8px;
+        }
+        .modal-meta{
+            color:var(--muted);
+            font-size:13px;
+            line-height:1.6;
+        }
+        @media (max-width:960px){
+            .sort-grid{width:100%;}
+        }
+        @media (max-width:560px){
+            .grid{grid-template-columns:repeat(2,1fr);}
+            .wrap{margin:12px;padding:12px;}
+            .stats{gap:10px;font-size:13px;}
+            .thumb-preview{max-width:92vw;max-height:88vh;}
+            #modalInner{width:100vw;height:75vh;border-radius:0;}
+            .controls{gap:8px;}
+            .search-input{min-width:140px;}
+            .sort-grid{width:100%;}
+        }
     </style>
 </head>
 <body>
@@ -66,18 +313,24 @@
         </div>
     </header>
 
-<div class="controls">
-    <button id="sortDate" class="sort-btn active">Newest First</button>
-    <button id="sortSize" class="sort-btn">Largest First</button>
-    <input id="search" class="search-input" placeholder="Search title..." type="text">
-</div>
+    <div class="controls">
+        <div class="sort-grid" role="toolbar" aria-label="Sort gallery">
+            <button id="sortNewest" class="sort-btn" data-sort="date-desc">Newest First</button>
+            <button id="sortLargest" class="sort-btn" data-sort="size-desc">Largest First</button>
+            <button id="sortOldest" class="sort-btn" data-sort="date-asc">Oldest First</button>
+            <button id="sortSmallest" class="sort-btn" data-sort="size-asc">Smallest First</button>
+        </div>
 
-<div class="grid" id="gallery"></div></div>
+        <input id="search" class="search-input" placeholder="Search title..." type="text">
+    </div>
+
+    <div class="grid" id="gallery"></div>
+</div>
 
 <img id="hoverPreview" class="thumb-preview" src="" alt="Preview">
 
 <div id="modal" class="modal" aria-hidden="true">
-    <div class="close-x" id="modalClose">×</div>
+    <div class="close-x" id="modalClose" role="button" aria-label="Close">×</div>
     <div id="modalInner">
         <div class="modal-viewport">
             <div class="modal-panzoom" id="panzoom">
@@ -125,18 +378,37 @@
     const totalCountEl = document.getElementById('totalCount');
     const totalTilesEl = document.getElementById('totalTiles');
     const modal = document.getElementById('modal');
-    modalImg = document.getElementById('modalImg');
-    modalMeta = document.getElementById('modalMeta');
-    zoomSlider = document.getElementById('zoomSlider');
-    panzoom = document.getElementById('panzoom');
-    hoverPreview = document.getElementById('hoverPreview');
-    sortDateBtn = document.getElementById('sortDate');
-    sortSizeBtn = document.getElementById('sortSize');
-    searchInput = document.getElementById('search');
+    const modalImg = document.getElementById('modalImg');
+    const modalMeta = document.getElementById('modalMeta');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const panzoom = document.getElementById('panzoom');
+    const searchInput = document.getElementById('search');
 
-    let hoverTimeout, currentScale = 1, translateX = 0, translateY = 0, isPanning = false, startX, startY, currentSort = 'date-desc';
+    const sortNewestBtn = document.getElementById('sortNewest');
+    const sortOldestBtn = document.getElementById('sortOldest');
+    const sortLargestBtn = document.getElementById('sortLargest');
+    const sortSmallestBtn = document.getElementById('sortSmallest');
 
-    function updateTransform() { modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`; }
+    const resetZoomBtn = document.getElementById('resetZoom');
+
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isMobile) {
+        zoomSlider.style.display = 'none';
+    }
+
+    let currentScale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+    let currentSort = 'date-desc';
+
+    function updateTransform() {
+        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+    }
+
     function fitToScreen() {
         if (!modalImg.naturalWidth) return;
         const vp = document.querySelector('.modal-viewport');
@@ -146,11 +418,10 @@
         const scale = Math.min(maxW / modalImg.naturalWidth, maxH / modalImg.naturalHeight, 1);
         currentScale = Math.max(0.1, scale);
         zoomSlider.value = Math.round(currentScale * 100);
-        translateX = translateY = 0;
+        translateX = 0;
+        translateY = 0;
         updateTransform();
     }
-    function showHover(src) { clearTimeout(hoverTimeout); hoverPreview.src = src; hoverPreview.classList.add('visible'); }
-    function hideHover() { hoverTimeout = setTimeout(() => hoverPreview.classList.remove('visible'), 200); }
 
     function openModal(m) {
         modal.classList.add('open');
@@ -168,47 +439,48 @@
         modalImg.onload = () => { requestAnimationFrame(() => requestAnimationFrame(fitToScreen)); };
     }
 
-    zoomSlider.oninput = () => { currentScale = zoomSlider.value / 100; updateTransform(); };
-    document.getElementById('resetZoom').onclick = fitToScreen;
+    zoomSlider.oninput = () => {
+        currentScale = zoomSlider.value / 100;
+        updateTransform();
+    };
 
-    const startPan = (x, y) => { if (currentScale <= 1) return; isPanning = true; startX = x - translateX; startY = y - translateY; };
-    const movePan = (x, y) => { if (!isPanning) return; translateX = x - startX; translateY = y - startY; updateTransform(); };
+    resetZoomBtn.onclick = fitToScreen;
+
+    const startPan = (x, y) => {
+        if (currentScale <= 1) return;
+        isPanning = true;
+        startX = x - translateX;
+        startY = y - translateY;
+    };
+    const movePan = (x, y) => {
+        if (!isPanning) return;
+        translateX = x - startX;
+        translateY = y - startY;
+        updateTransform();
+    };
+
     panzoom.onmousedown = e => startPan(e.clientX, e.clientY);
     document.onmousemove = e => movePan(e.clientX, e.clientY);
     document.onmouseup = () => isPanning = false;
-    panzoom.ontouchstart = e => startPan(e.touches[0].clientX, e.touches[0].clientY);
-    panzoom.ontouchmove = e => movePan(e.touches[0].clientX, e.touches[0].clientY);
-    panzoom.ontouchend = () => isPanning = false;
-
-    panzoom.addEventListener('wheel', e => {
-        if (!modal.classList.contains('open')) return;
-        e.preventDefault();
-        const rect = panzoom.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const delta = e.deltaY < 0 ? 1.1 : 0.9;
-        const newScale = Math.max(0.3, Math.min(5, currentScale * delta));
-        const dx = (rect.width / 2 - x) / currentScale;
-        const dy = (rect.height / 2 - y) / currentScale;
-        translateX -= dx * (newScale - currentScale);
-        translateY -= dy * (newScale - currentScale);
-        currentScale = newScale;
-        zoomSlider.value = Math.round(currentScale * 100);
-        updateTransform();
-    }, { passive: false });
-
     document.getElementById('modalClose').onclick = () => modal.classList.remove('open');
     modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
-    hoverPreview.onmouseenter = () => clearTimeout(hoverTimeout);
-    hoverPreview.onmouseleave = hideHover;
+
+    function clearSortActive() {
+        [sortNewestBtn, sortOldestBtn, sortLargestBtn, sortSmallestBtn].forEach(b => b.classList.remove('active'));
+    }
 
     function updateSortButtons() {
-        sortDateBtn.classList.remove('active'); sortSizeBtn.classList.remove('active');
-        if (currentSort === 'date-desc') { sortDateBtn.textContent = 'Newest First'; sortDateBtn.classList.add('active'); }
-        else if (currentSort === 'date-asc') { sortDateBtn.textContent = 'Oldest First'; sortDateBtn.classList.add('active'); }
-        else if (currentSort === 'size-desc') { sortSizeBtn.textContent = 'Largest First'; sortSizeBtn.classList.add('active'); }
-        else if (currentSort === 'size-asc') { sortSizeBtn.textContent = 'Smallest First'; sortSizeBtn.classList.add('active'); }
+        clearSortActive();
+        if (currentSort === 'date-desc') sortNewestBtn.classList.add('active');
+        else if (currentSort === 'date-asc') sortOldestBtn.classList.add('active');
+        else if (currentSort === 'size-desc') sortLargestBtn.classList.add('active');
+        else if (currentSort === 'size-asc') sortSmallestBtn.classList.add('active');
     }
+
+    sortNewestBtn.addEventListener('click', () => { currentSort = 'date-desc'; updateSortButtons(); render(); });
+    sortOldestBtn.addEventListener('click', () => { currentSort = 'date-asc'; updateSortButtons(); render(); });
+    sortLargestBtn.addEventListener('click', () => { currentSort = 'size-desc'; updateSortButtons(); render(); });
+    sortSmallestBtn.addEventListener('click', () => { currentSort = 'size-asc'; updateSortButtons(); render(); });
 
     async function render() {
         const MAPS = await loadMaps();
@@ -239,9 +511,15 @@
             wrapper.style.gridColumnEnd = `span ${m.w}`;
             const img = document.createElement('img'); img.className='thumb';
             img.src = m.thumb || m.image; img.alt = m.title;
-            img.onmouseenter = () => showHover(m.image);
-            img.onmouseleave = hideHover;
-            img.onclick = () => openModal(m);
+
+            if (!isMobile) {
+                img.addEventListener('mouseenter', () => {}); 
+                img.addEventListener('mouseleave', () => {});
+                img.addEventListener('click', () => openModal(m));
+            } else {
+                img.addEventListener('click', () => openModal(m));
+            }
+
             wrapper.appendChild(img);
             const meta = document.createElement('div'); meta.className='meta';
             const title = document.createElement('div'); title.className='title'; title.textContent = m.title;
@@ -253,14 +531,71 @@
         });
     }
 
-    sortDateBtn.onclick = () => { currentSort = currentSort === 'date-desc' ? 'date-asc' : 'date-desc'; updateSortButtons(); render(); };
-    sortSizeBtn.onclick = () => { currentSort = currentSort === 'size-desc' ? 'size-asc' : 'size-desc'; updateSortButtons(); render(); };
     updateSortButtons();
     searchInput.oninput = () => setTimeout(render, 150);
     render().catch(console.error);
+
+    (function setupTouchPinchPan() {
+        let lastDistance = 0;
+        let midX = 0, midY = 0;
+        let pinchActive = false;
+        let singleStartX = 0, singleStartY = 0;
+
+        panzoom.addEventListener('touchstart', (e) => {
+            if (!modal.classList.contains('open')) return;
+            if (e.touches.length === 2) {
+                pinchActive = true;
+                lastDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                midX = (e.touches[0].clientX + e.touches[1].clientX)/2;
+                midY = (e.touches[0].clientY + e.touches[1].clientY)/2;
+            } else if (e.touches.length === 1) {
+                singleStartX = e.touches[0].clientX - translateX;
+                singleStartY = e.touches[0].clientY - translateY;
+            }
+        }, { passive: false });
+
+        panzoom.addEventListener('touchmove', (e) => {
+            if (!modal.classList.contains('open')) return;
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                const rect = panzoom.getBoundingClientRect();
+                const prevScale = currentScale;
+                const delta = dist / (lastDistance || dist || 1);
+                let newScale = currentScale * delta;
+                newScale = Math.max(0.3, Math.min(5, newScale));
+                const x = midX - rect.left;
+                const y = midY - rect.top;
+                const dx = (rect.width/2 - x)/prevScale;
+                const dy = (rect.height/2 - y)/prevScale;
+                translateX -= dx*(newScale - prevScale);
+                translateY -= dy*(newScale - prevScale);
+                currentScale = newScale;
+                updateTransform();
+                lastDistance = dist;
+                midX = (e.touches[0].clientX + e.touches[1].clientX)/2;
+                midY = (e.touches[0].clientY + e.touches[1].clientY)/2;
+            } else if (e.touches.length === 1) {
+                if (currentScale <= 1) return;
+                e.preventDefault();
+                translateX = e.touches[0].clientX - singleStartX;
+                translateY = e.touches[0].clientY - singleStartY;
+                updateTransform();
+            }
+        }, { passive: false });
+
+        panzoom.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) pinchActive = false;
+        }, { passive: true });
+    })();
 </script>
 
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
-

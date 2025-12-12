@@ -6,9 +6,9 @@
 <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
 <link rel="canonical" href="https://ducttapemessiah.art"/>
 <style>
-:root{
-  --bg:#0b0b0d; --panel:#0f1113; --muted:#94a3b8; --accent:#6ee7b7;
-  --glass:rgba(255,255,255,0.03); --card-shadow:0 6px 18px rgba(2,6,23,0.6);
+:root {
+  --bg:#0b0b0d; --panel:#0f1113; --muted:#94a3b8; --accent:#6ee7b7; --glass:rgba(255,255,255,0.03);
+  --card-shadow:0 6px 18px rgba(2,6,23,0.6);
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
 }
 html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6;}
@@ -19,7 +19,7 @@ header{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wra
 h1{font-size:20px;margin:0;font-weight:600;}
 .controls{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap;justify-content:space-between;}
 .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:320px;max-width:720px;width:60%;}
-.sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,0.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;}
+.sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,0.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;}
 .sort-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent);}
 .sort-btn:hover:not(.active){background:rgba(255,255,255,0.06);}
 .search-input{background:var(--panel);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px;}
@@ -42,14 +42,11 @@ h1{font-size:20px;margin:0;font-weight:600;}
 .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;}
 .modal-panzoom:active{cursor:grabbing;}
 .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none;transition:transform .15s ease-out;}
-.modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10;display:flex;flex-direction:column;gap:10px;}
+.modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10;}
 .modal-controls > div:first-child{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
 .modal-meta{color:var(--muted);font-size:13px;line-height:1.6;}
-.modal-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
-.modal-thumbs img{width:100%;height:80px;object-fit:contain;cursor:pointer;border:2px solid rgba(255,255,255,0.05);border-radius:6px;}
-.modal-thumbs img.active{border-color:var(--accent);}
-@media (max-width:960px){.sort-grid{width:100%;}} 
-@media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr);}.wrap{margin:12px;padding:12px;}.stats{gap:10px;font-size:13px;}.thumb-preview{max-width:92vw;max-height:88vh;}#modalInner{width:100vw;height:75vh;border-radius:0;}.controls{gap:8px;}.search-input{min-width:140px;}.sort-grid{width:100%;}}
+.slider-row{display:flex;gap:8px;margin-top:8px;}
+.slider-row input[type="range"]{flex:1;}
 </style>
 </head>
 <body>
@@ -76,6 +73,8 @@ h1{font-size:20px;margin:0;font-weight:600;}
 <div class="grid" id="gallery"></div>
 </div>
 
+<img id="hoverPreview" class="thumb-preview" src="" alt="Preview">
+
 <div id="modal" class="modal" aria-hidden="true">
 <div class="close-x" id="modalClose" role="button" aria-label="Close">×</div>
 <div id="modalInner">
@@ -90,147 +89,141 @@ h1{font-size:20px;margin:0;font-weight:600;}
 <input type="range" id="zoomSlider" min="30" max="500" value="100" step="5">
 <button id="resetZoom" style="padding:6px 12px;font-size:12px;">Fit Screen</button>
 </div>
-<div class="modal-thumbs" id="modalThumbs"></div>
+<div class="slider-row">
+<input type="range" id="panX" min="-2000" max="2000" value="0" step="5">
+<input type="range" id="panY" min="-2000" max="2000" value="0" step="5">
+</div>
 <div class="modal-meta" id="modalMeta"></div>
 </div>
 </div>
 </div>
 
 <script>
-let galleryData = [], currentIndex = 0;
-const gallery = document.getElementById('gallery');
-const totalCountEl = document.getElementById('totalCount');
-const totalTilesEl = document.getElementById('totalTiles');
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modalImg');
-const modalMeta = document.getElementById('modalMeta');
-const modalThumbs = document.getElementById('modalThumbs');
-const zoomSlider = document.getElementById('zoomSlider');
-const panzoom = document.getElementById('panzoom');
-const searchInput = document.getElementById('search');
-const sortNewestBtn = document.getElementById('sortNewest');
-const sortOldestBtn = document.getElementById('sortOldest');
-const sortLargestBtn = document.getElementById('sortLargest');
-const sortSmallestBtn = document.getElementById('sortSmallest');
-const resetZoomBtn = document.getElementById('resetZoom');
-const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-if(isMobile){zoomSlider.style.display='none';}
+async function loadMaps(){const r=await fetch('maps.json');if(!r.ok)throw new Error('maps.json not found');return await r.json();}
+async function loadImageData(url){return new Promise(resolve=>{const img=new Image();img.crossOrigin="anonymous";img.onload=()=>{const maxSize=256;const scale=Math.min(maxSize/img.width,maxSize/img.height,1);const canvas=document.createElement('canvas');canvas.width=img.width*scale;canvas.height=img.height*scale;canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve({width:img.width,height:img.height,thumb:canvas.toDataURL('image/png')});};img.onerror=()=>resolve({width:128,height:128,thumb:''});img.src=url;});}
 
-let currentScale = 1, translateX = 0, translateY = 0, isPanning = false, startX=0, startY=0, currentSort='date-desc';
+const gallery=document.getElementById('gallery');
+const totalCountEl=document.getElementById('totalCount');
+const totalTilesEl=document.getElementById('totalTiles');
+const modal=document.getElementById('modal');
+const modalImg=document.getElementById('modalImg');
+const modalMeta=document.getElementById('modalMeta');
+const zoomSlider=document.getElementById('zoomSlider');
+const panzoom=document.getElementById('panzoom');
+const searchInput=document.getElementById('search');
+const sortNewestBtn=document.getElementById('sortNewest');
+const sortOldestBtn=document.getElementById('sortOldest');
+const sortLargestBtn=document.getElementById('sortLargest');
+const sortSmallestBtn=document.getElementById('sortSmallest');
+const resetZoomBtn=document.getElementById('resetZoom');
+const panXSlider=document.getElementById('panX');
+const panYSlider=document.getElementById('panY');
 
-function updateTransform(){modalImg.style.transform = `translate(${translateX}px,${translateY}px) scale(${currentScale})`;}
+const isMobile='ontouchstart' in window||navigator.maxTouchPoints>0;
+if(isMobile){zoomSlider.style.display='none';document.getElementById('hoverPreview').style.display='none';}
+
+let currentScale=1,translateX=0,translateY=0,isPanning=false,startX=0,startY=0,currentSort='date-desc';
+
+function updateTransform(){modalImg.style.transform=`translate(${translateX}px,${translateY}px) scale(${currentScale})`;panXSlider.value=translateX;panYSlider.value=translateY;}
 
 function fitToScreen(){
-  if(!modalImg.naturalWidth) return;
-  const vp = document.querySelector('.modal-viewport');
-  const padding = 40;
-  const scale = Math.min((vp.clientWidth-padding)/modalImg.naturalWidth, (vp.clientHeight-padding)/modalImg.naturalHeight, 1);
-  currentScale = Math.max(0.1, scale);
-  translateX = 0; translateY = 0;
-  zoomSlider.value = Math.round(currentScale*100);
+  if(!modalImg.naturalWidth)return;
+  const vp=document.querySelector('.modal-viewport');
+  const padding=40;
+  const scale=Math.min((vp.clientWidth-padding)/modalImg.naturalWidth,(vp.clientHeight-padding)/modalImg.naturalHeight,1);
+  currentScale=Math.max(0.1,scale);
+  translateX=0; translateY=0;
+  zoomSlider.value=Math.round(currentScale*100);
   updateTransform();
 }
 
-function openModal(index){
-  const m = galleryData[index];
-  currentIndex = index;
+function openModal(m){
   modal.classList.add('open');
   document.body.style.overflow='hidden';
-  modalImg.src = m.image;
-  modalImg.alt = m.title;
+  modalImg.src=m.image;
+  modalImg.alt=m.title;
   modalMeta.innerHTML = `<strong style="font-size:17px;color:#fff">${m.title}</strong><br>
-    <span style="color:var(--muted);font-size:13.5px;">
-      ${m.total} map${m.total>1?'s':''} • ${m.w}×${m.h} maps • ${m.layoutType?m.layoutType.charAt(0).toUpperCase()+m.layoutType.slice(1):'—'} • ${m.blockType?m.blockType.charAt(0).toUpperCase()+m.blockType.slice(1):'—'} • Built: ${m.dateBuilt||'—'}
-    </span><br><br>
-    ${m.artistCredit?`Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>`:''}
-    ${m.description?`<em style="color:#b8c4d6">${m.description}</em>`:''}`;
+  <span style="color:var(--muted);font-size:13.5px;">
+  ${m.total} map${m.total>1?'s':''} • ${m.w}×${m.h} maps • ${m.layoutType?m.layoutType.charAt(0).toUpperCase()+m.layoutType.slice(1):'—'} • ${m.blockType?m.blockType.charAt(0).toUpperCase()+m.blockType.slice(1):'—'} • Built: ${m.dateBuilt||'—'}
+  </span><br><br>
+  ${m.artistCredit?`Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>`:''}
+  ${m.description?`<em style="color:#b8c4d6">${m.description}</em>`:''}`;
   modalImg.onload=()=>{requestAnimationFrame(fitToScreen);};
-  renderThumbnails();
 }
 
 function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
 
-const startPan = (x,y)=>{isPanning=true; startX = x - translateX; startY = y - translateY;};
-const movePan = (x,y)=>{if(!isPanning)return; translateX = x - startX; translateY = y - startY; updateTransform();};
-panzoom.onmousedown = e=>startPan(e.clientX,e.clientY);
-document.onmousemove = e=>movePan(e.clientX,e.clientY);
-document.onmouseup = ()=>isPanning=false;
+const startPan=(x,y)=>{isPanning=true;startX=x-translateX;startY=y-translateY;};
+const movePan=(x,y)=>{if(!isPanning)return;translateX=x-startX;translateY=y-startY;updateTransform();};
+panzoom.onmousedown=e=>startPan(e.clientX,e.clientY);
+document.onmousemove=e=>movePan(e.clientX,e.clientY);
+document.onmouseup=()=>isPanning=false;
 
-panzoom.addEventListener('wheel', e=>{
+panzoom.addEventListener('wheel',e=>{
   e.preventDefault();
-  const rect = panzoom.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
-  const delta = e.deltaY < 0 ? 1.1 : 0.9;
-  const prevScale = currentScale;
-  currentScale = Math.min(Math.max(currentScale*delta, 0.1), 5);
-  translateX -= (mouseX - rect.width/2)/prevScale*(currentScale-prevScale);
-  translateY -= (mouseY - rect.height/2)/prevScale*(currentScale-prevScale);
-  zoomSlider.value = Math.round(currentScale*100);
+  const rect=panzoom.getBoundingClientRect();
+  const mouseX=e.clientX-rect.left;
+  const mouseY=e.clientY-rect.top;
+  const delta=e.deltaY<0?1.1:0.9;
+  const prevScale=currentScale;
+  currentScale=Math.min(Math.max(currentScale*delta,0.1),5);
+  translateX-=(mouseX-rect.width/2)/prevScale*(currentScale-prevScale);
+  translateY-=(mouseY-rect.height/2)/prevScale*(currentScale-prevScale);
+  zoomSlider.value=Math.round(currentScale*100);
   updateTransform();
-}, {passive:false});
+},{passive:false});
 
-zoomSlider.oninput = ()=>{currentScale = zoomSlider.value/100; updateTransform();}
-resetZoomBtn.onclick = fitToScreen;
-document.getElementById('modalClose').onclick = closeModal;
-modal.onclick = e=>{if(e.target===modal) closeModal();};
+zoomSlider.oninput=()=>{currentScale=zoomSlider.value/100;updateTransform();}
+resetZoomBtn.onclick=fitToScreen;
+panXSlider.oninput=()=>{translateX=parseInt(panXSlider.value);updateTransform();}
+panYSlider.oninput=()=>{translateY=parseInt(panYSlider.value);updateTransform();}
+
+document.getElementById('modalClose').onclick=closeModal;
+modal.onclick=e=>{if(e.target===modal)closeModal();};
 
 function clearSortActive(){[sortNewestBtn,sortOldestBtn,sortLargestBtn,sortSmallestBtn].forEach(b=>b.classList.remove('active'));}
-function updateSortButtons(){clearSortActive();if(currentSort==='date-desc') sortNewestBtn.classList.add('active'); else if(currentSort==='date-asc') sortOldestBtn.classList.add('active'); else if(currentSort==='size-desc') sortLargestBtn.classList.add('active'); else if(currentSort==='size-asc') sortSmallestBtn.classList.add('active');}
+function updateSortButtons(){clearSortActive();if(currentSort==='date-desc')sortNewestBtn.classList.add('active');else if(currentSort==='date-asc')sortOldestBtn.classList.add('active');else if(currentSort==='size-desc')sortLargestBtn.classList.add('active');else if(currentSort==='size-asc')sortSmallestBtn.classList.add('active');}
 
-sortNewestBtn.addEventListener('click',()=>{currentSort='date-desc';updateSortButtons();renderGallery();});
-sortOldestBtn.addEventListener('click',()=>{currentSort='date-asc';updateSortButtons();renderGallery();});
-sortLargestBtn.addEventListener('click',()=>{currentSort='size-desc';updateSortButtons();renderGallery();});
-sortSmallestBtn.addEventListener('click',()=>{currentSort='size-asc';updateSortButtons();renderGallery();});
+sortNewestBtn.addEventListener('click',()=>{currentSort='date-desc';updateSortButtons();render();});
+sortOldestBtn.addEventListener('click',()=>{currentSort='date-asc';updateSortButtons();render();});
+sortLargestBtn.addEventListener('click',()=>{currentSort='size-desc';updateSortButtons();render();});
+sortSmallestBtn.addEventListener('click',()=>{currentSort='size-asc';updateSortButtons();render();});
 
-async function loadMaps(){const r=await fetch('maps.json');if(!r.ok)throw new Error('maps.json not found');return await r.json();}
-async function loadImageData(url){return new Promise(resolve=>{const img=new Image();img.crossOrigin="anonymous";img.onload=()=>{resolve({width:img.width,height:img.height,thumb:img.src});};img.onerror=()=>resolve({width:128,height:128,thumb:''});img.src=url;});}
-
-async function renderGallery(){
-  const MAPS = await loadMaps();
-  galleryData = await Promise.all(MAPS.map(async m=>{
-    const d = await loadImageData(m.image);
-    const w = Math.round(d.width/128); const h = Math.round(d.height/128);
+async function render(){
+  const MAPS=await loadMaps();
+  const items=await Promise.all(MAPS.map(async m=>{
+    const d=await loadImageData(m.image);
+    const w=Math.round(d.width/128); const h=Math.round(d.height/128);
     return {...m,w,h,total:w*h,thumb:d.thumb,_date:m.dateBuilt?new Date(m.dateBuilt):new Date(0)};
   }));
-  let filtered = [...galleryData];
-  const q = searchInput.value.trim().toLowerCase();
-  if(q) filtered = filtered.filter(i=>i.title.toLowerCase().includes(q));
-  if(currentSort==='date-desc') filtered.sort((a,b)=>b._date-a._date);
-  else if(currentSort==='date-asc') filtered.sort((a,b)=>a._date-b._date);
-  else if(currentSort==='size-desc') filtered.sort((a,b)=>b.total-a.total);
-  else if(currentSort==='size-asc') filtered.sort((a,b)=>a.total-b.total);
-
-  totalCountEl.textContent = filtered.length;
-  totalTilesEl.textContent = filtered.reduce((s,i)=>s+i.total,0).toLocaleString();
+  let filtered=items;
+  const q=searchInput.value.trim().toLowerCase();
+  if(q)filtered=filtered.filter(i=>i.title.toLowerCase().includes(q));
+  if(currentSort==='date-desc')filtered.sort((a,b)=>b._date-a._date);
+  else if(currentSort==='date-asc')filtered.sort((a,b)=>a._date-b._date);
+  else if(currentSort==='size-desc')filtered.sort((a,b)=>b.total-a.total);
+  else if(currentSort==='size-asc')filtered.sort((a,b)=>a.total-b.total);
+  totalCountEl.textContent=filtered.length;
+  totalTilesEl.textContent=filtered.reduce((s,i)=>s+i.total,0).toLocaleString();
   gallery.innerHTML='';
-  filtered.forEach((m,i)=>{
-    const card = document.createElement('div'); card.className='card';
-    const wrapper = document.createElement('div'); wrapper.className='thumb-wrapper';
-    wrapper.style.gridRowEnd=`span ${m.h}`; wrapper.style.gridColumnEnd=`span ${m.w}`;
-    const img = document.createElement('img'); img.className='thumb'; img.src=m.thumb||m.image; img.alt=m.title;
-    img.addEventListener('click',()=>openModal(i));
+  filtered.forEach(m=>{
+    const card=document.createElement('div');card.className='card';
+    const wrapper=document.createElement('div');wrapper.className='thumb-wrapper';
+    wrapper.style.gridRowEnd=`span ${m.h}`;
+    wrapper.style.gridColumnEnd=`span ${m.w}`;
+    const img=document.createElement('img');img.className='thumb';img.src=m.thumb||m.image;img.alt=m.title;
+    img.addEventListener('click',()=>openModal(m));
     wrapper.appendChild(img);
-    const meta = document.createElement('div'); meta.className='meta';
-    const title = document.createElement('div'); title.className='title'; title.textContent=m.title;
-    const tag = document.createElement('div'); tag.className='maps-tag'; tag.textContent=`${m.total} map${m.total>1?'s':''}`;
-    meta.append(title,tag); card.append(wrapper,meta); gallery.appendChild(card);
+    const meta=document.createElement('div');meta.className='meta';
+    const title=document.createElement('div');title.className='title';title.textContent=m.title;
+    const tag=document.createElement('div');tag.className='maps-tag';tag.textContent=`${m.total} map${m.total>1?'s':''}`;
+    meta.append(title,tag); card.append(wrapper,meta);
+    gallery.appendChild(card);
   });
 }
-
-function renderThumbnails(){
-  modalThumbs.innerHTML='';
-  galleryData.forEach((m,i)=>{
-    const thumb = document.createElement('img');
-    thumb.src = m.thumb||m.image;
-    thumb.className = i===currentIndex?'active':'';
-    thumb.addEventListener('click',()=>openModal(i));
-    modalThumbs.appendChild(thumb);
-  });
-}
-
-searchInput.oninput = () => setTimeout(renderGallery, 150);
-renderGallery().catch(console.error);
+updateSortButtons();
+searchInput.oninput = () => setTimeout(render,150);
+render().catch(console.error);
 </script>
 </body>
 </html>

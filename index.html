@@ -5,153 +5,41 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
     <style>
-        :root {
-            --bg:#0b0b0d;
-            --panel:#0f1113;
-            --muted:#94a3b8;
-            --accent:#6ee7b7;
-            --glass:rgba(255,255,255,0.03);
-            --card-shadow:0 6px 18px rgba(2,6,23,0.6);
-            font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-        }
-
+        :root{--bg:#0b0b0d;--panel:#0f1113;--muted:#94a3b8;--accent:#6ee7b7;--glass:rgba(255,255,255,0.03);--card-shadow:0 6px 18px rgba(2,6,23,0.6);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
         html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
         .wrap{max-width:1200px;margin:28px auto;padding:18px}
         header{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wrap}
-
         .logo{width:80px;height:80px;border-radius:12px;overflow:hidden;flex-shrink:0}
         .logo img{width:100%;height:100%;object-fit:cover}
-
         h1{font-size:20px;margin:0;font-weight:600}
         .controls{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap}
-
-        .sort-btn{
-            background:var(--panel);border:1px solid rgba(255,255,255,0.08);
-            padding:9px 16px;border-radius:10px;color:inherit;font-size:14px;
-            cursor:pointer;transition:all .2s ease;
-        }
+        .sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,0.08);padding:9px 16px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:all .2s}
         .sort-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
         .sort-btn:hover:not(.active){background:rgba(255,255,255,0.06)}
-
-        .search-input{
-            background:var(--panel);border:1px solid rgba(255,255,255,0.03);
-            padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px;
-        }
-
+        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px}
         .stats{margin-left:auto;display:flex;gap:16px;align-items:center;color:var(--muted);font-size:14px;font-weight:500}
-
-        .grid{
-            display:grid;
-            grid-auto-flow:dense;
-            grid-template-columns:repeat(auto-fill,minmax(128px,1fr));
-            gap:12px;
-            margin-top:16px;
-        }
-
-        .card{
-            background:var(--glass);
-            border-radius:10px;
-            position:relative;
-            overflow:hidden;
-            border:1px solid rgba(255,255,255,0.02);
-            box-shadow:var(--card-shadow);
-            transition:transform .12s ease;
-            display:flex;
-            flex-direction:column;
-        }
+        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:16px}
+        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02);box-shadow:var(--card-shadow);transition:transform .12s;display:flex;flex-direction:column}
         .card:hover{transform:translateY(-6px)}
-
-        .thumb-wrapper{
-            position:relative;
-            width:100%;
-            max-width:384px;
-            max-height:320px;
-            align-self:center;
-            overflow:hidden;
-            border-radius:6px;
-        }
-        .thumb{
-            width:100%;
-            height:100%;
-            object-fit:contain;
-            display:block;
-            background:#000;
-            image-rendering:pixelated;
-            box-shadow:inset 0 -30px 60px rgba(0,0,0,0.4);
-            cursor:pointer;
-        }
-
-        .thumb-preview{
-            position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
-            max-width:75vw;max-height:75vh;
-            border:4px solid var(--accent);border-radius:12px;
-            box-shadow:0 30px 80px rgba(0,0,0,0.9);
-            pointer-events:none;z-index:999;opacity:0;
-            transition:opacity .3s ease;image-rendering:pixelated;
-            object-fit:contain;background:#000;
-        }
+        .thumb-wrapper{position:relative;width:100%;max-width:384px;max-height:320px;align-self:center;overflow:hidden;border-radius:6px}
+        .thumb{width:100%;height:100%;object-fit:contain;background:#000;image-rendering:pixelated;box-shadow:inset 0 -30px 60px rgba(0,0,0,0.4);cursor:pointer}
+        .thumb-preview{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:75vw;max-height:75vh;border:4px solid var(--accent);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.9);pointer-events:none;z-index:999;opacity:0;transition:opacity .3s;image-rendering:pixelated;object-fit:contain;background:#000}
         .thumb-preview.visible{opacity:1}
-
-        .meta{
-            padding:8px 10px 10px;
-            display:flex;
-            flex-direction:column;
-            gap:6px;
-            flex:1;
-            justify-content:space-between;
-        }
+        .meta{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between}
         .title{font-weight:600;font-size:14px;line-height:1.3}
-        .maps-tag{
-            align-self:flex-start;
-            font-size:12px;
-            padding:4px 8px;
-            border-radius:999px;
-            background:rgba(110,231,183,0.15);
-            color:var(--accent);
-            font-weight:600;
-        }
-
+        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(110,231,183,0.15);color:var(--accent);font-weight:600}
         .close-x{position:absolute;top:18px;right:20px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;z-index:100;font-size:18px;line-height:1}
-
         .modal{position:fixed;inset:0;background:rgba(3,6,10,0.94);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:opacity .25s}
         .modal.open{opacity:1;pointer-events:auto}
-
-        #modalInner{
-            display:flex;flex-direction:column;
-            width:calc(100vw - 40px);height:calc(100vh - 40px);
-            max-width:1400px;border-radius:12px;overflow:hidden;
-            background:var(--panel);box-shadow:0 40px 100px rgba(0,0,0,0.9);
-        }
-
+        #modalInner{display:flex;flex-direction:column;width:calc(100vw-40px);height:calc(100vh-40px);max-width:1400px;border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:0 40px 100px rgba(0,0,0,0.9)}
         .modal-viewport{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000;position:relative}
-        .modal-panzoom{
-            width:100%;height:100%;
-            display:flex;align-items:center;justify-content:center;
-            cursor:grab;
-            touch-action:none;
-            user-select:none;
-        }
+        .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none}
         .modal-panzoom:active{cursor:grabbing}
-        .modal-img{
-            max-width:none;max-height:none;
-            image-rendering:pixelated;
-            user-select:none;
-            pointer-events:none;
-            transition:transform .15s ease-out;
-        }
+        .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none;transition:transform .15s ease-out}
         .modal-controls{background:rgba(15,17,19,0.95);backdrop-filter:blur(12px);padding:16px;z-index:10}
         .modal-controls > div:first-child{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
         .modal-meta{color:var(--muted);font-size:13px;line-height:1.6}
-
-        @media (max-width:560px){
-            .grid{grid-template-columns:repeat(2,1fr)}
-            .wrap{margin:12px;padding:12px}
-            .stats{gap:10px;font-size:13px}
-            .thumb-preview{max-width:92vw;max-height:88vh}
-            #modalInner{width:100vw;height:100vh;border-radius:0}
-            .controls{gap:8px}
-            .search-input{min-width:180px}
-        }
+        @media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}.wrap{margin:12px;padding:12px}.stats{gap:10px;font-size:13px}.thumb-preview{max-width:92vw;max-height:88vh}#modalInner{width:100vw;height:100vh;border-radius:0}.controls{gap:8px}.search-input{min-width:180px}}
     </style>
 </head>
 <body>
@@ -162,7 +50,6 @@
         <div class="stats" id="stats">
             <div>Entries: <span id="totalCount">0</span></div>
             <div>Total: <span id="totalTiles">0</span> maps</div>
-            <div>Views: <span id="viewCount">0</span></div>
         </div>
     </header>
 
@@ -226,39 +113,30 @@
     const totalCountEl = document.getElementById('totalCount');
     const totalTilesEl = document.getElementById('totalTiles');
     const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalMeta = document.getElementById('modalMeta');
-    const zoomSlider = document.getElementById('zoomSlider');
-    const panzoom = document.getElementById('panzoom');
-    const hoverPreview = document.getElementById('hoverPreview');
-    const sortDateBtn = document.getElementById('sortDate');
-    const sortSizeBtn = document.getElementById('sortSize');
-    const searchInput = document.getElementById('search');
+    modalImg = document.getElementById('modalImg');
+    modalMeta = document.getElementById('modalMeta');
+    zoomSlider = document.getElementById('zoomSlider');
+    panzoom = document.getElementById('panzoom');
+    hoverPreview = document.getElementById('hoverPreview');
+    sortDateBtn = document.getElementById('sortDate');
+    sortSizeBtn = document.getElementById('sortSize');
+    searchInput = document.getElementById('search');
 
-    let hoverTimeout;
-    let currentScale = 1;
-    let translateX = 0, translateY = 0;
-    let isPanning = false, startX, startY;
-    let currentSort = 'date-desc';
+    let hoverTimeout, currentScale = 1, translateX = 0, translateY = 0, isPanning = false, startX, startY, currentSort = 'date-desc';
 
-    function updateTransform() {
-        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
-    }
-
+    function updateTransform() { modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`; }
     function fitToScreen() {
         if (!modalImg.naturalWidth) return;
         const vp = document.querySelector('.modal-viewport');
         const padding = 60;
         const maxW = vp.clientWidth - padding;
         const maxH = vp.clientHeight - padding;
-
         const scale = Math.min(maxW / modalImg.naturalWidth, maxH / modalImg.naturalHeight, 1);
         currentScale = Math.max(0.1, scale);
         zoomSlider.value = Math.round(currentScale * 100);
         translateX = translateY = 0;
         updateTransform();
     }
-
     function showHover(src) { clearTimeout(hoverTimeout); hoverPreview.src = src; hoverPreview.classList.add('visible'); }
     function hideHover() { hoverTimeout = setTimeout(() => hoverPreview.classList.remove('visible'), 200); }
 
@@ -266,9 +144,7 @@
         modal.classList.add('open');
         modalImg.src = m.image;
         modalImg.alt = m.title;
-
-        modalMeta.innerHTML = `
-            <strong style="font-size:17px;color:#fff">${m.title}</strong><br>
+        modalMeta.innerHTML = `<strong style="font-size:17px;color:#fff">${m.title}</strong><br>
             <span style="color:var(--muted);font-size:13.5px;">
                 ${m.total} map${m.total>1?'s':''} • ${m.w}×${m.h} maps •
                 ${m.layoutType ? m.layoutType.charAt(0).toUpperCase() + m.layoutType.slice(1) : '—'} •
@@ -276,38 +152,18 @@
                 Built: ${m.dateBuilt || '—'}
             </span><br><br>
             ${m.artistCredit ? `Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>` : ''}
-            ${m.description ? `<em style="color:#b8c4d6">${m.description}</em>` : ''}
-        `;
-
-        modalImg.onload = () => {
-            requestAnimationFrame(() => requestAnimationFrame(fitToScreen));
-        };
+            ${m.description ? `<em style="color:#b8c4d6">${m.description}</em>` : ''}`;
+        modalImg.onload = () => { requestAnimationFrame(() => requestAnimationFrame(fitToScreen)); };
     }
 
-    zoomSlider.oninput = () => {
-        currentScale = zoomSlider.value / 100;
-        updateTransform();
-    };
-
+    zoomSlider.oninput = () => { currentScale = zoomSlider.value / 100; updateTransform(); };
     document.getElementById('resetZoom').onclick = fitToScreen;
 
-    const startPan = (x, y) => {
-        if (currentScale <= 1) return;
-        isPanning = true;
-        startX = x - translateX;
-        startY = y - translateY;
-    };
-    const movePan = (x, y) => {
-        if (!isPanning) return;
-        translateX = x - startX;
-        translateY = y - startY;
-        updateTransform();
-    };
-
+    const startPan = (x, y) => { if (currentScale <= 1) return; isPanning = true; startX = x - translateX; startY = y - translateY; };
+    const movePan = (x, y) => { if (!isPanning) return; translateX = x - startX; translateY = y - startY; updateTransform(); };
     panzoom.onmousedown = e => startPan(e.clientX, e.clientY);
     document.onmousemove = e => movePan(e.clientX, e.clientY);
     document.onmouseup = () => isPanning = false;
-
     panzoom.ontouchstart = e => startPan(e.touches[0].clientX, e.touches[0].clientY);
     panzoom.ontouchmove = e => movePan(e.touches[0].clientX, e.touches[0].clientY);
     panzoom.ontouchend = () => isPanning = false;
@@ -315,20 +171,15 @@
     panzoom.addEventListener('wheel', e => {
         if (!modal.classList.contains('open')) return;
         e.preventDefault();
-
         const rect = panzoom.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-
         const delta = e.deltaY < 0 ? 1.1 : 0.9;
         const newScale = Math.max(0.3, Math.min(5, currentScale * delta));
-
         const dx = (rect.width / 2 - x) / currentScale;
         const dy = (rect.height / 2 - y) / currentScale;
-
         translateX -= dx * (newScale - currentScale);
         translateY -= dy * (newScale - currentScale);
-
         currentScale = newScale;
         zoomSlider.value = Math.round(currentScale * 100);
         updateTransform();
@@ -336,27 +187,15 @@
 
     document.getElementById('modalClose').onclick = () => modal.classList.remove('open');
     modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
-
     hoverPreview.onmouseenter = () => clearTimeout(hoverTimeout);
     hoverPreview.onmouseleave = hideHover;
 
     function updateSortButtons() {
-        sortDateBtn.classList.remove('active');
-        sortSizeBtn.classList.remove('active');
-
-        if (currentSort === 'date-desc') {
-            sortDateBtn.textContent = 'Newest First';
-            sortDateBtn.classList.add('active');
-        } else if (currentSort === 'date-asc') {
-            sortDateBtn.textContent = 'Oldest First';
-            sortDateBtn.classList.add('active');
-        } else if (currentSort === 'size-desc') {
-            sortSizeBtn.textContent = 'Largest First';
-            sortSizeBtn.classList.add('active');
-        } else if (currentSort === 'size-asc') {
-            sortSizeBtn.textContent = 'Smallest First';
-            sortSizeBtn.classList.add('active');
-        }
+        sortDateBtn.classList.remove('active'); sortSizeBtn.classList.remove('active');
+        if (currentSort === 'date-desc') { sortDateBtn.textContent = 'Newest First'; sortDateBtn.classList.add('active'); }
+        else if (currentSort === 'date-asc') { sortDateBtn.textContent = 'Oldest First'; sortDateBtn.classList.add('active'); }
+        else if (currentSort === 'size-desc') { sortSizeBtn.textContent = 'Largest First'; sortSizeBtn.classList.add('active'); }
+        else if (currentSort === 'size-asc') { sortSizeBtn.textContent = 'Smallest First'; sortSizeBtn.classList.add('active'); }
     }
 
     async function render() {
@@ -383,65 +222,30 @@
         gallery.innerHTML = '';
         filtered.forEach(m => {
             const card = document.createElement('div'); card.className='card';
-
             const wrapper = document.createElement('div'); wrapper.className='thumb-wrapper';
             wrapper.style.gridRowEnd = `span ${m.h}`;
             wrapper.style.gridColumnEnd = `span ${m.w}`;
-
             const img = document.createElement('img'); img.className='thumb';
-            img.src = m.thumb || m.image;
-            img.alt = m.title;
+            img.src = m.thumb || m.image; img.alt = m.title;
             img.onmouseenter = () => showHover(m.image);
             img.onmouseleave = hideHover;
             img.onclick = () => openModal(m);
-
             wrapper.appendChild(img);
-
             const meta = document.createElement('div'); meta.className='meta';
             const title = document.createElement('div'); title.className='title'; title.textContent = m.title;
             const tag = document.createElement('div'); tag.className='maps-tag';
             tag.textContent = `${m.total} map${m.total>1?'s':''}`;
-
             meta.append(title, tag);
             card.append(wrapper, meta);
             gallery.appendChild(card);
         });
     }
 
-    sortDateBtn.onclick = () => {
-        if (currentSort.startsWith('date-')) {
-            currentSort = currentSort === 'date-desc' ? 'date-asc' : 'date-desc';
-        } else {
-            currentSort = 'date-desc';
-        }
-        updateSortButtons();
-        render();
-    };
-
-    sortSizeBtn.onclick = () => {
-        if (currentSort.startsWith('size-')) {
-            currentSort = currentSort === 'size-desc' ? 'size-asc' : 'size-desc';
-        } else {
-            currentSort = 'size-desc';
-        }
-        updateSortButtons();
-        render();
-    };
-
+    sortDateBtn.onclick = () => { currentSort = currentSort === 'date-desc' ? 'date-asc' : 'date-desc'; updateSortButtons(); render(); };
+    sortSizeBtn.onclick = () => { currentSort = currentSort === 'size-desc' ? 'size-asc' : 'size-desc'; updateSortButtons(); render(); };
     updateSortButtons();
-
     searchInput.oninput = () => setTimeout(render, 150);
-
     render().catch(console.error);
-</script>
-
-<script>
-  fetch('https://api.count.kevinlin.xyz/hit?key=dtm-mapart')
-    .then(r => r.json())
-    .then(d => {
-      document.getElementById('viewCount').textContent = Number(d.count).toLocaleString();
-    }))
-    .catch(() => { document.getElementById('viewCount').textContent = '—'; });
 </script>
 
 <script defer src="/_vercel/insights/script.js"></script>

@@ -151,7 +151,7 @@
   },
   {
     "title": "Dracula, Prince of Darkness",
-    "image": "images/dracula.png",
+    "image": "images/Dracula.png",
     "dateBuilt": "2025-07-05",
     "artistCredit": "https://x.com/cmmrc2/status/1719500551757672514/photo/1",
     "description": "Pre-processed: tutulalasisi",
@@ -171,7 +171,7 @@
   },
   {
     "title": "The Last Supper",
-    "image": "images/thelastsupper.png",
+    "image": "images/TheLastSupper.png",
     "dateBuilt": "2025-08-07",
     "artistCredit": "",
     "description": "Project started April 2019. Credit to artists known to have completed IDs: BarrenDome, BigGirlXOXO, BiggestMapManager, Boofer, Breithan, crazydude156, Harri, goujon, jkascpkmc, jordanl666, lamp, Number1Princess, Orange, pavigia, RussianMinecraft, swords, tdjj, The_GenderBender, ufo, Yqe, Zetlin All IDs re-mapped by me.",
@@ -241,7 +241,7 @@
   },
   {
     "title": "ULTRAKILL: Gabriel, Apostate of Hate",
-    "image": "images/Ultrakill.png",
+    "image": "images/UltraKill.png",
     "dateBuilt": "2025-08-14",
     "artistCredit": "https://www.pixilart.com/art/gabriel-sr5z2ddc16126aaws3",
     "description": "Pre-processed: tutulalasisi",
@@ -311,7 +311,7 @@
   },
   {
     "title": "Megaman",
-    "image": "images/megaman.png",
+    "image": "images/MegaMan.png",
     "dateBuilt": "2025-09-12",
     "artistCredit": "",
     "description": "",
@@ -321,7 +321,7 @@
   },
   {
     "title": "Moon Knight",
-    "image": "images/moonknight.png",
+    "image": "images/MoonKnight.png",
     "dateBuilt": "2025-09-15",
     "artistCredit": "",
     "description": "",
@@ -331,7 +331,7 @@
   },
   {
     "title": "Cloud Strife",
-    "image": "images/cloudstrife.png",
+    "image": "images/Cloudstrife.png",
     "dateBuilt": "2025-09-16",
     "artistCredit": "",
     "description": "",
@@ -341,7 +341,7 @@
   },
   {
     "title": "Curated Work 21",
-    "image": "images/curatedwork21.png",
+    "image": "images/Curatedwork21.png",
     "dateBuilt": "2025-09-18",
     "artistCredit": "https://pixeljoint.com/pixelart/161325.htm",
     "description": "Pre-processed: Axopupel",
@@ -351,7 +351,7 @@
   },
   {
     "title": "Agent 47",
-    "image": "images/agent47.png",
+    "image": "images/Agent47.png",
     "dateBuilt": "2025-09-18",
     "artistCredit": "https://pixeljoint.com/pixelart/160978.htm",
     "description": "Pre-processed: Axopupel",
@@ -361,7 +361,7 @@
   },
   {
     "title": "Hornet from Silksong\n",
-    "image": "images/hornet.png",
+    "image": "images/Hornet.png",
     "dateBuilt": "2025-09-19",
     "artistCredit": "https://x.com/baladasathar/status/1964658489374224796",
     "description": "Pre-processed: tutulalasisi",
@@ -381,7 +381,7 @@
   },
   {
     "title": "Arcadia",
-    "image": "images/Arcadia.png",
+    "image": "images/arcadia.png",
     "dateBuilt": "2025-09-20",
     "artistCredit": "",
     "description": "Pre-processed: hemuli",
@@ -401,7 +401,7 @@
   },
   {
     "title": "Cabin",
-    "image": "images/Cabin.png",
+    "image": "images/cabin.png",
     "dateBuilt": "2025-09-21",
     "artistCredit": "",
     "description": "Pre-processed: hemuli",
@@ -482,7 +482,7 @@
 
   {
     "title": "Cow",
-    "image": "images/Cow.png",
+    "image": "images/cow.png",
     "dateBuilt": "2025-10-12",
     "artistCredit": "https://dinopixel.com/chunky-cow-pixel-art-23539",
     "description": "Pre-processed: tutulalasisi",
@@ -522,7 +522,7 @@
   },
   {
     "title": "Kenjaku",
-    "image": "images/kenjaku.png",
+    "image": "images/Kenjaku.png",
     "dateBuilt": "2025-11-09",
     "artistCredit": "https://www.instagram.com/maya_panda94",
     "description": "Pre-processed: Ariaha",
@@ -532,7 +532,7 @@
   },
   {
     "title": "Godzilla",
-    "image": "images/godzilla.png",
+    "image": "images/Godzilla.png",
     "dateBuilt": "2025-11-19",
     "artistCredit": "https://www.reddit.com/r/GODZILLA/comments/ps0tfy/oc_godzilla_fanart/",
     "description": "",
@@ -542,7 +542,7 @@
   },
   {
     "title": "2025 Oscars Poster",
-    "image": "images/oscarsposter.png",
+    "image": "images/OscarsPoster.png",
     "dateBuilt": "2025-11-23",
     "artistCredit": "",
     "description": "",
@@ -570,4 +570,5 @@
     "blockType": "",
     "commentsEnabled": true
   }
+
 ]

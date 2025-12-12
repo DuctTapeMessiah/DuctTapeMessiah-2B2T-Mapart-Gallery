@@ -132,36 +132,56 @@ if(isMobile){zoomSlider.style.display='none';document.getElementById('hoverPrevi
 let currentScale=1,translateX=0,translateY=0,isPanning=false,startX=0,startY=0,currentSort='date-desc';
 
 function updateTransform(){modalImg.style.transform=`translate(${translateX}px,${translateY}px) scale(${currentScale})`;}
-function fitToScreen(){if(!modalImg.naturalWidth)return;const vp=document.querySelector('.modal-viewport');const padding=60;const maxW=vp.clientWidth-padding;const maxH=vp.clientHeight-padding;const scale=Math.min(maxW/modalImg.naturalWidth,maxH/modalImg.naturalHeight,1);currentScale=Math.max(0.1,scale);zoomSlider.value=Math.round(currentScale*100);translateX=0;translateY=0;updateTransform();}
 
-// OPEN MODAL WITH SCROLL LOCK
+function fitToScreen(){
+  if(!modalImg.naturalWidth)return;
+  const vp=document.querySelector('.modal-viewport');
+  const padding=40;
+  const scale=Math.min((vp.clientWidth-padding)/modalImg.naturalWidth,(vp.clientHeight-padding)/modalImg.naturalHeight,1);
+  currentScale=Math.max(0.1,scale);
+  translateX=0; translateY=0;
+  zoomSlider.value=Math.round(currentScale*100);
+  updateTransform();
+}
+
 function openModal(m){
-    modal.classList.add('open');
-    document.body.style.overflow='hidden';
-    modalImg.src=m.image;
-    modalImg.alt=m.title;
-    modalMeta.innerHTML=`<strong style="font-size:17px;color:#fff">${m.title}</strong><br>
-      <span style="color:var(--muted);font-size:13.5px;">
-        ${m.total} map${m.total>1?'s':''} • ${m.w}×${m.h} maps • ${m.layoutType?m.layoutType.charAt(0).toUpperCase()+m.layoutType.slice(1):'—'} • ${m.blockType?m.blockType.charAt(0).toUpperCase()+m.blockType.slice(1):'—'} • Built: ${m.dateBuilt||'—'}
-      </span><br><br>
-      ${m.artistCredit?`Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>`:''}
-      ${m.description?`<em style="color:#b8c4d6">${m.description}</em>`:''}`;
-    modalImg.onload=()=>{requestAnimationFrame(()=>requestAnimationFrame(fitToScreen));};
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  modalImg.src=m.image;
+  modalImg.alt=m.title;
+  modalMeta.innerHTML=`<strong style="font-size:17px;color:#fff">${m.title}</strong><br>
+    <span style="color:var(--muted);font-size:13.5px;">
+      ${m.total} map${m.total>1?'s':''} • ${m.w}×${m.h} maps • ${m.layoutType?m.layoutType.charAt(0).toUpperCase()+m.layoutType.slice(1):'—'} • ${m.blockType?m.blockType.charAt(0).toUpperCase()+m.blockType.slice(1):'—'} • Built: ${m.dateBuilt||'—'}
+    </span><br><br>
+    ${m.artistCredit?`Credit: <a href="${m.artistCredit}" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">${m.artistCredit}</a><br>`:''}
+    ${m.description?`<em style="color:#b8c4d6">${m.description}</em>`:''}`;
+  modalImg.onload=()=>{requestAnimationFrame(fitToScreen);};
 }
 
-function closeModal(){
-    modal.classList.remove('open');
-    document.body.style.overflow='';
-}
-
-zoomSlider.oninput=()=>{currentScale=zoomSlider.value/100;updateTransform();}
-resetZoomBtn.onclick=fitToScreen;
+function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
 
 const startPan=(x,y)=>{if(currentScale<=1)return;isPanning=true;startX=x-translateX;startY=y-translateY;};
 const movePan=(x,y)=>{if(!isPanning)return;translateX=x-startX;translateY=y-startY;updateTransform();};
 panzoom.onmousedown=e=>startPan(e.clientX,e.clientY);
 document.onmousemove=e=>movePan(e.clientX,e.clientY);
 document.onmouseup=()=>isPanning=false;
+
+panzoom.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const rect=panzoom.getBoundingClientRect();
+  const mouseX=e.clientX-rect.left;
+  const mouseY=e.clientY-rect.top;
+  const delta=e.deltaY<0?1.1:0.9;
+  const prevScale=currentScale;
+  currentScale=Math.min(Math.max(currentScale*delta,0.1),5);
+  translateX-=(mouseX-rect.width/2)/prevScale*(currentScale-prevScale);
+  translateY-=(mouseY-rect.height/2)/prevScale*(currentScale-prevScale);
+  zoomSlider.value=Math.round(currentScale*100);
+  updateTransform();
+}, {passive:false});
+
+zoomSlider.oninput=()=>{currentScale=zoomSlider.value/100;updateTransform();}
+resetZoomBtn.onclick=fitToScreen;
 
 document.getElementById('modalClose').onclick=closeModal;
 modal.onclick=e=>{if(e.target===modal)closeModal();};
@@ -203,59 +223,64 @@ async function render(){
     gallery.appendChild(card);
   });
 }
-
 updateSortButtons();
-searchInput.oninput=()=>setTimeout(render,150);
+search
+searchInput.oninput = () => setTimeout(render, 150);
 render().catch(console.error);
 
-(function setupTouch(){
-  let lastDistance=0,midX=0,midY=0,pinchActive=false,singleStartX=0,singleStartY=0;
-  panzoom.addEventListener('touchstart',e=>{
-    if(!modal.classList.contains('open')) return;
-    if(e.touches.length===2){
-      pinchActive=true;
-      lastDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      midX=(e.touches[0].clientX+e.touches[1].clientX)/2;
-      midY=(e.touches[0].clientY+e.touches[1].clientY)/2;
-    } else if(e.touches.length===1){
-      singleStartX=e.touches[0].clientX-translateX;
-      singleStartY=e.touches[0].clientY-translateY;
-      isPanning=true;
-    }
-  }, {passive:false});
+(function setupTouch() {
+  let lastDistance = 0, midX = 0, midY = 0, pinchActive = false, singleStartX = 0, singleStartY = 0;
 
-  panzoom.addEventListener('touchmove',e=>{
-    if(!modal.classList.contains('open')) return;
+  panzoom.addEventListener('touchstart', e => {
+    if (!modal.classList.contains('open')) return;
+    if (e.touches.length === 2) {
+      pinchActive = true;
+      lastDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    } else if (e.touches.length === 1) {
+      singleStartX = e.touches[0].clientX - translateX;
+      singleStartY = e.touches[0].clientY - translateY;
+      isPanning = true;
+    }
+  }, { passive: false });
+
+  panzoom.addEventListener('touchmove', e => {
+    if (!modal.classList.contains('open')) return;
     e.preventDefault();
-    if(e.touches.length===2 && pinchActive){
-      const dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      const rect=panzoom.getBoundingClientRect();
-      const prevScale=currentScale;
-      const delta=dist/(lastDistance||dist||1);
-      let newScale=currentScale*delta;
-      newScale=Math.max(0.3,Math.min(5,newScale));
-      const x=midX-rect.left;
-      const y=midY-rect.top;
-      const dx=(rect.width/2-x)/prevScale;
-      const dy=(rect.height/2-y)/prevScale;
-      translateX-=dx*(newScale-prevScale);
-      translateY-=dy*(newScale-prevScale);
-      currentScale=newScale;
+    if (e.touches.length === 2 && pinchActive) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const rect = panzoom.getBoundingClientRect();
+      const prevScale = currentScale;
+      const delta = dist / (lastDistance || dist || 1);
+      let newScale = currentScale * delta;
+      newScale = Math.max(0.1, Math.min(5, newScale));
+      const dx = (rect.width / 2 - (midX - rect.left)) / prevScale;
+      const dy = (rect.height / 2 - (midY - rect.top)) / prevScale;
+      translateX -= dx * (newScale - prevScale);
+      translateY -= dy * (newScale - prevScale);
+      currentScale = newScale;
       updateTransform();
-      lastDistance=dist;
-      midX=(e.touches[0].clientX+e.touches[1].clientX)/2;
-      midY=(e.touches[0].clientY+e.touches[1].clientY)/2;
-    } else if(e.touches.length===1 && isPanning){
-      translateX=e.touches[0].clientX-singleStartX;
-      translateY=e.touches[0].clientY-singleStartY;
+      lastDistance = dist;
+      midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    } else if (e.touches.length === 1 && isPanning) {
+      translateX = e.touches[0].clientX - singleStartX;
+      translateY = e.touches[0].clientY - singleStartY;
       updateTransform();
     }
-  }, {passive:false});
+  }, { passive: false });
 
-  panzoom.addEventListener('touchend',e=>{
-    if(e.touches.length<2) pinchActive=false;
-    if(e.touches.length===0) isPanning=false;
-  }, {passive:true});
+  panzoom.addEventListener('touchend', e => {
+    if (e.touches.length < 2) pinchActive = false;
+    if (e.touches.length === 0) isPanning = false;
+  }, { passive: true });
 })();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>

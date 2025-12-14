@@ -170,7 +170,6 @@
             image-rendering: pixelated;
             cursor: pointer;
             transition: transform .2s;
-            loading: lazy;
             background: #111;
         }
 
@@ -390,32 +389,11 @@
             cursor: pointer;
         }
 
-        .modal-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: var(--overlay-glass);
-            backdrop-filter: blur(12px);
-            padding: 12px 16px;
-            border-radius: 16px;
-            z-index: 15;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .6);
-        }
-
         .slider-row {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 12px;
-        }
-
-        .slider-label {
-            width: 50px;
-            color: var(--muted);
-            font-weight: 500;
         }
 
         .slider-row input[type="range"] {
@@ -435,15 +413,35 @@
             cursor: pointer;
         }
 
+        .slider-label {
+            width: 42px;
+            font-size: 11px;
+        }
+
         .slider-row button {
-            padding: 6px 12px;
-            background: var(--panel);
-            border: none;
-            border-radius: 8px;
-            color: inherit;
-            font-size: 13px;
-            cursor: pointer;
-            width: 100%;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .modal-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 12px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            font-size: 11px;
+            z-index: 10;
+        }
+
+        @media (pointer: coarse) {
+            .modal-controls {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -507,9 +505,24 @@
             <div class="nav-arrow next" id="nextBtn">›</div>
         </div>
         <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-controls">
+        <div class="modal-controls" id="modalControls">
             <div class="slider-row">
-                <button id="resetZoom">Fit View</button>
+                <button id="fitViewBtn">Fit View</button>
+            </div>
+
+            <div class="slider-row">
+                <span class="slider-label">Zoom</span>
+                <input id="zoomSlider" type="range" min="0.2" max="5" step="0.01" value="1">
+            </div>
+
+            <div class="slider-row">
+                <span class="slider-label">Pan X</span>
+                <input id="panXSlider" type="range" min="-1" max="1" step="0.001" value="0">
+            </div>
+
+            <div class="slider-row">
+                <span class="slider-label">Pan Y</span>
+                <input id="panYSlider" type="range" min="-1" max="1" step="0.001" value="0">
             </div>
         </div>
     </div>
@@ -524,7 +537,6 @@
     const modalViewport = document.getElementById('modalViewport');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const resetZoom = document.getElementById('resetZoom');
 
     let mode = 'mapart';
     let sort = 'date-desc';
@@ -715,7 +727,7 @@
 
         const detailsBtn = document.getElementById('detailsBtn');
         const extra = document.getElementById('extraDetails');
-        if (detailsBtn) {
+        if (detailsBtn && extra) {
             detailsBtn.onclick = () => {
                 const expanded = extra.style.display === 'block';
                 extra.style.display = expanded ? 'none' : 'block';
@@ -753,8 +765,11 @@
         if (e.key === 'Escape') closeModal();
     });
 
-    resetZoom.onclick = () => {
-        modalImg.style.transform = 'none';
+    document.getElementById('fitViewBtn').onclick = () => {
+        modalImg.style.transform = 'translate(0, 0) scale(1)';
+        document.getElementById('zoomSlider').value = 1;
+        document.getElementById('panXSlider').value = 0;
+        document.getElementById('panYSlider').value = 0;
         showArrows();
     };
 

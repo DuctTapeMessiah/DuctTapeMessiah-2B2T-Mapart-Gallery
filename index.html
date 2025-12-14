@@ -1,208 +1,477 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Gallery</title>
     <link rel="canonical" href="https://ducttapemessiah.art"/>
     <style>
-        :root{
-            --bg:#0b0b0d;
-            --panel:#0f1113;
-            --muted:#94a3b8;
-            --accent:#b6c7d6;
-            --glass:rgba(255,255,255,.035);
-            --overlay-glass:rgba(15,17,19,.85);
-            --letterbox:rgba(0,0,0,.75);
-            --shadow:0 10px 30px rgba(0,0,0,.65);
-            font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
-        }
-        html,body{margin:0;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
-        .wrap{max-width:1200px;margin:28px auto;padding:18px}
-        header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
-        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
-        .logo img{width:100%;height:100%;object-fit:cover}
-        .title-wrap{display:flex;flex-direction:column}
-        .title-main{font-size:26px;font-weight:800;line-height:1.1}
-        .title-sub{font-size:15px;color:var(--muted);font-weight:500}
-        .controls{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
-        .controls-left{display:flex;flex-direction:column;gap:8px}
-        .tabs{display:flex;gap:8px}
-        .tab-btn,.sort-btn{
-            background:var(--panel);border:1px solid rgba(255,255,255,.08);
-            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;
-            cursor:pointer;transition:.12s
-        }
-        .tab-btn.active,.sort-btn.active{background:var(--accent);color:#000;font-weight:700}
-        .contact{font-size:12px;color:var(--muted)}
-        .contact a{color:var(--accent);text-decoration:none}
-        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:280px}
-        .search-input{
-            background:var(--panel);border:1px solid rgba(255,255,255,.05);
-            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;min-width:220px
+        :root {
+            --bg: #0b0b0d;
+            --panel: #0f1113;
+            --muted: #94a3b8;
+            --accent: #b6c7d6;
+            --glass: rgba(255, 255, 255, .035);
+            --overlay-glass: rgba(15, 17, 19, .85);
+            --letterbox: rgba(0, 0, 0, .75);
+            --shadow: 0 10px 30px rgba(0, 0, 0, .65);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         }
 
-        .grid{
-            display:grid;
-            grid-auto-flow:dense;
-            grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-            gap:16px;
-            margin-top:16px;
-            padding-top:100px;
-        }
-        .card{
-            background:var(--glass);border-radius:12px;overflow:hidden;
-            box-shadow:var(--shadow);transition:transform .15s;display:flex;flex-direction:column
-        }
-        .card:hover{transform:translateY(-6px)}
-        .thumb-wrapper{
-            position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#000;
-            border-radius:8px
-        }
-        .thumb{
-            width:100%;height:100%;
-            object-fit:contain;object-position:center;
-            image-rendering:pixelated;cursor:pointer;
-            transition:transform .2s;loading:lazy;background:#111
-        }
-        .thumb:hover{transform:scale(1.04)}
-        .meta{
-            padding:8px 10px;display:flex;flex-direction:column;gap:6px;text-align:center
-        }
-        .meta .title{font-weight:600;font-size:14px}
-        .maps-tag{
-            align-self:center;font-size:12px;padding:4px 9px;border-radius:999px;
-            background:rgba(182,199,214,.18);color:var(--accent);font-weight:700
+        html, body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #050506 120%);
+            color: #e6eef6;
         }
 
-        .thumb-preview{
-            position:fixed;
-            top:5vh;right:5vw;
-            width:35vw;height:35vw;
-            max-width:450px;max-height:450px;
-            border:3px solid var(--accent);border-radius:14px;
-            box-shadow:0 20px 60px rgba(0,0,0,.8);pointer-events:none;z-index:999;
-            opacity:0;transition:opacity .25s;background:#000;image-rendering:pixelated;
-            object-fit:contain;object-position:center
-        }
-        .thumb-preview.visible{opacity:1}
-        @media (hover:none),(pointer:coarse){
-            .thumb-preview{display:none!important}
-            .thumb:hover{transform:none}
+        .wrap {
+            max-width: 1200px;
+            margin: 28px auto;
+            padding: 18px;
         }
 
-        .modal{
-            position:fixed;inset:0;background:rgba(3,6,10,.94);
-            display:flex;align-items:center;justify-content:center;z-index:80;
-            opacity:0;pointer-events:none;transition:.25s
+        header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
         }
-        .modal.open{opacity:1;pointer-events:auto}
-        #modalInner{
-            width:100vw;height:100vh;background:transparent;display:flex;flex-direction:column
+
+        .logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            overflow: hidden;
         }
-        .modal-viewport{
-            flex:1;background:#000;position:relative;overflow:hidden;
-            display:flex;align-items:center;justify-content:center;touch-action:none
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .modal-img{
-            image-rendering:pixelated;
-            user-select:none;pointer-events:none;
-            max-width:100%;max-height:100%;
-            object-fit:contain;
+
+        .title-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-main {
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .title-sub {
+            font-size: 15px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .controls-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn, .sort-btn {
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, .08);
+            padding: 9px 14px;
+            border-radius: 10px;
+            color: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: .12s;
+        }
+
+        .tab-btn.active, .sort-btn.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .contact {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .sort-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            min-width: 280px;
+        }
+
+        .search-input {
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, .05);
+            padding: 9px 14px;
+            border-radius: 10px;
+            color: inherit;
+            font-size: 14px;
+            min-width: 220px;
+        }
+
+        .grid {
+            display: grid;
+            grid-auto-flow: dense;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 100px;
+        }
+
+        .card {
+            background: var(--glass);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform .15s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .thumb-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            image-rendering: pixelated;
+            cursor: pointer;
+            transition: transform .2s;
+            loading: lazy;
+            background: #111;
+        }
+
+        .thumb:hover {
+            transform: scale(1.04);
+        }
+
+        .meta {
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: center;
+        }
+
+        .meta .title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .maps-tag {
+            align-self: center;
+            font-size: 12px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(182, 199, 214, .18);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .thumb-preview {
+            position: fixed;
+            top: 5vh;
+            right: 5vw;
+            width: 35vw;
+            height: 35vw;
+            max-width: 450px;
+            max-height: 450px;
+            border: 3px solid var(--accent);
+            border-radius: 14px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .8);
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity .25s;
+            background: #000;
+            image-rendering: pixelated;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .thumb-preview.visible {
+            opacity: 1;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .thumb-preview {
+                display: none !important;
+            }
+            .thumb:hover {
+                transform: none;
+            }
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 6, 10, .94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 80;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+        }
+
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #modalInner {
+            width: 100vw;
+            height: 100vh;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-viewport {
+            flex: 1;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+        }
+
+        .modal-img {
+            image-rendering: pixelated;
+            user-select: none;
+            pointer-events: none;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             transition: none;
         }
 
-        .nav-arrow{
-            position:absolute;top:50%;transform:translateY(-50%);
-            width:50px;height:80px;background:rgba(0,0,0,.5);
-            border-radius:8px;display:flex;align-items:center;justify-content:center;
-            font-size:32px;color:#fff;cursor:pointer;z-index:15;
-            opacity:0;transition:opacity .3s;backdrop-filter:blur(4px)
-        }
-        .nav-arrow.visible{opacity:0.8}
-        .nav-arrow:hover{opacity:1;background:rgba(0,0,0,.7)}
-        .nav-arrow.prev{left:20px}
-        .nav-arrow.next{right:20px}
-
-        .close-x{
-            position:absolute;top:16px;right:18px;font-size:22px;
-            background:var(--panel);padding:8px 12px;border-radius:10px;
-            cursor:pointer;z-index:20
-        }
-
-        .modal-overlay{
-            position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-            background:var(--overlay-glass);backdrop-filter:blur(12px);
-            padding:14px 24px;border-radius:16px;max-width:90%;
-            text-align:center;color:#fff;z-index:10;box-shadow:0 8px 30px rgba(0,0,0,.6);
-            transition:opacity .4s
-        }
-        .modal-overlay.visible{opacity:1}
-        .modal-overlay strong{font-size:18px;display:block;margin-bottom:6px}
-        .modal-overlay .date{color:var(--muted);font-size:13px;margin:6px 0}
-        .modal-overlay .desc{font-size:14px;line-height:1.5;color:#d0d8e2;max-width:800px;margin:12px auto 0}
-        .modal-overlay .credit{font-size:12px;color:var(--accent);margin-top:8px}
-        .details-btn{
-            margin-top:10px;padding:6px 14px;background:var(--panel);
-            border:none;border-radius:8px;color:inherit;font-size:13px;cursor:pointer
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 80px;
+            background: rgba(0, 0, 0, .5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 15;
+            opacity: 0;
+            transition: opacity .3s;
+            backdrop-filter: blur(4px);
         }
 
-        .modal-controls{
-            position:absolute;bottom:20px;right:20px;
-            background:var(--overlay-glass);backdrop-filter:blur(12px);
-            padding:12px 16px;border-radius:16px;z-index:15;
-            display:flex;flex-direction:column;gap:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);
-        }
-        .slider-row{
-            display:flex;align-items:center;gap:8px;font-size:12px
-        }
-        .slider-label{width:50px;color:var(--muted);font-weight:500}
-        .slider-row input[type="range"]{
-            flex:1;height:6px;-webkit-appearance:none;
-            background:rgba(255,255,255,0.15);border-radius:4px
-        }
-        .slider-row input[type="range"]::-webkit-slider-thumb{
-            -webkit-appearance:none;width:14px;height:14px;
-            background:var(--accent);border-radius:50%;cursor:pointer
-        }
-        .slider-row button{
-            padding:6px 12px;background:var(--panel);border:none;
-            border-radius:8px;color:inherit;font-size:13px;cursor:pointer;width:100%
-        }
-        @media (max-width:768px){
-            .slider-row input[type="range"]{display:none}
-            .slider-label{display:none}
-            .slider-row button{font-size:14px;padding:10px}
-        }
-        .modal-stats{
-            margin:10px 0;
-          text-align:center;
-          display:flex;
-          flex-direction:column;
-           gap:10px;
-        }
-        .modal-stat-label{
-          font-size:12px;
-          color:var(--muted);
-          letter-spacing:0.04em;
-        }
-        .modal-stat-value{
-         font-size:16px;
-         font-weight:700;
-            color:var(--accent);
+        .nav-arrow.visible {
+            opacity: 0.8;
         }
 
+        .nav-arrow:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, .7);
+        }
+
+        .nav-arrow.prev {
+            left: 20px;
+        }
+
+        .nav-arrow.next {
+            right: 20px;
+        }
+
+        .close-x {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            font-size: 22px;
+            background: var(--panel);
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            padding: 14px 24px;
+            border-radius: 16px;
+            max-width: 90%;
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .6);
+            transition: opacity .4s;
+            opacity: 0;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+        }
+
+        .modal-overlay strong {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .modal-overlay .date {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 6px 0;
+        }
+
+        .modal-overlay .desc {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d0d8e2;
+            max-width: 800px;
+            margin: 12px auto 0;
+        }
+
+        .modal-overlay .credit {
+            font-size: 12px;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+
+        .details-btn {
+            margin-top: 10px;
+            padding: 6px 14px;
+            background: var(--panel);
+            border: none;
+            border-radius: 8px;
+            color: inherit;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .modal-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            padding: 12px 16px;
+            border-radius: 16px;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .6);
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .slider-label {
+            width: 50px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .slider-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-row button {
+            padding: 6px 12px;
+            background: var(--panel);
+            border: none;
+            border-radius: 8px;
+            color: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .slider-row input[type="range"] {
+                display: none;
+            }
+            .slider-label {
+                display: none;
+            }
+            .slider-row button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
     <header>
-        <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+        <div class="logo">
+            <img src="images/DTM.png" alt="Logo">
+        </div>
         <div class="title-wrap">
             <div class="title-main">DuctTapeMessiah</div>
             <div class="title-sub">2B2T Gallery</div>
         </div>
     </header>
+
     <div class="controls">
         <div class="controls-left">
             <div class="tabs">
@@ -213,14 +482,17 @@
                 Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
             </div>
         </div>
+
         <div class="sort-grid">
             <button class="sort-btn active" data-sort="date-desc">Newest</button>
             <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
             <button class="sort-btn" data-sort="date-asc">Oldest</button>
             <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
         </div>
+
         <input id="search" class="search-input" placeholder="Search...">
     </div>
+
     <div id="gallery" class="grid"></div>
 </div>
 
@@ -254,47 +526,55 @@
     const nextBtn = document.getElementById('nextBtn');
     const resetZoom = document.getElementById('resetZoom');
 
-    let mode = 'mapart', sort = 'date-desc', DATA = [], SCREENSHOTS = [];
-    let items = [], currentIndex = -1;
+    let mode = 'mapart';
+    let sort = 'date-desc';
+    let DATA = [];
+    let SCREENSHOTS = [];
+    let items = [];
+    let currentIndex = -1;
     let arrowTimeout;
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
     async function loadJSON(u) {
-        try { const r = await fetch(u); return r.ok ? await r.json() : []; } catch { return []; }
+        try {
+            const r = await fetch(u);
+            return r.ok ? await r.json() : [];
+        } catch {
+            return [];
+        }
     }
 
     async function boot() {
-    DATA = await loadJSON('maps.json');
-    SCREENSHOTS = await loadJSON('screenshots.json');
+        DATA = await loadJSON('maps.json');
+        SCREENSHOTS = await loadJSON('screenshots.json');
 
-    await Promise.all(
-        DATA.map(m => new Promise(resolve => {
-            const img = new Image();
-            img.src = m.image;
+        await Promise.all(
+            DATA.map(m => new Promise(resolve => {
+                const img = new Image();
+                img.src = m.image;
 
-            img.onload = () => {
-                const wMaps = Math.round(img.naturalWidth / 128);
-                const hMaps = Math.round(img.naturalHeight / 128);
+                img.onload = () => {
+                    const wMaps = Math.round(img.naturalWidth / 128);
+                    const hMaps = Math.round(img.naturalHeight / 128);
 
-                m.pixelWidth  = img.naturalWidth;
-                m.pixelHeight = img.naturalHeight;
-                m.w = wMaps;
-                m.h = hMaps;
-                m.totalMaps = wMaps * hMaps;
+                    m.pixelWidth = img.naturalWidth;
+                    m.pixelHeight = img.naturalHeight;
+                    m.w = wMaps;
+                    m.h = hMaps;
+                    m.totalMaps = wMaps * hMaps;
 
-                resolve();
-            };
+                    resolve();
+                };
 
-            img.onerror = () => {
-                m.totalMaps = 0;
-                resolve();
-            };
-        }))
-    );
+                img.onerror = () => {
+                    m.totalMaps = 0;
+                    resolve();
+                };
+            }))
+        );
 
-    render();
-}
-
+        render();
+    }
 
     function applySort(arr) {
         if (sort.startsWith('date')) {
@@ -323,9 +603,12 @@
         document.getElementById('sortSmall').style.display = mode === 'mapart' ? '' : 'none';
 
         items.forEach((m, idx) => {
-            const c = document.createElement('div'); c.className = 'card';
+            const c = document.createElement('div');
+            c.className = 'card';
 
-            const w = document.createElement('div'); w.className = 'thumb-wrapper';
+            const w = document.createElement('div');
+            w.className = 'thumb-wrapper';
+
             if (mode === 'mapart' && m.w && m.h) {
                 const ratio = m.w / m.h;
                 let spanX = Math.min(m.w, 4);
@@ -337,29 +620,55 @@
             }
 
             const i = document.createElement('img');
-            i.className = 'thumb'; i.src = m.thumb || m.image; i.loading = 'lazy';
+            i.className = 'thumb';
+            i.src = m.thumb || m.image;
+            i.loading = 'lazy';
             i.alt = m.title || 'Thumbnail';
 
             if (!isTouchDevice) {
-                i.onmouseenter = () => { hover.src = m.image; hover.classList.add('visible'); };
+                i.onmouseenter = () => {
+                    hover.src = m.image;
+                    hover.classList.add('visible');
+                };
                 i.onmouseleave = () => hover.classList.remove('visible');
             }
 
             i.onclick = () => openModal(idx);
 
-            w.appendChild(i); c.appendChild(w);
+            w.appendChild(i);
+            c.appendChild(w);
 
-            const meta = document.createElement('div'); meta.className = 'meta';
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+
             if (mode === 'mapart') {
-                const maps = m.totalMaps || '?';
-                meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag">${maps} maps</div>`;
+                const maps = m.totalMaps ?? '?';
+                const dateBuilt = formatDateShort(m.dateBuilt || m.date);
+
+                meta.innerHTML = `
+                    <div class="title">${m.title || ''}</div>
+                    <div class="maps-tag">
+                        <div style="font-size:11px;opacity:.75;">Total Maps</div>
+                        <div style="font-size:14px;font-weight:800;">${maps}</div>
+                    </div>
+                    ${dateBuilt ? `
+                    <div style="margin-top:4px;font-size:11px;color:var(--muted);">Date Built</div>
+                    <div style="font-size:12px;">${dateBuilt}</div>` : ''}
+                `;
             } else {
                 meta.innerHTML = `<div class="title">${m.title || ''}</div>`;
             }
-            c.appendChild(meta);
 
+            c.appendChild(meta);
             gallery.appendChild(c);
         });
+    }
+
+    function formatDateShort(dateStr) {
+        if (!dateStr) return '';
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     }
 
     function showArrows() {
@@ -388,29 +697,13 @@
                 dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             }
         }
-        let statsBlock = '';
 
-        if (mode === 'mapart') {
-            statsBlock = `
-                <div class="modal-stats">
-                 <div>
-                      <div class="modal-stat-label">TOTAL MAPS</div>
-                       <div class="modal-stat-value">${m.totalMaps ?? '?'}</div>
-                   </div>
-                   ${dateStr ? `
-                   <div>
-                        <div class="modal-stat-label">DATE BUILT</div>
-                     <div class="modal-stat-value">${dateStr}</div>
-                   </div>` : ''}
-             </div>
-          `;
-        }
-
-
+        const totalMapsStr = mode === 'mapart' ? `<div style="margin:6px 0;font-size:13px;color:var(--accent)">${m.totalMaps || '?'} maps</div>` : '';
 
         modalOverlay.innerHTML = `
             ${m.title ? `<strong>${m.title}</strong>` : ''}
-            ${statsBlock}
+            ${dateStr ? `<div class="date">${dateStr}</div>` : ''}
+            ${totalMapsStr}
             ${m.description || m.artistCredit ? `<button class="details-btn" id="detailsBtn">Show Details ▼</button>` : ''}
             <div id="extraDetails" style="display:none;">
                 ${m.description ? `<div class="desc">${m.description}</div>` : ''}
@@ -465,7 +758,9 @@
         showArrows();
     };
 
-    modal.onclick = e => { if (e.target === modal) closeModal(); };
+    modal.onclick = e => {
+        if (e.target === modal) closeModal();
+    };
     document.getElementById('modalClose').onclick = closeModal;
 
     document.querySelectorAll('.sort-btn').forEach(b => {

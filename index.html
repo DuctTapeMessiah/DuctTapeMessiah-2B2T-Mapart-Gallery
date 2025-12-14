@@ -1,569 +1,272 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DuctTapeMessiah — 2B2T Gallery</title>
-    <link rel="canonical" href="https://ducttapemessiah.art"/>
-    <style>
-        :root{
-            --bg:#0b0b0d;
-            --panel:#0f1113;
-            --muted:#94a3b8;
-            --accent:#b6c7d6;
-            --glass:rgba(255,255,255,.035);
-            --overlay-glass:rgba(15,17,19,.85);
-            --letterbox:rgba(0,0,0,.75);
-            --shadow:0 10px 30px rgba(0,0,0,.65);
-            font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
-        }
-        html,body{margin:0;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
-        .wrap{max-width:1200px;margin:28px auto;padding:18px}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DuctTapeMessiah — 2B2T Gallery</title>
+<link rel="canonical" href="https://ducttapemessiah.art"/>
 
-        header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
-        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
-        .logo img{width:100%;height:100%;object-fit:cover}
-        .title-wrap{display:flex;flex-direction:column}
-        .title-main{font-size:26px;font-weight:800;line-height:1.1}
-        .title-sub{font-size:15px;color:var(--muted);font-weight:500}
+<style>
+/* ================= BASE ================= */
+:root{
+  --bg:#0b0b0d;
+  --panel:#0f1113;
+  --muted:#94a3b8;
+  --accent:#b6c7d6;
+  --glass:rgba(255,255,255,.035);
+  --overlay-glass:rgba(15,17,19,.9);
+  --letterbox:rgba(0,0,0,.75);
+  --shadow:0 10px 30px rgba(0,0,0,.65);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
+}
+html,body{margin:0;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
 
-        .controls{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
-        .controls-left{display:flex;flex-direction:column;gap:8px}
-        .tabs{display:flex;gap:8px}
-        .tab-btn,.sort-btn{
-            background:var(--panel);border:1px solid rgba(255,255,255,.08);
-            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;
-            cursor:pointer;transition:.12s
-        }
-        .tab-btn.active,.sort-btn.active{background:var(--accent);color:#000;font-weight:700}
-        .contact{font-size:12px;color:var(--muted)}
-        .contact a{color:var(--accent);text-decoration:none}
-        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:280px}
-        .search-input{
-            background:var(--panel);border:1px solid rgba(255,255,255,.05);
-            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;min-width:220px
-        }
+/* ================= LAYOUT ================= */
+.wrap{max-width:1200px;margin:28px auto;padding:18px}
+header{display:flex;gap:18px;margin-bottom:18px}
+.logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:cover}
 
-        .grid{
-            display:grid;
-            grid-auto-flow:dense;
-            grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-            gap:16px;
-            margin-top:16px;
-            padding-top:100px;
-        }
-        .card{
-            background:var(--glass);border-radius:12px;overflow:hidden;
-            box-shadow:var(--shadow);transition:transform .15s;display:flex;flex-direction:column
-        }
-        .card:hover{transform:translateY(-6px)}
-        .thumb-wrapper{
-            position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#000;
-            border-radius:8px
-        }
-        .thumb{
-            width:100%;height:100%;
-            object-fit:contain;object-position:center;
-            image-rendering:pixelated;cursor:pointer;
-            transition:transform .2s;loading:lazy;background:#111
-        }
-        .thumb:hover{transform:scale(1.04)}
-        .meta{
-            padding:8px 10px;display:flex;flex-direction:column;gap:6px;text-align:center
-        }
-        .meta .title{font-weight:600;font-size:14px}
-        .maps-tag{
-            align-self:center;font-size:12px;padding:4px 9px;border-radius:999px;
-            background:rgba(182,199,214,.18);color:var(--accent);font-weight:700
-        }
+/* ================= GRID ================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:16px;
+  margin-top:16px;
+  padding-top:100px;
+}
+.card{
+  background:var(--glass);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.thumb-wrapper{aspect-ratio:1/1;background:#000}
+.thumb{
+  width:100%;height:100%;
+  object-fit:contain;
+  image-rendering:pixelated;
+  cursor:pointer;
+}
+.meta{
+  padding:8px;
+  text-align:center;
+}
+.maps-tag{
+  display:inline-block;
+  font-size:12px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:rgba(182,199,214,.18);
+  color:var(--accent);
+  font-weight:700;
+}
 
-        .thumb-preview{
-            position:fixed;
-            top:5vh;right:5vw;
-            width:35vw;height:35vw;
-            max-width:450px;max-height:450px;
-            border:3px solid var(--accent);border-radius:14px;
-            box-shadow:0 20px 60px rgba(0,0,0,.8);pointer-events:none;z-index:999;
-            opacity:0;transition:opacity .25s;background:#000;image-rendering:pixelated;
-            object-fit:contain;object-position:center
-        }
-        .thumb-preview.visible{opacity:1}
-        @media (hover:none),(pointer:coarse){
-            .thumb-preview{display:none!important}
-            .thumb:hover{transform:none}
-        }
+/* ================= MODAL ================= */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(3,6,10,.95);
+  display:flex;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:50;
+}
+.modal.open{opacity:1;pointer-events:auto}
+.modal-viewport{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.modal-img{
+  image-rendering:pixelated;
+  transition:transform .15s;
+}
 
-        .modal{
-            position:fixed;inset:0;background:rgba(3,6,10,.94);
-            display:flex;align-items:center;justify-content:center;z-index:80;
-            opacity:0;pointer-events:none;transition:.25s
-        }
-        .modal.open{opacity:1;pointer-events:auto}
-        #modalInner{
-            width:100vw;height:100vh;background:transparent;display:flex;flex-direction:column
-        }
-        .modal-viewport{
-            flex:1;background:#000;position:relative;overflow:hidden;
-            display:flex;align-items:center;justify-content:center;touch-action:none
-        }
-        .modal-img{
-            max-width:none;max-height:none;image-rendering:pixelated;
-            user-select:none;pointer-events:none;transition:transform .15s ease-out
-        }
+/* ================= OVERLAY ================= */
+.modal-overlay{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--overlay-glass);
+  padding:14px 20px;
+  border-radius:16px;
+  max-width:90%;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+}
+.details{
+  display:none;
+  margin-top:10px;
+  font-size:14px;
+  line-height:1.5;
+}
+.details.open{display:block}
+.details-btn{
+  margin-top:8px;
+  background:var(--panel);
+  border:none;
+  border-radius:10px;
+  padding:6px 12px;
+  cursor:pointer;
+}
 
-        .letterbox-left, .letterbox-right, .letterbox-top, .letterbox-bottom{
-            position:absolute;background:var(--letterbox);z-index:6;cursor:pointer
-        }
-        .letterbox-left, .letterbox-right{width:50%;height:100%;top:0}
-        .letterbox-left{left:0}
-        .letterbox-right{right:0}
-        .letterbox-top, .letterbox-bottom{width:100%;height:50%;left:0}
-        .letterbox-top{top:0}
-        .letterbox-bottom{bottom:0}
+/* ================= NAV ================= */
+.nav-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;height:70px;
+  background:rgba(0,0,0,.5);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  cursor:pointer;
+  opacity:0;
+  transition:opacity .3s;
+}
+.nav-arrow.show{opacity:.75}
+.nav-arrow.prev{left:20px}
+.nav-arrow.next{right:20px}
 
-        .modal-overlay{
-            position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-            background:var(--overlay-glass);backdrop-filter:blur(12px);
-            padding:14px 24px;border-radius:16px;max-width:90%;
-            text-align:center;color:#fff;z-index:10;box-shadow:0 8px 30px rgba(0,0,0,.6);
-            opacity:0;transition:opacity .4s .2s
-        }
-        .modal-overlay.visible{opacity:0.75}
-        .modal-overlay strong{font-size:18px;display:block;margin-bottom:6px}
-        .modal-overlay .date{color:var(--muted);font-size:13px;margin:6px 0}
-        .modal-overlay .desc{font-size:14px;line-height:1.5;color:#d0d8e2;max-width:800px;margin:0 auto}
-        .modal-overlay .credit{font-size:12px;color:var(--accent);margin-top:8px}
+/* ================= CONTROLS ================= */
+.modal-controls{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  gap:8px;
+}
+.modal-controls button{
+  padding:6px 10px;
+  background:var(--panel);
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-        .overlay-trigger{
-            position:absolute;bottom:0;left:0;width:100%;height:120px;z-index:9
-        }
-
-        .nav-arrow{
-            position:absolute;top:50%;transform:translateY(-50%);
-            width:50px;height:80px;background:rgba(0,0,0,.5);
-            border-radius:8px;display:flex;align-items:center;justify-content:center;
-            font-size:32px;color:#fff;cursor:pointer;z-index:15;
-            opacity:0.6;transition:opacity .2s;backdrop-filter:blur(4px)
-        }
-        .nav-arrow:hover{opacity:1;background:rgba(0,0,0,.7)}
-        .nav-arrow.prev{left:20px}
-        .nav-arrow.next{right:20px}
-
-        .close-x{
-            position:absolute;top:16px;right:18px;font-size:22px;
-            background:var(--panel);padding:8px 12px;border-radius:10px;
-            cursor:pointer;z-index:20
-        }
-
-        .modal-controls{
-            position:absolute;bottom:20px;right:20px;
-            background:var(--overlay-glass);backdrop-filter:blur(12px);
-            padding:12px 16px;border-radius:16px;z-index:15;
-            display:flex;flex-direction:column;gap:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);
-            opacity:0.9
-        }
-        .slider-row{
-            display:flex;align-items:center;gap:8px;font-size:12px
-        }
-        .slider-label{width:50px;color:var(--muted);font-weight:500}
-        .slider-row input[type="range"]{
-            flex:1;height:6px;-webkit-appearance:none;
-            background:rgba(255,255,255,0.15);border-radius:4px
-        }
-        .slider-row input[type="range"]::-webkit-slider-thumb{
-            -webkit-appearance:none;width:14px;height:14px;
-            background:var(--accent);border-radius:50%;cursor:pointer
-        }
-        .slider-row button{
-            padding:6px 12px;background:var(--panel);border:none;
-            border-radius:8px;color:inherit;font-size:13px;cursor:pointer
-        }
-        @media (max-width:768px){
-            .slider-row input[type="range"]{display:none}
-            .slider-label{display:none}
-        }
-    </style>
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .modal-controls{flex-direction:row}
+}
+</style>
 </head>
+
 <body>
+
 <div class="wrap">
-    <header>
-        <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
-        <div class="title-wrap">
-            <div class="title-main">DuctTapeMessiah</div>
-            <div class="title-sub">2B2T Gallery</div>
-        </div>
-    </header>
+<header>
+  <div class="logo"><img src="images/DTM.png"></div>
+  <div>
+    <div style="font-size:26px;font-weight:800">DuctTapeMessiah</div>
+    <div style="color:var(--muted)">2B2T Gallery</div>
+  </div>
+</header>
 
-    <div class="controls">
-        <div class="controls-left">
-            <div class="tabs">
-                <button id="tabMapart" class="tab-btn active">My Mapart</button>
-                <button id="tabScreens" class="tab-btn">Screenshots</button>
-            </div>
-            <div class="contact">
-                Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
-            </div>
-        </div>
-
-        <div class="sort-grid">
-            <button class="sort-btn active" data-sort="date-desc">Newest</button>
-            <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
-            <button class="sort-btn" data-sort="date-asc">Oldest</button>
-            <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
-        </div>
-
-        <input id="search" class="search-input" placeholder="Search...">
-    </div>
-
-    <div id="gallery" class="grid"></div>
+<div id="gallery" class="grid"></div>
 </div>
 
-<img id="hoverPreview" class="thumb-preview" alt="Preview">
-
 <div id="modal" class="modal">
-    <div class="close-x" id="modalClose">×</div>
-    <div id="modalInner">
-        <div class="modal-viewport" id="modalViewport">
-            <img id="modalImg" class="modal-img" alt="Full view">
-            <div class="letterbox-left" id="letterboxLeft"></div>
-            <div class="letterbox-right" id="letterboxRight"></div>
-            <div class="letterbox-top" id="letterboxTop"></div>
-            <div class="letterbox-bottom" id="letterboxBottom"></div>
-            <div class="nav-arrow prev" id="prevBtn">‹</div>
-            <div class="nav-arrow next" id="nextBtn">›</div>
-            <div class="overlay-trigger" id="overlayTrigger"></div>
-        </div>
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-controls">
-            <div class="slider-row">
-                <span class="slider-label">Zoom</span>
-                <input type="range" id="zoomSlider" min="30" max="500" value="100" step="5">
-            </div>
-            <div class="slider-row">
-                <span class="slider-label">Pan X</span>
-                <input type="range" id="panX" min="-3000" max="3000" value="0" step="10">
-            </div>
-            <div class="slider-row">
-                <span class="slider-label">Pan Y</span>
-                <input type="range" id="panY" min="-3000" max="3000" value="0" step="10">
-            </div>
-            <div class="slider-row">
-                <button id="resetZoom">Fit View</button>
-            </div>
-        </div>
-    </div>
+  <div class="modal-viewport" id="modalViewport">
+    <img id="modalImg" class="modal-img">
+    <div class="nav-arrow prev" id="prevBtn">‹</div>
+    <div class="nav-arrow next" id="nextBtn">›</div>
+  </div>
+
+  <div class="modal-overlay">
+    <div id="overlayTitle"></div>
+    <div id="overlayMeta"></div>
+    <button class="details-btn" id="detailsBtn">Details</button>
+    <div class="details" id="detailsBox"></div>
+  </div>
+
+  <div class="modal-controls">
+    <button id="fitBtn">Fit</button>
+  </div>
 </div>
 
 <script>
-    const gallery = document.getElementById('gallery');
-    const hover = document.getElementById('hoverPreview');
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const overlayTrigger = document.getElementById('overlayTrigger');
-    const modalViewport = document.getElementById('modalViewport');
-    const letterboxLeft = document.getElementById('letterboxLeft');
-    const letterboxRight = document.getElementById('letterboxRight');
-    const letterboxTop = document.getElementById('letterboxTop');
-    const letterboxBottom = document.getElementById('letterboxBottom');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const zoomSlider = document.getElementById('zoomSlider');
-    const panX = document.getElementById('panX');
-    const panY = document.getElementById('panY');
-    const resetZoom = document.getElementById('resetZoom');
+let DATA=[],items=[],idx=0,scale=1,x=0,y=0;
+const modal=document.getElementById('modal');
+const img=document.getElementById('modalImg');
+const prev=document.getElementById('prevBtn');
+const next=document.getElementById('nextBtn');
+const overlayTitle=document.getElementById('overlayTitle');
+const overlayMeta=document.getElementById('overlayMeta');
+const detailsBox=document.getElementById('detailsBox');
 
-    let mode = 'mapart', sort = 'date-desc', DATA = [], SCREENSHOTS = [];
-    let items = [], currentIndex = -1;
-    let currentScale = 1, translateX = 0, translateY = 0;
-    let isDragging = false, startX = 0, startY = 0;
-    let overlayTimeout;
-    const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
+fetch('maps.json').then(r=>r.json()).then(j=>{
+  DATA=j;
+  render();
+});
 
-    async function loadJSON(u) {
-        try { const r = await fetch(u); return r.ok ? await r.json() : []; } catch { return []; }
-    }
-
-    const base = n => n.split('/').pop().replace(/\.[^.]+$/, '');
-
-    async function boot() {
-        DATA = await loadJSON('maps.json');
-        SCREENSHOTS = await loadJSON('screenshots.json');
-        render();
-    }
-
-    function applySort(arr) {
-        if (sort.startsWith('date')) {
-            arr.sort((a, b) => {
-                const da = new Date(a.date || a.dateBuilt || 0);
-                const db = new Date(b.date || b.dateBuilt || 0);
-                return sort === 'date-desc' ? db - da : da - db;
-            });
-        } else if (mode === 'mapart') {
-            arr.sort((a, b) => sort === 'size-desc' ? (b.total || 0) - (a.total || 0) : (a.total || 0) - (b.total || 0));
-        }
-    }
-
-    function clampPan() {
-        if (!modalImg.naturalWidth || currentScale <= 1) {
-            translateX = 0; translateY = 0;
-            return;
-        }
-        const imgW = modalImg.naturalWidth * currentScale;
-        const imgH = modalImg.naturalHeight * currentScale;
-        const vpW = modalViewport.clientWidth;
-        const vpH = modalViewport.clientHeight;
-
-        const overflowX = imgW - vpW;
-        const overflowY = imgH - vpH;
-
-        if (overflowX > 0) translateX = Math.max(-overflowX / 2, Math.min(overflowX / 2, translateX));
-        else translateX = 0;
-
-        if (overflowY > 0) translateY = Math.max(-overflowY / 2, Math.min(overflowY / 2, translateY));
-        else translateY = 0;
-    }
-
-    function updateTransform() {
-        clampPan();
-        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
-        zoomSlider.value = Math.round(currentScale * 100);
-        panX.value = Math.round(translateX);
-        panY.value = Math.round(translateY);
-
-        const scaledW = modalImg.naturalWidth * currentScale;
-        const scaledH = modalImg.naturalHeight * currentScale;
-        const vpW = modalViewport.clientWidth;
-        const vpH = modalViewport.clientHeight;
-
-        const leftW = Math.max(0, (vpW - scaledW) / 2);
-        const rightW = leftW;
-        const topH = Math.max(0, (vpH - scaledH) / 2);
-        const bottomH = topH;
-
-        letterboxLeft.style.width = `${leftW}px`;
-        letterboxRight.style.width = `${rightW}px`;
-        letterboxTop.style.height = `${topH}px`;
-        letterboxBottom.style.height = `${bottomH}px`;
-
-        letterboxLeft.style.display = leftW > 0 ? 'block' : 'none';
-        letterboxRight.style.display = rightW > 0 ? 'block' : 'none';
-        letterboxTop.style.display = topH > 0 ? 'block' : 'none';
-        letterboxBottom.style.display = bottomH > 0 ? 'block' : 'none';
-    }
-
-    function fitToScreen() {
-        if (!modalImg.naturalWidth) return;
-        const scaleX = modalViewport.clientWidth * 0.9 / modalImg.naturalWidth;
-        const scaleY = modalViewport.clientHeight * 0.9 / modalImg.naturalHeight;
-        currentScale = Math.max(Math.min(scaleX, scaleY, 1), 0.3);
-        translateX = 0; translateY = 0;
-        updateTransform();
-    }
-
-    function render() {
-        gallery.innerHTML = '';
-        const q = document.getElementById('search').value.toLowerCase();
-        const allItems = (mode === 'mapart' ? DATA : SCREENSHOTS);
-        items = allItems.filter(i => !q || ((i.title || '').toLowerCase().includes(q)));
-        applySort(items);
-
-        document.getElementById('sortLarge').style.display = mode === 'mapart' ? '' : 'none';
-        document.getElementById('sortSmall').style.display = mode === 'mapart' ? '' : 'none';
-
-        items.forEach((m, idx) => {
-            const c = document.createElement('div'); c.className = 'card';
-
-            const w = document.createElement('div'); w.className = 'thumb-wrapper';
-            if (mode === 'mapart' && m.w && m.h) {
-                const ratio = m.w / m.h;
-                let spanX = Math.min(m.w, 4);
-                let spanY = Math.min(m.h, 4);
-                if (ratio > 3) { spanX = Math.min(m.w, 4); spanY = 1; }
-                if (ratio < 1/3) { spanX = 1; spanY = Math.min(m.h, 4); }
-                w.style.gridColumnEnd = `span ${spanX}`;
-                w.style.gridRowEnd = `span ${spanY}`;
-            }
-
-            const i = document.createElement('img');
-            i.className = 'thumb'; i.src = m.thumb || m.image; i.loading = 'lazy';
-            i.alt = m.title || 'Thumbnail';
-
-            if (!isTouchDevice) {
-                i.onmouseenter = () => {
-                    hover.src = m.image;
-                    hover.classList.add('visible');
-                };
-                i.onmouseleave = () => hover.classList.remove('visible');
-            }
-
-            i.onclick = () => openModal(idx);
-
-            w.appendChild(i); c.appendChild(w);
-
-            const meta = document.createElement('div'); meta.className = 'meta';
-            if (mode === 'mapart') {
-                meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag">${m.total || ''}</div>`;
-            } else {
-                meta.innerHTML = `<div class="title">${m.title || ''}</div>`;
-            }
-            c.appendChild(meta);
-
-            gallery.appendChild(c);
-        });
-    }
-
-    function showOverlay() {
-        clearTimeout(overlayTimeout);
-        modalOverlay.classList.add('visible');
-        overlayTimeout = setTimeout(() => {
-            modalOverlay.classList.remove('visible');
-        }, 5000);
-    }
-
-    function openModal(idx) {
-        currentIndex = idx;
-        const m = items[idx];
-        if (!m) return;
-
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        modalImg.src = m.image;
-
-        let dateStr = '';
-        if (m.date || m.dateBuilt) {
-            const raw = m.date || m.dateBuilt;
-            const d = new Date(raw);
-            if (!isNaN(d.getTime())) {
-                dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            }
-        }
-
-        modalOverlay.innerHTML = '';
-        if (m.title) modalOverlay.innerHTML += `<strong>${m.title}</strong>`;
-        if (dateStr) modalOverlay.innerHTML += `<div class="date">${dateStr}</div>`;
-        if (m.description) modalOverlay.innerHTML += `<div class="desc">${m.description}</div>`;
-        if (m.artistCredit) modalOverlay.innerHTML += `<div class="credit">Credit: ${m.artistCredit}</div>`;
-
-        currentScale = 1; translateX = 0; translateY = 0;
-        updateTransform();
-        showOverlay();
-
-        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
-        nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
-
-        modalImg.onload = () => requestAnimationFrame(fitToScreen);
-    }
-
-    function navigate(delta) {
-        const newIdx = currentIndex + delta;
-        if (newIdx >= 0 && newIdx < items.length) openModal(newIdx);
-    }
-
-    function closeModal() {
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-        currentIndex = -1;
-        clearTimeout(overlayTimeout);
-    }
-
-    letterboxLeft.onclick = letterboxRight.onclick = letterboxTop.onclick = letterboxBottom.onclick = closeModal;
-
-    overlayTrigger.onmouseenter = overlayTrigger.ontouchstart = showOverlay;
-
-    prevBtn.onclick = () => navigate(-1);
-    nextBtn.onclick = () => navigate(1);
-
-    document.addEventListener('keydown', e => {
-        if (!modal.classList.contains('open')) return;
-        if (e.key === 'ArrowLeft') navigate(-1);
-        if (e.key === 'ArrowRight') navigate(1);
-        if (e.key === 'Escape') closeModal();
+function render(){
+  const g=document.getElementById('gallery');
+  g.innerHTML='';
+  DATA
+    .sort((a,b)=>Number(b.total||0)-Number(a.total||0)) // FIXED SORT
+    .forEach((m,i)=>{
+      const c=document.createElement('div');
+      c.className='card';
+      c.innerHTML=`
+        <div class="thumb-wrapper">
+          <img class="thumb" src="${m.thumb||m.image}">
+        </div>
+        <div class="meta">
+          <div>${m.title||''}</div>
+          <div class="maps-tag">${m.total||''} maps</div>
+        </div>`;
+      c.onclick=()=>open(i);
+      g.appendChild(c);
     });
+}
 
-    modalViewport.addEventListener('wheel', e => {
-        e.preventDefault();
-        const delta = e.deltaY < 0 ? 1.15 : 0.85;
-        currentScale = Math.max(0.3, Math.min(currentScale * delta, 8));
-        updateTransform();
-    }, { passive: false });
+function open(i){
+  idx=i;
+  const m=DATA[i];
+  modal.classList.add('open');
+  img.src=m.image;
+  overlayTitle.innerHTML=`<strong>${m.title||''}</strong>`;
+  overlayMeta.innerHTML=m.date||'';
+  detailsBox.innerHTML=(m.description||'')+(m.artistCredit?`<div>Credit: ${m.artistCredit}</div>`:'');
+  fit();
+  showArrows();
+}
 
-    function startDrag(clientX, clientY) {
-        isDragging = true;
-        startX = clientX - translateX;
-        startY = clientY - translateY;
-        modalViewport.style.cursor = 'grabbing';
-    }
-    function drag(clientX, clientY) {
-        if (!isDragging) return;
-        translateX = clientX - startX;
-        translateY = clientY - startY;
-        updateTransform();
-    }
-    function endDrag() {
-        isDragging = false;
-        modalViewport.style.cursor = 'default';
-    }
+function fit(){
+  const vp=document.getElementById('modalViewport');
+  scale=Math.min(
+    vp.clientWidth/img.naturalWidth,
+    vp.clientHeight/img.naturalHeight
+  );
+  x=y=0;
+  update();
+}
+function update(){
+  img.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
+}
+function showArrows(){
+  prev.classList.add('show');
+  next.classList.add('show');
+  setTimeout(()=>{
+    prev.classList.remove('show');
+    next.classList.remove('show');
+  },3000);
+}
 
-    modalViewport.onmousedown = e => { if (e.button === 0) startDrag(e.clientX, e.clientY); };
-    document.onmousemove = e => drag(e.clientX, e.clientY);
-    document.onmouseup = endDrag;
-
-    modalViewport.ontouchstart = e => {
-        if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY);
-    };
-    modalViewport.ontouchmove = e => {
-        if (e.touches.length === 1) { e.preventDefault(); drag(e.touches[0].clientX, e.touches[0].clientY); }
-    };
-    modalViewport.ontouchend = endDrag;
-
-    if (isTouchDevice) {
-        let startDist = 0;
-        modalViewport.addEventListener('touchstart', e => {
-            if (e.touches.length === 2) startDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-        });
-        modalViewport.addEventListener('touchmove', e => {
-            if (e.touches.length === 2) {
-                e.preventDefault();
-                const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-                const ratio = dist / startDist;
-                currentScale = Math.max(0.3, Math.min(currentScale * ratio, 8));
-                updateTransform();
-                startDist = dist;
-            }
-        }, { passive: false });
-    }
-
-    zoomSlider.oninput = () => { currentScale = zoomSlider.value / 100; updateTransform(); };
-    panX.oninput = () => { translateX = parseInt(panX.value); updateTransform(); };
-    panY.oninput = () => { translateY = parseInt(panY.value); updateTransform(); };
-    resetZoom.onclick = fitToScreen;
-
-    modal.onclick = e => { if (e.target === modal) closeModal(); };
-    document.getElementById('modalClose').onclick = closeModal;
-
-    document.querySelectorAll('.sort-btn').forEach(b => {
-        b.onclick = () => {
-            sort = b.dataset.sort;
-            document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
-            b.classList.add('active');
-            render();
-        };
-    });
-
-    document.getElementById('tabMapart').onclick = () => {
-        mode = 'mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-        document.getElementById('tabMapart').classList.add('active'); render();
-    };
-
-    document.getElementById('tabScreens').onclick = () => {
-        mode = 'screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-        document.getElementById('tabScreens').classList.add('active'); render();
-    };
-
-    document.getElementById('search').oninput = () => setTimeout(render, 150);
-
-    boot();
+document.getElementById('fitBtn').onclick=fit;
+document.getElementById('detailsBtn').onclick=()=>detailsBox.classList.toggle('open');
+prev.onclick=()=>idx>0&&open(idx-1);
+next.onclick=()=>idx<DATA.length-1&&open(idx+1);
+modal.onclick=e=>e.target===modal&&modal.classList.remove('open');
 </script>
+
 </body>
 </html>

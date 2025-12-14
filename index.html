@@ -93,7 +93,7 @@
         .modal{
             position:fixed;inset:0;background:rgba(3,6,10,.94);
             display:flex;align-items:center;justify-content:center;z-index:80;
-            opacity:0;pointer-events:none;transition:.25s;cursor:pointer
+            opacity:0;pointer-events:none;transition:.25s
         }
         .modal.open{opacity:1;pointer-events:auto}
         #modalInner{
@@ -107,12 +107,17 @@
             max-width:none;max-height:none;image-rendering:pixelated;
             user-select:none;pointer-events:none;transition:transform .15s ease-out
         }
-        .letterbox-overlay{
-            position:absolute;top:0;left:0;width:100%;height:100%;
-            background:var(--letterbox);pointer-events:auto;z-index:5
-        }
 
-        /* Overlay metadata */
+        .letterbox-left, .letterbox-right, .letterbox-top, .letterbox-bottom{
+            position:absolute;background:var(--letterbox);z-index:6;cursor:pointer
+        }
+        .letterbox-left, .letterbox-right{width:50%;height:100%;top:0}
+        .letterbox-left{left:0}
+        .letterbox-right{right:0}
+        .letterbox-top, .letterbox-bottom{width:100%;height:50%;left:0}
+        .letterbox-top{top:0}
+        .letterbox-bottom{bottom:0}
+
         .modal-overlay{
             position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
             background:var(--overlay-glass);backdrop-filter:blur(12px);
@@ -208,7 +213,10 @@
     <div id="modalInner">
         <div class="modal-viewport" id="modalViewport">
             <img id="modalImg" class="modal-img" alt="Full view">
-            <div class="letterbox-overlay" id="letterboxOverlay"></div>
+            <div class="letterbox-left" id="letterboxLeft"></div>
+            <div class="letterbox-right" id="letterboxRight"></div>
+            <div class="letterbox-top" id="letterboxTop"></div>
+            <div class="letterbox-bottom" id="letterboxBottom"></div>
             <div class="nav-arrow prev" id="prevBtn">‹</div>
             <div class="nav-arrow next" id="nextBtn">›</div>
         </div>
@@ -239,8 +247,11 @@
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
     const modalOverlay = document.getElementById('modalOverlay');
-    const letterboxOverlay = document.getElementById('letterboxOverlay');
     const modalViewport = document.getElementById('modalViewport');
+    const letterboxLeft = document.getElementById('letterboxLeft');
+    const letterboxRight = document.getElementById('letterboxRight');
+    const letterboxTop = document.getElementById('letterboxTop');
+    const letterboxBottom = document.getElementById('letterboxBottom');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const zoomSlider = document.getElementById('zoomSlider');
@@ -307,8 +318,23 @@
 
         const scaledW = modalImg.naturalWidth * currentScale;
         const scaledH = modalImg.naturalHeight * currentScale;
-        const hasLetterbox = scaledW < modalViewport.clientWidth || scaledH < modalViewport.clientHeight;
-        letterboxOverlay.style.display = hasLetterbox ? 'block' : 'none';
+        const vpW = modalViewport.clientWidth;
+        const vpH = modalViewport.clientHeight;
+
+        const leftW = Math.max(0, (vpW - scaledW) / 2);
+        const rightW = leftW;
+        const topH = Math.max(0, (vpH - scaledH) / 2);
+        const bottomH = topH;
+
+        letterboxLeft.style.width = `${leftW}px`;
+        letterboxRight.style.width = `${rightW}px`;
+        letterboxTop.style.height = `${topH}px`;
+        letterboxBottom.style.height = `${bottomH}px`;
+
+        letterboxLeft.style.display = leftW > 0 ? 'block' : 'none';
+        letterboxRight.style.display = rightW > 0 ? 'block' : 'none';
+        letterboxTop.style.display = topH > 0 ? 'block' : 'none';
+        letterboxBottom.style.display = bottomH > 0 ? 'block' : 'none';
     }
 
     function fitToScreen() {
@@ -418,7 +444,7 @@
         currentIndex = -1;
     }
 
-    letterboxOverlay.onclick = closeModal;
+    letterboxLeft.onclick = letterboxRight.onclick = letterboxTop.onclick = letterboxBottom.onclick = closeModal;
 
     modalViewport.onmouseenter = () => modalOverlay.style.opacity = '0.75';
     modalViewport.onmouseleave = () => modalOverlay.style.opacity = '0';
@@ -491,7 +517,7 @@
     panY.oninput = () => { translateY = parseInt(panY.value); updateTransform(); };
     resetZoom.onclick = fitToScreen;
 
-    modal.onclick = e => { if (e.target === modal || e.target === letterboxOverlay) closeModal(); };
+    modal.onclick = e => { if (e.target === modal) closeModal(); };
     document.getElementById('modalClose').onclick = closeModal;
 
     document.querySelectorAll('.sort-btn').forEach(b => {

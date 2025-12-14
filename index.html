@@ -22,249 +22,123 @@
         }
         .wrap{max-width:1200px;margin:28px auto;padding:18px}
 
-        /* HEADER */
-        header{
-            display:flex;
-            align-items:center;
-            gap:18px;
-            margin-bottom:18px
-        }
-        .logo{
-            width:72px;height:72px;
-            border-radius:12px;
-            overflow:hidden
-        }
+        header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
         .logo img{width:100%;height:100%;object-fit:cover}
         .title-wrap{display:flex;flex-direction:column}
         .title-main{font-size:26px;font-weight:800;line-height:1.1}
         .title-sub{font-size:15px;color:var(--muted);font-weight:500}
 
-        /* CONTROLS */
-        .controls{
-            display:flex;
-            gap:14px;
-            align-items:flex-start;
-            flex-wrap:wrap;
-            margin-bottom:10px
-        }
-        .controls-left{
-            display:flex;
-            flex-direction:column;
-            gap:8px
-        }
+        .controls{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
+        .controls-left{display:flex;flex-direction:column;gap:8px}
         .tabs{display:flex;gap:8px}
         .tab-btn,.sort-btn{
-            background:var(--panel);
-            border:1px solid rgba(255,255,255,.08);
-            padding:9px 14px;
-            border-radius:10px;
-            color:inherit;
-            font-size:14px;
-            cursor:pointer;
-            transition:.12s
+            background:var(--panel);border:1px solid rgba(255,255,255,.08);
+            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;
+            cursor:pointer;transition:.12s
         }
-        .tab-btn.active,.sort-btn.active{
-            background:var(--accent);
-            color:#000;
-            font-weight:700
-        }
+        .tab-btn.active,.sort-btn.active{background:var(--accent);color:#000;font-weight:700}
         .contact{font-size:12px;color:var(--muted)}
         .contact a{color:var(--accent);text-decoration:none}
-        .sort-grid{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:8px;
-            min-width:280px
-        }
+        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:280px}
         .search-input{
-            background:var(--panel);
-            border:1px solid rgba(255,255,255,.05);
-            padding:9px 14px;
-            border-radius:10px;
-            color:inherit;
-            font-size:14px;
-            min-width:220px
+            background:var(--panel);border:1px solid rgba(255,255,255,.05);
+            padding:9px 14px;border-radius:10px;color:inherit;font-size:14px;min-width:220px
         }
 
-        /* GALLERY */
         .grid{
             display:grid;
             grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-            gap:14px;
-            margin-top:16px
+            gap:14px;margin-top:16px
         }
         .card{
-            background:var(--glass);
-            border-radius:12px;
-            overflow:hidden;
-            box-shadow:var(--shadow);
-            transition:transform .15s
+            background:var(--glass);border-radius:12px;overflow:hidden;
+            box-shadow:var(--shadow);transition:transform .15s
         }
         .card:hover{transform:translateY(-6px)}
-
-        .thumb-wrapper{
-            width:100%;
-            aspect-ratio:1 / 1;
-            overflow:hidden;
-            background:#000;
-        }
+        .thumb-wrapper{width:100%;aspect-ratio:1/1;overflow:hidden;background:#000}
         .thumb{
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            object-position:center;
-            image-rendering:pixelated;
-            cursor:pointer;
-            transition:transform .2s;
-            loading:lazy;
+            width:100%;height:100%;object-fit:cover;object-position:center;
+            image-rendering:pixelated;cursor:pointer;transition:transform .2s;loading:lazy
         }
-        .thumb:hover{
-            transform:scale(1.05);
-        }
-
-        .meta{
-            padding:8px 10px;
-            display:flex;
-            flex-direction:column;
-            gap:6px
-        }
-        .meta .title{
-            font-weight:600;
-            font-size:14px
-        }
+        .thumb:hover{transform:scale(1.05)}
+        .meta{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+        .meta .title{font-weight:600;font-size:14px}
         .maps-tag{
-            align-self:flex-start;
-            font-size:12px;
-            padding:4px 9px;
-            border-radius:999px;
-            background:rgba(182,199,214,.18);
-            color:var(--accent);
-            font-weight:700
+            align-self:flex-start;font-size:12px;padding:4px 9px;border-radius:999px;
+            background:rgba(182,199,214,.18);color:var(--accent);font-weight:700
         }
 
-        /* HOVER PREVIEW  */
+        /* Hover Preview */
         .thumb-preview{
-            position:fixed;
-            left:50%; top:50%;
-            transform:translate(-50%,-50%);
-            width:60vw;
-            height:60vh;
-            max-width:90vw;
-            max-height:90vh;
-            border:4px solid var(--accent);
-            border-radius:14px;
-            box-shadow:0 30px 90px rgba(0,0,0,.9);
-            pointer-events:none;
-            z-index:999;
-            opacity:0;
-            transition:opacity .2s;
-            background:#000;
-            image-rendering:pixelated;
-            object-fit:contain;
-            object-position:center;
+            position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+            width:60vw;height:60vh;max-width:90vw;max-height:90vh;
+            border:4px solid var(--accent);border-radius:14px;
+            box-shadow:0 30px 90px rgba(0,0,0,.9);pointer-events:none;z-index:999;
+            opacity:0;transition:opacity .2s;background:#000;image-rendering:pixelated;
+            object-fit:contain;object-position:center
         }
         .thumb-preview.visible{opacity:1}
-
-        @media (hover: none), (pointer: coarse) {
-            .thumb-preview { display:none !important; }
-            .thumb:hover { transform:none; }
+        @media (hover:none),(pointer:coarse){
+            .thumb-preview{display:none!important}
+            .thumb:hover{transform:none}
         }
 
-        /* MODAL */
+        /* Modal */
         .modal{
-            position:fixed;
-            inset:0;
-            background:rgba(3,6,10,.94);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            z-index:80;
-            opacity:0;
-            pointer-events:none;
-            transition:.25s
+            position:fixed;inset:0;background:rgba(3,6,10,.94);
+            display:flex;align-items:center;justify-content:center;z-index:80;
+            opacity:0;pointer-events:none;transition:.25s
         }
         .modal.open{opacity:1;pointer-events:auto}
         #modalInner{
-            width:95vw;
-            height:95vh;
-            max-width:1600px;
-            background:var(--panel);
-            border-radius:14px;
-            overflow:hidden;
-            display:flex;
-            flex-direction:column
+            width:95vw;height:95vh;max-width:1600px;background:var(--panel);
+            border-radius:14px;overflow:hidden;display:flex;flex-direction:column
         }
         .modal-viewport{
-            flex:1;
-            background:#000;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            position:relative;
-            overflow:hidden;
-            touch-action:none;
+            flex:1;background:#000;display:flex;align-items:center;
+            justify-content:center;position:relative;overflow:hidden;touch-action:none
         }
         .modal-img{
-            max-width:none;
-            max-height:none;
-            image-rendering:pixelated;
-            user-select:none;
-            pointer-events:none;
-            transition:transform .15s ease-out;
+            max-width:none;max-height:none;image-rendering:pixelated;
+            user-select:none;pointer-events:none;transition:transform .15s ease-out
         }
         .modal-controls{
-            padding:10px 14px;
-            background:rgba(15,17,19,.95);
-            font-size:13px;
-            color:var(--muted);
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
+            padding:10px 14px;background:rgba(15,17,19,.95);display:flex;
+            flex-direction:column;gap:10px;font-size:13px;color:var(--muted)
         }
+        .modal-meta{line-height:1.5}
+        .modal-meta strong{color:#fff;font-size:15px}
         .close-x{
-            position:absolute;
-            top:16px;
-            right:18px;
-            font-size:22px;
-            background:var(--panel);
-            padding:8px 12px;
-            border-radius:10px;
-            cursor:pointer;
-            z-index:10;
+            position:absolute;top:16px;right:18px;font-size:22px;
+            background:var(--panel);padding:8px 12px;border-radius:10px;
+            cursor:pointer;z-index:10
         }
 
-        /* SLIDER */
-        .slider-column{
-            display:flex;
-            align-items:center;
-            gap:12px;
+        /* Sliders */
+        .slider-group{
+            display:flex;flex-direction:column;gap:6px;width:180px
         }
-        .slider-column input[type="range"]{
-            width:140px;
-            height:6px;
-            -webkit-appearance:none;
-            background:rgba(255,255,255,0.15);
-            border-radius:4px;
+        .slider-row{
+            display:flex;align-items:center;gap:8px;font-size:12px
         }
-        .slider-column input[type="range"]::-webkit-slider-thumb{
-            -webkit-appearance:none;
-            width:16px;
-            height:16px;
-            background:var(--accent);
-            border-radius:50%;
-            cursor:pointer;
+        .slider-label{
+            width:50px;color:var(--muted);font-weight:500
         }
-        .slider-column button{
-            padding:6px 12px;
-            background:var(--panel);
-            border:none;
-            border-radius:8px;
-            color:inherit;
-            font-size:13px;
-            cursor:pointer;
+        .slider-row input[type="range"]{
+            flex:1;height:6px;-webkit-appearance:none;
+            background:rgba(255,255,255,0.15);border-radius:4px
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb{
+            -webkit-appearance:none;width:14px;height:14px;
+            background:var(--accent);border-radius:50%;cursor:pointer
+        }
+        .slider-row button{
+            padding:4px 10px;background:var(--panel);border:none;
+            border-radius:6px;color:inherit;font-size:12px;cursor:pointer
         }
         @media (max-width:768px){
-            .slider-column{display:none;}
+            .slider-group{display:none}
         }
     </style>
 </head>
@@ -289,7 +163,7 @@
             </div>
         </div>
 
-        <div class="sort-grid" id="sortBar">
+        <div class="sort-grid">
             <button class="sort-btn active" data-sort="date-desc">Newest</button>
             <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
             <button class="sort-btn" data-sort="date-asc">Oldest</button>
@@ -310,10 +184,24 @@
             <img id="modalImg" class="modal-img" alt="Full view">
         </div>
         <div class="modal-controls">
-            <div id="modalMeta"></div>
-            <div class="slider-column">
-                <input type="range" id="zoomSlider" min="30" max="500" value="100" step="5">
-                <button id="resetZoom">Fit</button>
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="slider-group">
+                <div class="slider-row">
+                    <span class="slider-label">Zoom</span>
+                    <input type="range" id="zoomSlider" min="30" max="500" value="100" step="5">
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label">Pan X</span>
+                    <input type="range" id="panX" min="-2000" max="2000" value="0" step="10">
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label">Pan Y</span>
+                    <input type="range" id="panY" min="-2000" max="2000" value="0" step="10">
+                </div>
+                <div class="slider-row">
+                    <span class="slider-label"></span>
+                    <button id="resetZoom">Fit View</button>
+                </div>
             </div>
         </div>
     </div>
@@ -327,11 +215,17 @@
     const modalMeta = document.getElementById('modalMeta');
     const modalViewport = document.getElementById('modalViewport');
     const zoomSlider = document.getElementById('zoomSlider');
+    const panX = document.getElementById('panX');
+    const panY = document.getElementById('panY');
     const resetZoom = document.getElementById('resetZoom');
 
     let mode = 'mapart', sort = 'date-desc', DATA = [], SCREENSHOTS = [];
     let currentScale = 1;
-    let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    let translateX = 0;
+    let translateY = 0;
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     async function loadJSON(u) {
         try { const r = await fetch(u); return r.ok ? await r.json() : []; } catch { return []; }
@@ -357,15 +251,22 @@
         }
     }
 
+    function updateTransform() {
+        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        zoomSlider.value = Math.round(currentScale * 100);
+        panX.value = translateX;
+        panY.value = translateY;
+    }
+
     function fitToScreen() {
-        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
-        const padding = 60;
+        if (!modalImg.naturalWidth) return;
+        const padding = 80;
         const scaleX = (modalViewport.clientWidth - padding) / modalImg.naturalWidth;
         const scaleY = (modalViewport.clientHeight - padding) / modalImg.naturalHeight;
-        currentScale = Math.min(scaleX, scaleY, 1);
-        currentScale = Math.max(currentScale, 0.1);
-        modalImg.style.transform = `scale(${currentScale})`;
-        zoomSlider.value = Math.round(currentScale * 100);
+        currentScale = Math.max(Math.min(scaleX, scaleY), 0.1);
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
     }
 
     function render() {
@@ -383,10 +284,8 @@
             const c = document.createElement('div'); c.className = 'card';
             const w = document.createElement('div'); w.className = 'thumb-wrapper';
             const i = document.createElement('img');
-            i.className = 'thumb';
-            i.src = m.thumb || m.image;
+            i.className = 'thumb'; i.src = m.thumb || m.image; i.loading = 'lazy';
             i.alt = m.title || 'Thumbnail';
-            i.loading = 'lazy';
 
             if (!isTouchDevice) {
                 i.onmouseenter = () => { hover.src = m.image; hover.classList.add('visible'); };
@@ -411,14 +310,22 @@
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
         modalImg.src = m.image;
-        modalMeta.innerHTML = `<strong style="color:#fff">${m.title || base(m.image)}</strong>`;
 
-        currentScale = 1;
-        modalImg.style.transform = 'scale(1)';
+        let dateStr = m.date || m.dateBuilt || 'Unknown date';
+        if (dateStr !== 'Unknown date' && !isNaN(new Date(dateStr).getTime())) {
+            dateStr = new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
 
-        modalImg.onload = () => {
-            requestAnimationFrame(fitToScreen);
-        };
+        modalMeta.innerHTML = `
+            <strong>${m.title || base(m.image)}</strong><br>
+            <span style="color:var(--muted);font-size:12px;">${dateStr}</span><br>
+            ${m.description ? `<em style="color:#c0ccdb;font-size:13px;">${m.description}</em>` : ''}
+        `;
+
+        currentScale = 1; translateX = 0; translateY = 0;
+        updateTransform();
+
+        modalImg.onload = () => requestAnimationFrame(fitToScreen);
     }
 
     function closeModal() {
@@ -426,41 +333,59 @@
         document.body.style.overflow = '';
     }
 
-    // Zoom slider
-    zoomSlider.oninput = () => {
-        currentScale = zoomSlider.value / 100;
-        modalImg.style.transform = `scale(${currentScale})`;
+    // Drag to pan (mouse + touch)
+    function startDrag(clientX, clientY) {
+        isDragging = true;
+        startX = clientX - translateX;
+        startY = clientY - translateY;
+    }
+
+    function drag(clientX, clientY) {
+        if (!isDragging) return;
+        translateX = clientX - startX;
+        translateY = clientY - startY;
+        updateTransform();
+    }
+
+    function endDrag() { isDragging = false; }
+
+    modalViewport.onmousedown = e => startDrag(e.clientX, e.clientY);
+    document.onmousemove = e => drag(e.clientX, e.clientY);
+    document.onmouseup = endDrag;
+
+    modalViewport.ontouchstart = e => {
+        if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY);
     };
+    modalViewport.ontouchmove = e => {
+        if (e.touches.length === 1) { drag(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+    };
+    modalViewport.ontouchend = endDrag;
 
-    // Fit button
-    resetZoom.onclick = fitToScreen;
-
-    // Basic touch pinch zoom (mobile)
+    // Pinch zoom (mobile)
     if (isTouchDevice) {
         let startDist = 0;
         modalViewport.addEventListener('touchstart', e => {
             if (e.touches.length === 2) {
-                startDist = Math.hypot(
-                    e.touches[0].pageX - e.touches[1].pageX,
-                    e.touches[0].pageY - e.touches[1].pageY
-                );
+                startDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
             }
         });
         modalViewport.addEventListener('touchmove', e => {
             if (e.touches.length === 2) {
                 e.preventDefault();
-                const currentDist = Math.hypot(
-                    e.touches[0].pageX - e.touches[1].pageX,
-                    e.touches[0].pageY - e.touches[1].pageY
-                );
-                const ratio = currentDist / startDist;
+                const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const ratio = dist / startDist;
                 currentScale = Math.max(0.3, Math.min(currentScale * ratio, 5));
-                modalImg.style.transform = `scale(${currentScale})`;
-                zoomSlider.value = Math.round(currentScale * 100);
-                startDist = currentDist;
+                updateTransform();
+                startDist = dist;
             }
         }, { passive: false });
     }
+
+    // Sliders
+    zoomSlider.oninput = () => { currentScale = zoomSlider.value / 100; updateTransform(); };
+    panX.oninput = () => { translateX = parseInt(panX.value); updateTransform(); };
+    panY.oninput = () => { translateY = parseInt(panY.value); updateTransform(); };
+    resetZoom.onclick = fitToScreen;
 
     modal.onclick = e => { if (e.target === modal) closeModal(); };
     document.getElementById('modalClose').onclick = closeModal;
@@ -475,17 +400,13 @@
     });
 
     document.getElementById('tabMapart').onclick = () => {
-        mode = 'mapart';
-        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-        document.getElementById('tabMapart').classList.add('active');
-        render();
+        mode = 'mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+        document.getElementById('tabMapart').classList.add('active'); render();
     };
 
     document.getElementById('tabScreens').onclick = () => {
-        mode = 'screens';
-        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-        document.getElementById('tabScreens').classList.add('active');
-        render();
+        mode = 'screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+        document.getElementById('tabScreens').classList.add('active'); render();
     };
 
     document.getElementById('search').oninput = render;

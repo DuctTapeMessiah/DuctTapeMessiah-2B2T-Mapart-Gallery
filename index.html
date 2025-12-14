@@ -79,7 +79,7 @@
 
         .thumb-preview{
             position:fixed;
-            top:350px;right:10vw;
+            top:5vh;right:10vw;
             width:35vw;height:35vw;
             max-width:450px;max-height:450px;
             border:3px solid var(--accent);border-radius:14px;
@@ -177,6 +177,10 @@
         .slider-row button{
             padding:6px 12px;background:var(--panel);border:none;
             border-radius:8px;color:inherit;font-size:13px;cursor:pointer
+        }
+        @media (max-width:768px){
+            .slider-row input[type="range"]{display:none}
+            .slider-label{display:none}
         }
     </style>
 </head>
@@ -350,9 +354,8 @@
 
     function fitToScreen() {
         if (!modalImg.naturalWidth) return;
-        const padding = 120;
-        const scaleX = (modalViewport.clientWidth - padding) / modalImg.naturalWidth;
-        const scaleY = (modalViewport.clientHeight - padding) / modalImg.naturalHeight;
+        const scaleX = modalViewport.clientWidth * 0.9 / modalImg.naturalWidth;
+        const scaleY = modalViewport.clientHeight * 0.9 / modalImg.naturalHeight;
         currentScale = Math.max(Math.min(scaleX, scaleY, 1), 0.3);
         translateX = 0; translateY = 0;
         updateTransform();

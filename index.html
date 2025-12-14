@@ -47,8 +47,8 @@
         .grid{
             display:grid;
             grid-auto-flow:dense;
-            grid-template-columns:repeat(auto-fill,minmax(128px,1fr));
-            gap:14px;margin-top:16px
+            grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+            gap:16px;margin-top:16px
         }
         .card{
             background:var(--glass);border-radius:12px;overflow:hidden;
@@ -76,14 +76,15 @@
         }
 
         .thumb-preview{
-            position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
-            width:60vw;height:60vh;max-width:90vw;max-height:90vh;
+            position:fixed;
+            top:5vh;right:5vw;
+            width:50vw;height:70vh;
+            max-width:90vw;max-height:90vh;
             border:4px solid var(--accent);border-radius:14px;
             box-shadow:0 30px 90px rgba(0,0,0,.9);pointer-events:none;z-index:999;
-            opacity:0;transition:opacity .2s;background:#000;image-rendering:pixelated;
-            object-fit:cover;object-position:center
+            opacity:0;transition:opacity .25s;background:#000;image-rendering:pixelated;
+            object-fit:contain;object-position:center
         }
-        .thumb-preview.screenshot-mode{object-fit:contain}
         .thumb-preview.visible{opacity:1}
         @media (hover:none),(pointer:coarse){
             .thumb-preview{display:none!important}
@@ -108,13 +109,13 @@
             user-select:none;pointer-events:none;transition:transform .15s ease-out
         }
 
-        .letterbox-left, .letterbox-right, .letterbox-top, .letterbox-bottom{
+        .letterbox-left,.letterbox-right,.letterbox-top,.letterbox-bottom{
             position:absolute;background:var(--letterbox);z-index:6;cursor:pointer
         }
-        .letterbox-left, .letterbox-right{width:50%;height:100%;top:0}
+        .letterbox-left,.letterbox-right{width:50%;height:100%;top:0}
         .letterbox-left{left:0}
         .letterbox-right{right:0}
-        .letterbox-top, .letterbox-bottom{width:100%;height:50%;left:0}
+        .letterbox-top,.letterbox-bottom{width:100%;height:50%;left:0}
         .letterbox-top{top:0}
         .letterbox-bottom{bottom:0}
 
@@ -378,7 +379,6 @@
             if (!isTouchDevice) {
                 i.onmouseenter = () => {
                     hover.src = m.image;
-                    hover.classList.toggle('screenshot-mode', mode === 'screens');
                     hover.classList.add('visible');
                 };
                 i.onmouseleave = () => hover.classList.remove('visible');

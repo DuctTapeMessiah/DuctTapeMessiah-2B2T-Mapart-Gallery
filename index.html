@@ -46,29 +46,143 @@
 
         .modal { position:fixed; inset:0; background:rgba(3,6,10,.94); display:flex; flex-direction:column; z-index:80; opacity:0; pointer-events:none; transition:.25s; }
         .modal.open { opacity:1; pointer-events:auto; }
-        .modal-top-overlay { background:var(--overlay-glass); backdrop-filter:blur(12px); padding:10px 20px; text-align:center; color:#fff; box-shadow:0 8px 30px rgba(0,0,0,.6); max-width:90%; margin:20px auto 0; border-radius:16px; font-size:14px; word-wrap:break-word; }
+
+        .modal-top-overlay {
+            background:var(--overlay-glass);
+            backdrop-filter:blur(12px);
+            padding:10px 20px;
+            text-align:center;
+            color:#fff;
+            box-shadow:0 8px 30px rgba(0,0,0,.6);
+            max-width:90%;
+            margin:16px auto 0;
+            border-radius:16px;
+            font-size:14px;
+            word-wrap:break-word;
+            overflow-wrap:break-word;
+        }
         .modal-top-overlay strong { font-size:18px; display:block; margin-bottom:4px; }
         .modal-top-overlay .date { color:var(--muted); font-size:13px; margin:6px 0; }
-        .modal-top-overlay .desc { font-size:14px; line-height:1.4; color:#d0d8e2; margin-top:12px; }
+        .modal-top-overlay .desc { font-size:14px; line-height:1.5; margin-top:12px; }
         .modal-top-overlay .credit { font-size:12px; color:var(--accent); margin-top:8px; }
-        .modal-top-overlay .details-btn { margin-top:12px; padding:6px 14px; background:var(--panel); border:none; border-radius:8px; color:inherit; font-size:13px; cursor:pointer; }
-        .modal-viewport { flex:1; background:#000; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:move; }
-        .modal-img { image-rendering:pixelated; user-select:none; pointer-events:none; transition:none; transform-origin: center center; }
-        .nav-arrow { position:absolute; top:50%; transform:translateY(-50%); width:50px; height:80px; background:rgba(0,0,0,.5); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:32px; color:#fff; cursor:pointer; z-index:15; opacity:0; transition:opacity .3s; backdrop-filter:blur(4px); }
-        .nav-arrow.visible { opacity:0.25; }
-        .nav-arrow:hover { opacity:0.5; background:rgba(0,0,0,.7); }
+        .modal-top-overlay .details-btn {
+            margin-top:12px;
+            padding:6px 14px;
+            background:var(--panel);
+            border:none;
+            border-radius:8px;
+            color:inherit;
+            font-size:13px;
+            cursor:pointer;
+        }
+
+        .modal-viewport {
+            flex:1;
+            background:#000;
+            position:relative;
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            touch-action:none;
+            cursor:move;
+            padding:3%;
+            box-sizing:border-box;
+        }
+        .modal-img {
+            image-rendering:pixelated;
+            user-select:none;
+            pointer-events:none;
+            transition:none;
+            transform-origin: center center;
+            max-width:100%;
+            max-height:100%;
+        }
+
+        .nav-arrow {
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            width:50px;
+            height:80px;
+            background:rgba(0,0,0,.5);
+            border-radius:8px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:32px;
+            color:#fff;
+            cursor:pointer;
+            z-index:15;
+            opacity:0;
+            transition:opacity .3s;
+            backdrop-filter:blur(4px);
+        }
+        .nav-arrow.visible { opacity:0.4; }
+        .nav-arrow:hover { opacity:0.7; background:rgba(0,0,0,.7); }
         .nav-arrow.prev { left:20px; }
         .nav-arrow.next { right:20px; }
-        .close-x { position:absolute; top:16px; right:18px; font-size:22px; background:var(--panel); padding:8px 12px; border-radius:10px; cursor:pointer; z-index:20; }
-        .modal-controls { position:absolute; bottom:50px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; gap:6px; padding:10px 20px; background:var(--overlay-glass); backdrop-filter:blur(12px); border-radius:12px; font-size:11px; z-index:10; opacity:1; max-width:90%; width:340px; box-sizing:border-box; }
-        .slider-row { display:flex; align-items:center; gap:8px; font-size:12px; color:#e6eef6; }
-        .slider-row input[type="range"] { flex:1; height:6px; -webkit-appearance:none; background: rgba(255,255,255,0.15); border-radius:4px; }
-        .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; background:var(--accent); border-radius:50%; cursor:pointer; }
+
+        .close-x {
+            position:absolute;
+            top:16px;
+            right:18px;
+            font-size:22px;
+            background:var(--panel);
+            padding:8px 12px;
+            border-radius:10px;
+            cursor:pointer;
+            z-index:20;
+        }
+
+        .modal-controls {
+            background:var(--overlay-glass);
+            backdrop-filter:blur(12px);
+            border-radius:12px;
+            padding:12px 16px;
+            margin:0 auto 16px;
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            max-width:400px;
+            width:fit-content;
+            font-size:11px;
+            z-index:10;
+        }
+        .slider-row {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-size:12px;
+            color:#e6eef6;
+        }
+        .slider-row input[type="range"] {
+            flex:1;
+            height:6px;
+            -webkit-appearance:none;
+            background: rgba(255,255,255,0.15);
+            border-radius:4px;
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance:none;
+            width:14px;
+            height:14px;
+            background:var(--accent);
+            border-radius:50%;
+            cursor:pointer;
+        }
         .slider-label { width:42px; font-size:11px; }
-        .slider-row button { padding:6px 10px; font-size:12px; background:var(--panel); border:none; border-radius:8px; cursor:pointer; }
+        .slider-row button {
+            padding:6px 12px;
+            font-size:12px;
+            background:var(--panel);
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
         @media (max-width:768px) {
-            .modal-controls { bottom:20px; width:90%; }
-            .slider-row { flex-direction:column; align-items:stretch; gap:4px; }
+            .slider-row { flex-direction:column; align-items:stretch; }
             .slider-row button { font-size:14px; padding:10px; }
         }
     </style>
@@ -107,11 +221,13 @@
 <div id="modal" class="modal">
     <div class="close-x" id="modalClose">×</div>
     <div class="modal-top-overlay" id="modalOverlay"></div>
+
     <div class="modal-viewport" id="modalViewport">
         <img id="modalImg" class="modal-img" alt="Full view">
         <div class="nav-arrow prev" id="prevBtn">‹</div>
         <div class="nav-arrow next" id="nextBtn">›</div>
     </div>
+
     <div class="modal-controls" id="modalControls">
         <div class="slider-row"><button id="resetViewBtn">Reset View</button></div>
         <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
@@ -136,7 +252,8 @@
 
     let mode = 'mapart';
     let sort = 'date-desc';
-    let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1, uiTimeout;
+    let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1;
+    let detailsShown = false;
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
     let state = {
@@ -147,8 +264,7 @@
         startY: 0,
         startOffsetX: 0,
         startOffsetY: 0,
-        isPanning: false,
-        detailsShown: false
+        isPanning: false
     };
 
     async function loadJSON(u){ try{ const r = await fetch(u); return r.ok? await r.json():[] } catch { return [] } }
@@ -228,64 +344,63 @@
         });
     }
 
-    function showUI(){
-        clearTimeout(uiTimeout);
-        prevBtn.classList.add('visible');
-        nextBtn.classList.add('visible');
-        uiTimeout = setTimeout(hideUI, 5000);
-    }
+    function buildOverlayContent(showDetails = false) {
+        const m = items[currentIndex];
+        if (!m) return '&nbsp;';
 
-    function hideUI(){
-        prevBtn.classList.remove('visible');
-        nextBtn.classList.remove('visible');
-    }
-
-    function buildOverlay(m, showDetails = false){
         let html = '';
-        if(m.title) html += `<strong>${m.title}</strong>`;
+        if (m.title) html += `<strong>${m.title}</strong>`;
         let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
-        if(dateStr) html += `<div class="date">${dateStr}</div>`;
+        if (dateStr) html += `<div class="date">${dateStr}</div>`;
 
-        if(showDetails){
-            if(m.description || m.desc){
-                html += `<div class="desc">${(m.description || m.desc).replace(/\n/g, '<br>')}</div>`;
+        if (showDetails) {
+            if (m.description || m.desc) {
+                html += `<div class="desc">${m.description || m.desc || ''}</div>`;
             }
-            if(m.artistCredit){
+            if (m.artistCredit) {
                 html += `<div class="credit">Artist: ${m.artistCredit}</div>`;
             }
             html += `<button class="details-btn" id="hideDetailsBtn">Hide Details</button>`;
         } else {
-            if(m.description || m.desc || m.artistCredit){
+            if (m.description || m.desc || m.artistCredit) {
                 html += `<button class="details-btn" id="viewDetailsBtn">View Details</button>`;
             }
         }
 
-        modalOverlay.innerHTML = html || '&nbsp;';
+        return html || '&nbsp;';
     }
 
     function openModal(idx){
-        currentIndex=idx; const m=items[idx]; if(!m) return;
-        modal.classList.add('open'); document.body.style.overflow='hidden';
-        modalImg.src=m.image;
+        currentIndex = idx;
+        const m = items[idx];
+        if (!m) return;
 
-        state.detailsShown = false;
-        buildOverlay(m, false);
+        modal.classList.add('open');
+        document.body.style.overflow='hidden';
+        modalImg.src = m.image;
 
-        showUI();
+        detailsShown = false;
+        modalOverlay.innerHTML = buildOverlayContent(false);
 
-        prevBtn.style.display=idx>0?'flex':'none';
-        nextBtn.style.display=idx<items.length-1?'flex':'none';
+        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
+        nextBtn.style.display = idx < items.length-1 ? 'flex' : 'none';
 
-        state={scale:1, offsetX:0, offsetY:0, isPanning:false, detailsShown:false};
+        prevBtn.classList.add('visible');
+        nextBtn.classList.add('visible');
+
+        state = {scale:1, offsetX:0, offsetY:0, isPanning:false};
         fitView();
     }
 
     function fitView(){
-        if(!modalImg.naturalWidth || !modalImg.naturalHeight) return;
-        const vpW = modalViewport.clientWidth * 0.97;
-        const vpH = modalViewport.clientHeight * 0.97;
+        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
 
-        const scale = Math.min(vpW / modalImg.naturalWidth, vpH / modalImg.naturalHeight);
+        const vpW = modalViewport.clientWidth;
+        const vpH = modalViewport.clientHeight;
+        const imgW = modalImg.naturalWidth;
+        const imgH = modalImg.naturalHeight;
+
+        const scale = Math.min(vpW / imgW, vpH / imgH) * 0.97;
         state.scale = scale;
         state.offsetX = 0;
         state.offsetY = 0;
@@ -303,10 +418,15 @@
 
     function syncSliders(){
         zoomSlider.value = state.scale;
-        const maxPanX = (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2;
-        const maxPanY = (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2;
+
+        const scaledW = state.scale * modalImg.naturalWidth;
+        const scaledH = state.scale * modalImg.naturalHeight;
+        const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
+        const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
+
         const normX = maxPanX !== 0 ? state.offsetX / maxPanX : 0;
         const normY = maxPanY !== 0 ? state.offsetY / maxPanY : 0;
+
         panXSlider.value = normX;
         panYSlider.value = normY;
     }
@@ -315,42 +435,62 @@
         modalImg.style.transform = `translate(${state.offsetX}px, ${state.offsetY}px) scale(${state.scale})`;
     }
 
+    function clampPan(){
+        const scaledW = state.scale * modalImg.naturalWidth;
+        const scaledH = state.scale * modalImg.naturalHeight;
+        const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
+        const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
+
+        state.offsetX = Math.max(-maxPanX, Math.min(maxPanX, state.offsetX));
+        state.offsetY = Math.max(-maxPanY, Math.min(maxPanY, state.offsetY));
+    }
+
     zoomSlider.oninput = () => {
         state.scale = parseFloat(zoomSlider.value);
         clampPan();
         updateTransform();
     };
     panXSlider.oninput = () => {
-        const maxPanX = (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2;
+        const scaledW = state.scale * modalImg.naturalWidth;
+        const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
         state.offsetX = parseFloat(panXSlider.value) * maxPanX;
         updateTransform();
     };
     panYSlider.oninput = () => {
-        const maxPanY = (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2;
+        const scaledH = state.scale * modalImg.naturalHeight;
+        const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
         state.offsetY = parseFloat(panYSlider.value) * maxPanY;
         updateTransform();
     };
 
-    function clampPan(){
-        const maxPanX = Math.max(0, (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2);
-        const maxPanY = Math.max(0, (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2);
-        state.offsetX = Math.max(-maxPanX, Math.min(maxPanX, state.offsetX));
-        state.offsetY = Math.max(-maxPanY, Math.min(maxPanY, state.offsetY));
-    }
-
     resetBtn.onclick = resetView;
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target.id === 'viewDetailsBtn') {
+            detailsShown = true;
+            modalOverlay.innerHTML = buildOverlayContent(true);
+        } else if (e.target.id === 'hideDetailsBtn') {
+            detailsShown = false;
+            modalOverlay.innerHTML = buildOverlayContent(false);
+        }
+    });
+
+    function showUIElements() {
+        prevBtn.classList.add('visible');
+        nextBtn.classList.add('visible');
+    }
 
     function navigate(delta){
         const newIdx = currentIndex + delta;
         if(newIdx >= 0 && newIdx < items.length) openModal(newIdx);
     }
-    prevBtn.onclick = () => { navigate(-1); showUI(); };
-    nextBtn.onclick = () => { navigate(1); showUI(); };
+    prevBtn.onclick = () => { navigate(-1); showUIElements(); };
+    nextBtn.onclick = () => { navigate(1); showUIElements(); };
 
     document.addEventListener('keydown', e=>{
         if(!modal.classList.contains('open')) return;
-        if(e.key==='ArrowLeft'){ navigate(-1); showUI(); }
-        if(e.key==='ArrowRight'){ navigate(1); showUI(); }
+        if(e.key==='ArrowLeft'){ navigate(-1); showUIElements(); }
+        if(e.key==='ArrowRight'){ navigate(1); showUIElements(); }
         if(e.key==='Escape') closeModal();
     });
 
@@ -372,6 +512,7 @@
         clampPan();
         updateTransform();
         syncSliders();
+        showUIElements();
     });
     document.addEventListener('mouseup', ()=>{
         if(state.isPanning){
@@ -382,7 +523,7 @@
 
     let lastTouchDistance = null;
     modalViewport.addEventListener('touchstart', e=>{
-        showUI();
+        showUIElements();
         if(e.touches.length === 2){
             lastTouchDistance = Math.hypot(
                 e.touches[0].clientX - e.touches[1].clientX,
@@ -418,39 +559,24 @@
         }
     }, {passive: false});
 
-    modalViewport.addEventListener('mousemove', showUI);
+    modalViewport.addEventListener('mousemove', showUIElements);
+    modalViewport.addEventListener('touchstart', showUIElements, {passive: true});
 
-    modalOverlay.addEventListener('click', e => {
-        if(e.target.id === 'viewDetailsBtn'){
-            state.detailsShown = true;
-            buildOverlay(items[currentIndex], true);
-            showUI();
-        } else if(e.target.id === 'hideDetailsBtn'){
-            state.detailsShown = false;
-            buildOverlay(items[currentIndex], false);
-            showUI();
-        }
-    });
+    modal.onclick = e => { if(e.target === modal) closeModal(); };
+    document.getElementById('modalClose').onclick = closeModal;
 
-    modal.onclick=e=>{ if(e.target===modal) closeModal(); };
-    document.getElementById('modalClose').onclick=closeModal;
+    function closeModal(){
+        modal.classList.remove('open');
+        document.body.style.overflow='';
+        currentIndex = -1;
+    }
 
     document.getElementById('tabMapart').onclick=()=>{ mode='mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabMapart').classList.add('active'); render(); };
     document.getElementById('tabScreens').onclick=()=>{ mode='screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabScreens').classList.add('active'); render(); };
     document.getElementById('search').oninput=()=>setTimeout(render,150);
     document.querySelectorAll('.sort-btn').forEach(b=>{ b.onclick=()=>{ sort=b.dataset.sort; document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }});
 
-    function closeModal(){
-        modal.classList.remove('open');
-        document.body.style.overflow='';
-        currentIndex=-1;
-        clearTimeout(uiTimeout);
-        hideUI();
-    }
-
-    modalImg.onload = () => {
-        fitView();
-    };
+    modalImg.onload = () => { fitView(); };
 
     boot();
 </script>

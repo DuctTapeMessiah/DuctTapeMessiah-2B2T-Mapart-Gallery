@@ -53,7 +53,7 @@
             left: 16px;
             background: var(--overlay-glass);
             backdrop-filter: blur(12px);
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: 12px;
             max-width: 60%;
             z-index: 20;
@@ -62,31 +62,9 @@
             opacity: 0;
         }
         .modal-title-overlay.visible { opacity: 1; }
-        .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 2px; }
-        .modal-title-overlay .date { color: var(--muted); font-size: 13px; }
-
-        .modal-details {
-            position: absolute;
-            top: 80px;
-            left: 16px;
-            background: var(--overlay-glass);
-            backdrop-filter: blur(12px);
-            padding: 12px 16px;
-            border-radius: 12px;
-            max-width: 60%;
-            z-index: 20;
-            font-size: 14px;
-            line-height: 1.5;
-            transition: opacity .4s .1s;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .modal-details.visible { opacity: 1; pointer-events: auto; }
-        .modal-details .desc { margin: 8px 0; color: #d0d8e2; }
-        .modal-details .credit { font-size: 12px; color: var(--accent); margin-top: 8px; }
-
-        .details-btn {
-            margin-top: 10px;
+        .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 4px; }
+        .modal-title-overlay .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
+        .modal-title-overlay .details-btn {
             padding: 6px 12px;
             background: var(--panel);
             border: none;
@@ -94,7 +72,29 @@
             color: inherit;
             font-size: 13px;
             cursor: pointer;
+            width: 100%;
+            margin-top: 6px;
         }
+
+        .modal-details {
+            position: absolute;
+            top: 100px;
+            left: 16px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            padding: 14px 16px;
+            border-radius: 12px;
+            max-width: 60%;
+            z-index: 20;
+            font-size: 14px;
+            line-height: 1.5;
+            transition: opacity .3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-details.visible { opacity: 1; pointer-events: auto; }
+        .modal-details .desc { margin: 8px 0 12px; color: #d0d8e2; }
+        .modal-details .credit { font-size: 12px; color: var(--accent); }
 
         .modal-viewport {
             flex: 1;
@@ -162,8 +162,8 @@
             right: 80px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            padding: 10px 12px;
+            gap: 8px;
+            padding: 12px 14px;
             background: var(--overlay-glass);
             backdrop-filter: blur(12px);
             border-radius: 12px;
@@ -172,6 +172,7 @@
             transition: opacity .4s;
             opacity: 0;
             min-width: 180px;
+            align-items: center;
         }
         .modal-controls.visible { opacity: 1; }
 
@@ -181,6 +182,7 @@
             gap: 8px;
             font-size: 12px;
             color: #e6eef6;
+            width: 100%;
         }
         .slider-row input[type="range"] {
             flex: 1;
@@ -199,17 +201,19 @@
         }
         .slider-label { width: 42px; font-size: 11px; }
         .slider-row button {
-            padding: 6px 10px;
+            padding: 8px 10px;
             font-size: 12px;
             background: var(--panel);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             color: inherit;
+            width: 100%;
         }
 
         @media (max-width:768px) {
             .modal-title-overlay, .modal-details { left: 12px; top: 12px; max-width: 80%; }
+            .modal-details { top: 90px; }
             .modal-controls { right: 12px; top: 70px; }
             .close-x { right: 12px; }
         }
@@ -295,7 +299,8 @@
         startOffsetX: 0,
         startOffsetY: 0,
         isPanning: false,
-        detailsShown: false
+        detailsShown: false,
+        initialScale: 1
     };
 
     async function loadJSON(u){ try{ const r = await fetch(u); return r.ok? await r.json():[] } catch { return [] } }
@@ -393,51 +398,6 @@
         modalControls.classList.remove('visible');
     }
 
-    function openModal(idx){
-        currentIndex=idx; const m=items[idx]; if(!m) return;
-        modal.classList.add('open'); document.body.style.overflow='hidden';
-        modalImg.src=m.image;
-
-        let titleHtml = '';
-        if(m.title) titleHtml += `<strong>${m.title}</strong>`;
-        let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
-        if(dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
-        modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
-
-        let detailsHtml = '';
-        const desc = m.description || m.desc;
-        const credit = m.artistCredit || '';
-        if(desc || credit){
-            if(desc) detailsHtml += `<div class="desc">${desc}</div>`;
-            if(credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
-            detailsHtml += `<button class="details-btn" id="toggleDetails">Hide Details</button>`;
-        } else {
-            detailsHtml = `<button class="details-btn" id="toggleDetails" style="display:none;">View Details</button>`;
-        }
-        modalDetails.innerHTML = detailsHtml;
-
-        state.detailsShown = false;
-        modalDetails.classList.remove('visible');
-
-        const toggleBtn = document.getElementById('toggleDetails');
-        if(toggleBtn){
-            toggleBtn.onclick = () => {
-                state.detailsShown = !state.detailsShown;
-                toggleBtn.textContent = state.detailsShown ? 'Hide Details' : 'View Details';
-                modalDetails.classList.toggle('visible', state.detailsShown);
-                showUI();
-            };
-        }
-
-        showUI();
-
-        prevBtn.style.display=idx>0?'flex':'none';
-        nextBtn.style.display=idx<items.length-1?'flex':'none';
-
-        state={scale:1, offsetX:0, offsetY:0, isPanning:false, detailsShown: false};
-        fitView();
-    }
-
     function fitView(){
         if(!modalImg.naturalWidth || !modalImg.naturalHeight) return;
         const vpW = modalViewport.clientWidth;
@@ -446,6 +406,7 @@
         const imgH = modalImg.naturalHeight;
 
         const scale = Math.min(vpW / imgW, vpH / imgH) * 0.98;
+        state.initialScale = scale;
         state.scale = scale;
         state.offsetX = 0;
         state.offsetY = 0;
@@ -454,7 +415,7 @@
     }
 
     function resetView(){
-        state.scale = 1;
+        state.scale = state.initialScale;
         state.offsetX = 0;
         state.offsetY = 0;
         updateTransform();
@@ -484,6 +445,67 @@
         const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
         state.offsetX = Math.max(-maxPanX, Math.min(maxPanX, state.offsetX));
         state.offsetY = Math.max(-maxPanY, Math.min(maxPanY, state.offsetY));
+    }
+
+    function openModal(idx){
+        currentIndex = idx;
+        const m = items[idx];
+        if(!m) return;
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        modalImg.src = m.image;
+
+        let titleHtml = '';
+        if(m.title) titleHtml += `<strong>${m.title}</strong>`;
+        const dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
+        if(dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
+
+        const desc = m.description || '';
+        const credit = m.artistCredit || '';
+        const hasDetails = desc || credit;
+
+        if(hasDetails){
+            let detailsHtml = '';
+            if(desc) detailsHtml += `<div class="desc">${desc}</div>`;
+            if(credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
+            modalDetails.innerHTML = detailsHtml;
+
+            titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
+        } else {
+            modalDetails.innerHTML = '';
+            titleHtml += `<button class="details-btn" id="toggleDetails" style="display:none;"></button>`;
+        }
+
+        modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
+
+        state.detailsShown = false;
+        modalDetails.classList.remove('visible');
+
+        const toggleBtn = document.getElementById('toggleDetails');
+        if(toggleBtn){
+            toggleBtn.onclick = () => {
+                state.detailsShown = !state.detailsShown;
+                toggleBtn.textContent = state.detailsShown ? 'Hide Details' : 'View Details';
+                modalDetails.classList.toggle('visible', state.detailsShown);
+                showUI();
+            };
+        }
+
+        showUI();
+
+        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
+        nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
+
+        state = {
+            ...state,
+            scale: 1,
+            offsetX: 0,
+            offsetY: 0,
+            isPanning: false,
+            detailsShown: false,
+            initialScale: 1
+        };
     }
 
     zoomSlider.oninput = () => {
@@ -599,18 +621,18 @@
         if(e.key==='Escape') closeModal();
     });
 
-    modal.onclick=e=>{ if(e.target===modal) closeModal(); };
-    document.getElementById('modalClose').onclick=closeModal;
+    modal.onclick = e => { if(e.target === modal) closeModal(); };
+    document.getElementById('modalClose').onclick = closeModal;
 
-    document.getElementById('tabMapart').onclick=()=>{ mode='mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabMapart').classList.add('active'); render(); };
-    document.getElementById('tabScreens').onclick=()=>{ mode='screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabScreens').classList.add('active'); render(); };
-    document.getElementById('search').oninput=()=>setTimeout(render,150);
-    document.querySelectorAll('.sort-btn').forEach(b=>{ b.onclick=()=>{ sort=b.dataset.sort; document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }});
+    document.getElementById('tabMapart').onclick = () => { mode='mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabMapart').classList.add('active'); render(); };
+    document.getElementById('tabScreens').onclick = () => { mode='screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabScreens').classList.add('active'); render(); };
+    document.getElementById('search').oninput = () => setTimeout(render,150);
+    document.querySelectorAll('.sort-btn').forEach(b => { b.onclick = () => { sort=b.dataset.sort; document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }});
 
     function closeModal(){
         modal.classList.remove('open');
-        document.body.style.overflow='';
-        currentIndex=-1;
+        document.body.style.overflow = '';
+        currentIndex = -1;
         clearTimeout(uiTimeout);
         hideUI();
     }

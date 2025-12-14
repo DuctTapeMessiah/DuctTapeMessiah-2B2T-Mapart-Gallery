@@ -3,145 +3,394 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
+    <title>DuctTapeMessiah — 2B2T Gallery</title>
     <link rel="canonical" href="https://ducttapemessiah.art"/>
     <style>
         :root{
-         --bg:#0b0b0d;
-         --panel:#0f1113;
-         --muted:#94a3b8;
-         --accent:#6ee7b7;
-         --glass:rgba(255,255,255,0.03);
-         --card-shadow:0 6px 18px rgba(2,6,23,.6);
-         font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial
+            --bg:#0b0b0d;
+            --panel:#0f1113;
+            --muted:#94a3b8;
+            --accent:#b6c7d6;
+            --glass:rgba(255,255,255,.035);
+            --shadow:0 10px 30px rgba(0,0,0,.65);
+            font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
         }
-        html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
+        html,body{
+            margin:0;
+            background:linear-gradient(180deg,var(--bg),#050506 120%);
+            color:#e6eef6
+        }
         .wrap{max-width:1200px;margin:28px auto;padding:18px}
-        header{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wrap}
-        .logo{width:80px;height:80px;border-radius:12px;overflow:hidden;flex-shrink:0}
+
+        /* ---------- HEADER ---------- */
+        header{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin-bottom:18px
+        }
+        .logo{
+            width:72px;height:72px;
+            border-radius:12px;
+            overflow:hidden
+        }
         .logo img{width:100%;height:100%;object-fit:cover}
-        h1{font-size:20px;margin:0;font-weight:600}
-        .controls{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap;justify-content:space-between}
-        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:320px;max-width:720px;width:60%}
-        .sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:.12s;display:flex;align-items:center;justify-content:center}
-        .sort-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
-        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,.03);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px}
-        .stats{margin-left:auto;display:flex;gap:16px;align-items:center;color:var(--muted);font-size:14px;font-weight:500}
-        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:16px}
-        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.02);box-shadow:var(--card-shadow);transition:transform .12s;display:flex;flex-direction:column}
-        .card:hover{transform:translateY(-6px)}
-        .thumb-wrapper{
-          width:100%;
-          aspect-ratio:1 / 1;
-          overflow:hidden;
-          background:#000
+        .title-wrap{display:flex;flex-direction:column}
+        .title-main{font-size:26px;font-weight:800;line-height:1.1}
+        .title-sub{font-size:15px;color:var(--muted);font-weight:500}
+
+        /* ---------- CONTROLS ---------- */
+        .controls{
+            display:flex;
+            gap:14px;
+            align-items:flex-start;
+            flex-wrap:wrap;
+            margin-bottom:10px
+        }
+        .controls-left{
+            display:flex;
+            flex-direction:column;
+            gap:8px
+        }
+        .tabs{display:flex;gap:8px}
+        .tab-btn,.sort-btn{
+            background:var(--panel);
+            border:1px solid rgba(255,255,255,.08);
+            padding:9px 14px;
+            border-radius:10px;
+            color:inherit;
+            font-size:14px;
+            cursor:pointer;
+            transition:.12s
+        }
+        .tab-btn.active,.sort-btn.active{
+            background:var(--accent);
+            color:#000;
+            font-weight:700
+        }
+        .contact{font-size:12px;color:var(--muted)}
+        .contact a{color:var(--accent);text-decoration:none}
+        .sort-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:8px;
+            min-width:280px
+        }
+        .search-input{
+            background:var(--panel);
+            border:1px solid rgba(255,255,255,.05);
+            padding:9px 14px;
+            border-radius:10px;
+            color:inherit;
+            font-size:14px;
+            min-width:220px
         }
 
-        .thumb{
-         width:100%;
-         height:100%;
-         object-fit:cover;
-         background:#000;
-         image-rendering:pixelated;
-         cursor:pointer
+        /* ---------- GALLERY ---------- */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+            gap:14px;
+            margin-top:16px
         }
-        .thumb{width:100%;height:100%;object-fit:contain;background:#000;image-rendering:pixelated;cursor:pointer}
-        .thumb-preview{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:95vw;max-height:95vh;border:4px solid var(--accent);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.9);pointer-events:none;z-index:999;opacity:0;transition:.18s;image-rendering:pixelated;background:#000;object-fit:contain}
+        .card{
+            background:var(--glass);
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:var(--shadow);
+            transition:transform .15s
+        }
+        .card:hover{transform:translateY(-6px)}
+
+        .thumb-wrapper{
+            width:100%;
+            aspect-ratio:1 / 1;
+            overflow:hidden;
+            background:#000;
+        }
+        .thumb{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            object-position:center;
+            image-rendering:pixelated;
+            cursor:pointer;
+            transition:transform .2s;
+        }
+        .thumb:hover{
+            transform:scale(1.05);
+        }
+
+        .meta{
+            padding:8px 10px;
+            display:flex;
+            flex-direction:column;
+            gap:6px
+        }
+        .meta .title{
+            font-weight:600;
+            font-size:14px
+        }
+        .maps-tag{
+            align-self:flex-start;
+            font-size:12px;
+            padding:4px 9px;
+            border-radius:999px;
+            background:rgba(182,199,214,.18);
+            color:var(--accent);
+            font-weight:700
+        }
+
+        /* ---------- HOVER PREVIEW ---------- */
+        .thumb-preview{
+            position:fixed;
+            left:50%;top:50%;
+            transform:translate(-50%,-50%);
+            max-width:95vw;
+            max-height:95vh;
+            border:4px solid var(--accent);
+            border-radius:14px;
+            box-shadow:0 30px 90px rgba(0,0,0,.9);
+            pointer-events:none;
+            z-index:999;
+            opacity:0;
+            transition:opacity .15s;
+            background:#000;
+            image-rendering:pixelated
+        }
         .thumb-preview.visible{opacity:1}
-        .thumb-preview.visible{opacity:1}
-        .meta{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between}
-        .title{font-weight:600;font-size:14px;line-height:1.3}
-        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(110,231,183,.15);color:var(--accent);font-weight:600}
-        .close-x{position:absolute;top:18px;right:20px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;z-index:100;font-size:18px}
-        .modal{position:fixed;inset:0;background:rgba(3,6,10,.94);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:.25s}
+
+        /* ---------- MODAL ---------- */
+        .modal{
+            position:fixed;
+            inset:0;
+            background:rgba(3,6,10,.94);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:80;
+            opacity:0;
+            pointer-events:none;
+            transition:.25s
+        }
         .modal.open{opacity:1;pointer-events:auto}
-        #modalInner{display:flex;flex-direction:column;width:calc(100vw - 40px);height:85vh;max-width:1400px;border-radius:12px;overflow:hidden;background:var(--panel)}
-        .modal-viewport{flex:1;display:flex;align-items:center;justify-content:center;background:#000}
-        .modal-img{image-rendering:pixelated}
-        .modal-controls{background:rgba(15,17,19,.95);padding:8px 12px}
+        #modalInner{
+            width:95vw;
+            height:95vh;
+            max-width:1600px;
+            background:var(--panel);
+            border-radius:14px;
+            overflow:hidden;
+            display:flex;
+            flex-direction:column
+        }
+        .modal-viewport{
+            flex:1;
+            background:#000;
+            display:flex;
+            align-items:center;
+            justify-content:center
+        }
+        .modal-img{
+            max-width:100%;
+            max-height:100%;
+            image-rendering:pixelated
+        }
+        .modal-controls{
+            padding:10px 14px;
+            background:rgba(15,17,19,.95);
+            font-size:13px;
+            color:var(--muted)
+        }
+        .close-x{
+            position:absolute;
+            top:16px;
+            right:18px;
+            font-size:22px;
+            background:var(--panel);
+            padding:8px 12px;
+            border-radius:10px;
+            cursor:pointer
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
     <header>
-        <div class="logo"><img src="images/DTM.png"></div>
-        <h1>DuctTapeMessiah — 2B2T Mapart Gallery</h1>
-        <div class="stats"><div>Entries: <span id="totalCount">0</span></div><div>Total: <span id="totalTiles">0</span> maps</div></div>
-    </header>
-    <div class="controls">
-        <div class="sort-grid">
-            <button class="sort-btn" data-sort="date-desc">Newest First</button>
-            <button class="sort-btn" data-sort="size-desc">Largest First</button>
-            <button class="sort-btn" data-sort="date-asc">Oldest First</button>
-            <button class="sort-btn" data-sort="size-asc">Smallest First</button>
+        <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+        <div class="title-wrap">
+            <div class="title-main">DuctTapeMessiah</div>
+            <div class="title-sub">2B2T Gallery</div>
         </div>
-        <input id="search" class="search-input" placeholder="Search title...">
+    </header>
+
+    <div class="controls">
+        <div class="controls-left">
+            <div class="tabs">
+                <button id="tabMapart" class="tab-btn active">My Mapart</button>
+                <button id="tabScreens" class="tab-btn">Screenshots</button>
+            </div>
+            <div class="contact">
+                Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
+            </div>
+        </div>
+
+        <div class="sort-grid" id="sortBar">
+            <button class="sort-btn active" data-sort="date-desc">Newest</button>
+            <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
+            <button class="sort-btn" data-sort="date-asc">Oldest</button>
+            <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
+        </div>
+
+        <input id="search" class="search-input" placeholder="Search...">
     </div>
-    <div class="grid" id="gallery"></div>
+
+    <div id="gallery" class="grid"></div>
 </div>
-<img id="hoverPreview" class="thumb-preview">
-<div id="modal" class="modal"><div class="close-x" id="modalClose">×</div><div id="modalInner"><div class="modal-viewport"><img id="modalImg" class="modal-img"></div><div class="modal-controls" id="modalMeta"></div></div></div>
+
+<img id="hoverPreview" class="thumb-preview" alt="Preview">
+<div id="modal" class="modal">
+    <div class="close-x" id="modalClose">×</div>
+    <div id="modalInner">
+        <div class="modal-viewport">
+            <img id="modalImg" class="modal-img" alt="Full view">
+        </div>
+        <div class="modal-controls" id="modalMeta"></div>
+    </div>
+</div>
+
 <script>
-    async function loadMaps(){const r=await fetch('maps.json');return r.ok?await r.json():[]}
-    const gallery=document.getElementById('gallery');
-    const modal=document.getElementById('modal');
-    const modalImg=document.getElementById('modalImg');
-    const modalMeta=document.getElementById('modalMeta');
-    const hover=document.getElementById('hoverPreview');
-    const totalCountEl=document.getElementById('totalCount');
-    const totalTilesEl=document.getElementById('totalTiles');
-    let sort='date-desc';
-    let currentIndex=-1;
-    let currentItems=[];
+    const gallery = document.getElementById('gallery');
+    const hover = document.getElementById('hoverPreview');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalMeta = document.getElementById('modalMeta');
 
-    document.querySelectorAll('.sort-btn').forEach(b=>b.onclick=()=>{sort=b.dataset.sort;document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()});
+    let mode = 'mapart', sort = 'date-desc', DATA = [], SCREENSHOTS = [];
 
-    function openModal(m){
-      currentIndex=currentItems.indexOf(m);
-      modal.classList.add('open');
-      document.body.style.overflow='hidden';
-      modalImg.src=m.image;
-      modalMeta.textContent=m.title
+    async function loadJSON(u) {
+        try {
+            const r = await fetch(u);
+            return r.ok ? await r.json() : [];
+        } catch {
+            return [];
+        }
     }
-    function closeModal(){modal.classList.remove('open');document.body.style.overflow=''}
-    document.getElementById('modalClose').onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()}
 
-    async function render(){
-     const maps=await loadMaps();
-     currentItems=[]
-     const maps=await loadMaps();
-     let items=maps.map(m=>({...m,total:m.w*m.h||0,date:new Date(m.dateBuilt||0)}));
-     const q=document.getElementById('search').value.toLowerCase();
-     if(q)items=items.filter(i=>i.title.toLowerCase().includes(q));
-     if(sort==='date-desc')items.sort((a,b)=>b.date-a.date);
-     if(sort==='date-asc')items.sort((a,b)=>a.date-b.date);
-     if(sort==='size-desc')items.sort((a,b)=>b.total-a.total);
-     if(sort==='size-asc')items.sort((a,b)=>a.total-b.total);
-     totalCountEl.textContent=items.length;
-     totalTilesEl.textContent=items.reduce((s,i)=>s+i.total,0);
-     gallery.innerHTML='';
-      currentItems=items;
-     items.forEach((m,idx)=>{
-      const card=document.createElement('div');card.className='card';
-      const w=document.createElement('div');w.className='thumb-wrapper';
-      const img=document.createElement('img');img.className='thumb';img.src=m.thumb||m.image;
-      img.onmouseenter=()=>{hover.src=m.image;hover.classList.add('visible')};
-      img.onmouseleave=()=>hover.classList.remove('visible');
-      img.onclick=()=>openModal(m);
-      w.appendChild(img);
-      const meta=document.createElement('div');meta.className='meta';
-      meta.innerHTML=`<div class=title>${m.title}</div><div class=maps-tag>${m.total} maps</div>`;
-      card.append(w,meta);gallery.appendChild(card);
-     });
+    const base = n => n.split('/').pop().replace(/\.[^.]+$/, '');
+
+    async function boot() {
+        DATA = await loadJSON('maps.json');
+        SCREENSHOTS = await loadJSON('screenshots.json');
+        render();
     }
-    render();
 
-    document.addEventListener('keydown',e=>{
-     if(!modal.classList.contains('open'))return;
-     if(e.key==='ArrowRight'&&currentIndex<currentItems.length-1){currentIndex++;openModal(currentItems[currentIndex]);}
-     if(e.key==='ArrowLeft'&&currentIndex>0){currentIndex--;openModal(currentItems[currentIndex]);}
-     if(e.key==='Escape')closeModal();
+    function applySort(items) {
+        if (sort.startsWith('date')) {
+            items.sort((a, b) => {
+                const da = new Date(a.date || a.dateBuilt || 0);
+                const db = new Date(b.date || b.dateBuilt || 0);
+                return sort === 'date-desc' ? db - da : da - db;
+            });
+        } else if (mode === 'mapart') {
+            items.sort((a, b) =>
+                sort === 'size-desc'
+                    ? (b.total || 0) - (a.total || 0)
+                    : (a.total || 0) - (b.total || 0)
+            );
+        }
+    }
+
+    function render() {
+        gallery.innerHTML = '';
+        const q = document.getElementById('search').value.toLowerCase();
+        const items = (mode === 'mapart' ? DATA : SCREENSHOTS)
+            .filter(i => !q || ((i.title || base(i.image)).toLowerCase().includes(q)));
+
+        applySort(items);
+
+        document.getElementById('sortLarge').style.display = mode === 'mapart' ? '' : 'none';
+        document.getElementById('sortSmall').style.display = mode === 'mapart' ? '' : 'none';
+
+        items.forEach(m => {
+            const c = document.createElement('div');
+            c.className = 'card';
+
+            const w = document.createElement('div');
+            w.className = 'thumb-wrapper';
+
+            const i = document.createElement('img');
+            i.className = 'thumb';
+            i.src = m.thumb || m.image;
+            i.alt = m.title || 'Thumbnail';
+
+            i.onmouseenter = () => {
+                hover.src = m.image;
+                hover.classList.add('visible');
+            };
+            i.onmouseleave = () => hover.classList.remove('visible');
+            i.onclick = () => openModal(m);
+
+            w.appendChild(i);
+            c.appendChild(w);
+
+            if (mode === 'mapart') {
+                const meta = document.createElement('div');
+                meta.className = 'meta';
+                meta.innerHTML = `
+                    <div class="title">${m.title || base(m.image)}</div>
+                    <div class="maps-tag">${m.total || ''}</div>
+                `;
+                c.appendChild(meta);
+            }
+
+            gallery.appendChild(c);
+        });
+    }
+
+    function openModal(m) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        modalImg.src = m.image;
+        modalMeta.innerHTML = `<strong style="color:#fff">${m.title || base(m.image)}</strong>`;
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    modal.onclick = e => {
+        if (e.target === modal) closeModal();
+    };
+    document.getElementById('modalClose').onclick = closeModal;
+
+    document.querySelectorAll('.sort-btn').forEach(b => {
+        b.onclick = () => {
+            sort = b.dataset.sort;
+            document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            render();
+        };
     });
+
+    document.getElementById('tabMapart').onclick = e => {
+        mode = 'mapart';
+        e.target.classList.add('active');
+        document.getElementById('tabScreens').classList.remove('active');
+        render();
+    };
+
+    document.getElementById('tabScreens').onclick = e => {
+        mode = 'screens';
+        e.target.classList.add('active');
+        document.getElementById('tabMapart').classList.remove('active');
+        render();
+    };
+
+    document.getElementById('search').oninput = render;
+
+    boot();
 </script>
 </body>
 </html>

@@ -105,18 +105,19 @@
             justify-content: center;
             touch-action: none;
             cursor: move;
-            padding: 1%;
+            padding: 0;
             box-sizing: border-box;
         }
         .modal-img {
             image-rendering: pixelated;
             user-select: none;
             pointer-events: none;
-            transition: none;
             transform-origin: center center;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            max-width: none;
+            max-height: none;
+            width: auto;
+            height: auto;
+            object-fit: none;
         }
 
         .nav-arrow {
@@ -396,18 +397,22 @@
         modalControls.classList.remove('visible');
     }
 
-    function fitView(){
-        if(!modalImg.naturalWidth || !modalImg.naturalHeight) return;
+    function fitView() {
+        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
+
         const vpW = modalViewport.clientWidth;
         const vpH = modalViewport.clientHeight;
-        const imgW = modalImg.naturalWidth;
-        const imgH = modalImg.naturalHeight;
 
-        const scale = Math.min(vpW / imgW, vpH / imgH) * 0.98;
+        const scale = Math.min(
+        vpW / modalImg.naturalWidth,
+        vpH / modalImg.naturalHeight
+        );
+
         state.initialFitScale = scale;
         state.scale = scale;
         state.offsetX = 0;
         state.offsetY = 0;
+
         updateTransform();
         syncSliders();
     }

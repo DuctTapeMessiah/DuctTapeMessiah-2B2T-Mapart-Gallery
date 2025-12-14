@@ -47,143 +47,171 @@
         .modal { position:fixed; inset:0; background:rgba(3,6,10,.94); display:flex; flex-direction:column; z-index:80; opacity:0; pointer-events:none; transition:.25s; }
         .modal.open { opacity:1; pointer-events:auto; }
 
-        .modal-top-overlay {
-            background:var(--overlay-glass);
-            backdrop-filter:blur(12px);
-            padding:10px 20px;
-            text-align:center;
-            color:#fff;
-            box-shadow:0 8px 30px rgba(0,0,0,.6);
-            max-width:90%;
-            margin:16px auto 0;
-            border-radius:16px;
-            font-size:14px;
-            word-wrap:break-word;
-            overflow-wrap:break-word;
+        .modal-title-overlay {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            padding: 10px 16px;
+            border-radius: 12px;
+            max-width: 60%;
+            z-index: 20;
+            font-size: 14px;
+            transition: opacity .4s;
+            opacity: 0;
         }
-        .modal-top-overlay strong { font-size:18px; display:block; margin-bottom:4px; }
-        .modal-top-overlay .date { color:var(--muted); font-size:13px; margin:6px 0; }
-        .modal-top-overlay .desc { font-size:14px; line-height:1.5; margin-top:12px; }
-        .modal-top-overlay .credit { font-size:12px; color:var(--accent); margin-top:8px; }
-        .modal-top-overlay .details-btn {
-            margin-top:12px;
-            padding:6px 14px;
-            background:var(--panel);
-            border:none;
-            border-radius:8px;
-            color:inherit;
-            font-size:13px;
-            cursor:pointer;
+        .modal-title-overlay.visible { opacity: 1; }
+        .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 2px; }
+        .modal-title-overlay .date { color: var(--muted); font-size: 13px; }
+
+        .modal-details {
+            position: absolute;
+            top: 80px;
+            left: 16px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 60%;
+            z-index: 20;
+            font-size: 14px;
+            line-height: 1.5;
+            transition: opacity .4s .1s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal-details.visible { opacity: 1; pointer-events: auto; }
+        .modal-details .desc { margin: 8px 0; color: #d0d8e2; }
+        .modal-details .credit { font-size: 12px; color: var(--accent); margin-top: 8px; }
+
+        .details-btn {
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: var(--panel);
+            border: none;
+            border-radius: 8px;
+            color: inherit;
+            font-size: 13px;
+            cursor: pointer;
         }
 
         .modal-viewport {
-            flex:1;
-            background:#000;
-            position:relative;
-            overflow:hidden;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            touch-action:none;
-            cursor:move;
-            padding:3%;
-            box-sizing:border-box;
+            flex: 1;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+            cursor: move;
+            padding: 1%;
+            box-sizing: border-box;
         }
         .modal-img {
-            image-rendering:pixelated;
-            user-select:none;
-            pointer-events:none;
-            transition:none;
+            image-rendering: pixelated;
+            user-select: none;
+            pointer-events: none;
+            transition: none;
             transform-origin: center center;
-            max-width:100%;
-            max-height:100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .nav-arrow {
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            width:50px;
-            height:80px;
-            background:rgba(0,0,0,.5);
-            border-radius:8px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:32px;
-            color:#fff;
-            cursor:pointer;
-            z-index:15;
-            opacity:0;
-            transition:opacity .3s;
-            backdrop-filter:blur(4px);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 80px;
+            background: rgba(0,0,0,.5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 15;
+            opacity: 0;
+            transition: opacity .3s;
+            backdrop-filter: blur(4px);
         }
-        .nav-arrow.visible { opacity:0.4; }
-        .nav-arrow:hover { opacity:0.7; background:rgba(0,0,0,.7); }
-        .nav-arrow.prev { left:20px; }
-        .nav-arrow.next { right:20px; }
+        .nav-arrow.visible { opacity: 0.3; }
+        .nav-arrow:hover { opacity: 0.6; background: rgba(0,0,0,.7); }
+        .nav-arrow.prev { left: 20px; }
+        .nav-arrow.next { right: 20px; }
 
         .close-x {
-            position:absolute;
-            top:16px;
-            right:18px;
-            font-size:22px;
-            background:var(--panel);
-            padding:8px 12px;
-            border-radius:10px;
-            cursor:pointer;
-            z-index:20;
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            font-size: 22px;
+            background: var(--panel);
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 20;
         }
 
         .modal-controls {
-            background:var(--overlay-glass);
-            backdrop-filter:blur(12px);
-            border-radius:12px;
-            padding:12px 16px;
-            margin:0 auto 16px;
-            display:flex;
-            flex-direction:column;
-            gap:8px;
-            max-width:400px;
-            width:fit-content;
-            font-size:11px;
-            z-index:10;
+            position: absolute;
+            top: 16px;
+            right: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 12px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            font-size: 11px;
+            z-index: 20;
+            transition: opacity .4s;
+            opacity: 0;
+            min-width: 180px;
         }
+        .modal-controls.visible { opacity: 1; }
+
         .slider-row {
-            display:flex;
-            align-items:center;
-            gap:8px;
-            font-size:12px;
-            color:#e6eef6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #e6eef6;
         }
         .slider-row input[type="range"] {
-            flex:1;
-            height:6px;
-            -webkit-appearance:none;
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
             background: rgba(255,255,255,0.15);
-            border-radius:4px;
+            border-radius: 4px;
         }
         .slider-row input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance:none;
-            width:14px;
-            height:14px;
-            background:var(--accent);
-            border-radius:50%;
-            cursor:pointer;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
         }
-        .slider-label { width:42px; font-size:11px; }
+        .slider-label { width: 42px; font-size: 11px; }
         .slider-row button {
-            padding:6px 12px;
-            font-size:12px;
-            background:var(--panel);
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
+            padding: 6px 10px;
+            font-size: 12px;
+            background: var(--panel);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: inherit;
         }
 
         @media (max-width:768px) {
-            .slider-row { flex-direction:column; align-items:stretch; }
-            .slider-row button { font-size:14px; padding:10px; }
+            .modal-title-overlay, .modal-details { left: 12px; top: 12px; max-width: 80%; }
+            .modal-controls { right: 12px; top: 70px; }
+            .close-x { right: 12px; }
         }
     </style>
 </head>
@@ -220,7 +248,9 @@
 
 <div id="modal" class="modal">
     <div class="close-x" id="modalClose">×</div>
-    <div class="modal-top-overlay" id="modalOverlay"></div>
+
+    <div class="modal-title-overlay" id="modalTitleOverlay"></div>
+    <div class="modal-details" id="modalDetails"></div>
 
     <div class="modal-viewport" id="modalViewport">
         <img id="modalImg" class="modal-img" alt="Full view">
@@ -241,7 +271,8 @@
     const hover = document.getElementById('hoverPreview');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
-    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitleOverlay = document.getElementById('modalTitleOverlay');
+    const modalDetails = document.getElementById('modalDetails');
     const modalViewport = document.getElementById('modalViewport');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -252,8 +283,7 @@
 
     let mode = 'mapart';
     let sort = 'date-desc';
-    let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1;
-    let detailsShown = false;
+    let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1, uiTimeout;
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
     let state = {
@@ -264,7 +294,8 @@
         startY: 0,
         startOffsetX: 0,
         startOffsetY: 0,
-        isPanning: false
+        isPanning: false,
+        detailsShown: false
     };
 
     async function loadJSON(u){ try{ const r = await fetch(u); return r.ok? await r.json():[] } catch { return [] } }
@@ -344,63 +375,77 @@
         });
     }
 
-    function buildOverlayContent(showDetails = false) {
-        const m = items[currentIndex];
-        if (!m) return '&nbsp;';
+    function showUI(){
+        clearTimeout(uiTimeout);
+        modalTitleOverlay.classList.add('visible');
+        modalDetails.classList.toggle('visible', state.detailsShown);
+        prevBtn.classList.add('visible');
+        nextBtn.classList.add('visible');
+        modalControls.classList.add('visible');
+        uiTimeout = setTimeout(hideUI, 5000);
+    }
 
-        let html = '';
-        if (m.title) html += `<strong>${m.title}</strong>`;
-        let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
-        if (dateStr) html += `<div class="date">${dateStr}</div>`;
-
-        if (showDetails) {
-            if (m.description || m.desc) {
-                html += `<div class="desc">${m.description || m.desc || ''}</div>`;
-            }
-            if (m.artistCredit) {
-                html += `<div class="credit">Artist: ${m.artistCredit}</div>`;
-            }
-            html += `<button class="details-btn" id="hideDetailsBtn">Hide Details</button>`;
-        } else {
-            if (m.description || m.desc || m.artistCredit) {
-                html += `<button class="details-btn" id="viewDetailsBtn">View Details</button>`;
-            }
-        }
-
-        return html || '&nbsp;';
+    function hideUI(){
+        modalTitleOverlay.classList.remove('visible');
+        modalDetails.classList.remove('visible');
+        prevBtn.classList.remove('visible');
+        nextBtn.classList.remove('visible');
+        modalControls.classList.remove('visible');
     }
 
     function openModal(idx){
-        currentIndex = idx;
-        const m = items[idx];
-        if (!m) return;
+        currentIndex=idx; const m=items[idx]; if(!m) return;
+        modal.classList.add('open'); document.body.style.overflow='hidden';
+        modalImg.src=m.image;
 
-        modal.classList.add('open');
-        document.body.style.overflow='hidden';
-        modalImg.src = m.image;
+        let titleHtml = '';
+        if(m.title) titleHtml += `<strong>${m.title}</strong>`;
+        let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
+        if(dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
+        modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
 
-        detailsShown = false;
-        modalOverlay.innerHTML = buildOverlayContent(false);
+        let detailsHtml = '';
+        const desc = m.description || m.desc;
+        const credit = m.artistCredit || '';
+        if(desc || credit){
+            if(desc) detailsHtml += `<div class="desc">${desc}</div>`;
+            if(credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
+            detailsHtml += `<button class="details-btn" id="toggleDetails">Hide Details</button>`;
+        } else {
+            detailsHtml = `<button class="details-btn" id="toggleDetails" style="display:none;">View Details</button>`;
+        }
+        modalDetails.innerHTML = detailsHtml;
 
-        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
-        nextBtn.style.display = idx < items.length-1 ? 'flex' : 'none';
+        state.detailsShown = false;
+        modalDetails.classList.remove('visible');
 
-        prevBtn.classList.add('visible');
-        nextBtn.classList.add('visible');
+        const toggleBtn = document.getElementById('toggleDetails');
+        if(toggleBtn){
+            toggleBtn.onclick = () => {
+                state.detailsShown = !state.detailsShown;
+                toggleBtn.textContent = state.detailsShown ? 'Hide Details' : 'View Details';
+                modalDetails.classList.toggle('visible', state.detailsShown);
+                showUI();
+            };
+        }
 
-        state = {scale:1, offsetX:0, offsetY:0, isPanning:false};
+        showUI();
+
+        prevBtn.style.display=idx>0?'flex':'none';
+        nextBtn.style.display=idx<items.length-1?'flex':'none';
+
+        state={scale:1, offsetX:0, offsetY:0, isPanning:false, detailsShown: false};
         fitView();
     }
 
     function fitView(){
-        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
-
+        if(!modalImg.naturalWidth || !modalImg.naturalHeight) return;
         const vpW = modalViewport.clientWidth;
         const vpH = modalViewport.clientHeight;
         const imgW = modalImg.naturalWidth;
         const imgH = modalImg.naturalHeight;
 
-        const scale = Math.min(vpW / imgW, vpH / imgH) * 0.97;
+        const scale = Math.min(vpW / imgW, vpH / imgH) * 0.98;
         state.scale = scale;
         state.offsetX = 0;
         state.offsetY = 0;
@@ -418,15 +463,12 @@
 
     function syncSliders(){
         zoomSlider.value = state.scale;
-
         const scaledW = state.scale * modalImg.naturalWidth;
         const scaledH = state.scale * modalImg.naturalHeight;
         const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
         const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
-
         const normX = maxPanX !== 0 ? state.offsetX / maxPanX : 0;
         const normY = maxPanY !== 0 ? state.offsetY / maxPanY : 0;
-
         panXSlider.value = normX;
         panYSlider.value = normY;
     }
@@ -440,7 +482,6 @@
         const scaledH = state.scale * modalImg.naturalHeight;
         const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
         const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
-
         state.offsetX = Math.max(-maxPanX, Math.min(maxPanX, state.offsetX));
         state.offsetY = Math.max(-maxPanY, Math.min(maxPanY, state.offsetY));
     }
@@ -465,34 +506,16 @@
 
     resetBtn.onclick = resetView;
 
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target.id === 'viewDetailsBtn') {
-            detailsShown = true;
-            modalOverlay.innerHTML = buildOverlayContent(true);
-        } else if (e.target.id === 'hideDetailsBtn') {
-            detailsShown = false;
-            modalOverlay.innerHTML = buildOverlayContent(false);
-        }
-    });
-
-    function showUIElements() {
-        prevBtn.classList.add('visible');
-        nextBtn.classList.add('visible');
-    }
-
-    function navigate(delta){
-        const newIdx = currentIndex + delta;
-        if(newIdx >= 0 && newIdx < items.length) openModal(newIdx);
-    }
-    prevBtn.onclick = () => { navigate(-1); showUIElements(); };
-    nextBtn.onclick = () => { navigate(1); showUIElements(); };
-
-    document.addEventListener('keydown', e=>{
-        if(!modal.classList.contains('open')) return;
-        if(e.key==='ArrowLeft'){ navigate(-1); showUIElements(); }
-        if(e.key==='ArrowRight'){ navigate(1); showUIElements(); }
-        if(e.key==='Escape') closeModal();
-    });
+    modalViewport.addEventListener('wheel', e => {
+        e.preventDefault();
+        const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+        state.scale *= zoomFactor;
+        state.scale = Math.max(0.1, Math.min(10, state.scale));
+        clampPan();
+        updateTransform();
+        syncSliders();
+        showUI();
+    }, { passive: false });
 
     modalViewport.addEventListener('mousedown', e=>{
         if(isTouchDevice) return;
@@ -512,7 +535,6 @@
         clampPan();
         updateTransform();
         syncSliders();
-        showUIElements();
     });
     document.addEventListener('mouseup', ()=>{
         if(state.isPanning){
@@ -523,7 +545,6 @@
 
     let lastTouchDistance = null;
     modalViewport.addEventListener('touchstart', e=>{
-        showUIElements();
         if(e.touches.length === 2){
             lastTouchDistance = Math.hypot(
                 e.touches[0].clientX - e.touches[1].clientX,
@@ -545,6 +566,7 @@
                 e.touches[0].clientY - e.touches[1].clientY
             );
             state.scale = state.startScale * (dist / lastTouchDistance);
+            state.scale = Math.max(0.1, Math.min(10, state.scale));
             clampPan();
             updateTransform();
             syncSliders();
@@ -559,24 +581,43 @@
         }
     }, {passive: false});
 
-    modalViewport.addEventListener('mousemove', showUIElements);
-    modalViewport.addEventListener('touchstart', showUIElements, {passive: true});
+    modalViewport.addEventListener('mousemove', showUI);
+    modalViewport.addEventListener('touchstart', showUI, {passive: true});
+    modalViewport.addEventListener('wheel', showUI, {passive: true});
 
-    modal.onclick = e => { if(e.target === modal) closeModal(); };
-    document.getElementById('modalClose').onclick = closeModal;
-
-    function closeModal(){
-        modal.classList.remove('open');
-        document.body.style.overflow='';
-        currentIndex = -1;
+    function navigate(delta){
+        const newIdx = currentIndex + delta;
+        if(newIdx >= 0 && newIdx < items.length) openModal(newIdx);
     }
+    prevBtn.onclick = () => { navigate(-1); showUI(); };
+    nextBtn.onclick = () => { navigate(1); showUI(); };
+
+    document.addEventListener('keydown', e=>{
+        if(!modal.classList.contains('open')) return;
+        if(e.key==='ArrowLeft'){ navigate(-1); showUI(); }
+        if(e.key==='ArrowRight'){ navigate(1); showUI(); }
+        if(e.key==='Escape') closeModal();
+    });
+
+    modal.onclick=e=>{ if(e.target===modal) closeModal(); };
+    document.getElementById('modalClose').onclick=closeModal;
 
     document.getElementById('tabMapart').onclick=()=>{ mode='mapart'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabMapart').classList.add('active'); render(); };
     document.getElementById('tabScreens').onclick=()=>{ mode='screens'; document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tabScreens').classList.add('active'); render(); };
     document.getElementById('search').oninput=()=>setTimeout(render,150);
     document.querySelectorAll('.sort-btn').forEach(b=>{ b.onclick=()=>{ sort=b.dataset.sort; document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(); }});
 
-    modalImg.onload = () => { fitView(); };
+    function closeModal(){
+        modal.classList.remove('open');
+        document.body.style.overflow='';
+        currentIndex=-1;
+        clearTimeout(uiTimeout);
+        hideUI();
+    }
+
+    modalImg.onload = () => {
+        fitView();
+    };
 
     boot();
 </script>

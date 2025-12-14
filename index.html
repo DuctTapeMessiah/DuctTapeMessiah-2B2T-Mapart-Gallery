@@ -5,284 +5,466 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Gallery</title>
     <link rel="canonical" href="https://ducttapemessiah.art"/>
-
     <style>
-        :root{
-            --bg:#0b0b0d;
-            --panel:#0f1113;
-            --muted:#94a3b8;
-            --accent:#b6c7d6;
-            --glass:rgba(255,255,255,.035);
-            --overlay-glass:rgba(15,17,19,.85);
-            --shadow:0 10px 30px rgba(0,0,0,.65);
-            font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+        :root {
+            --bg: #0b0b0d;
+            --panel: #0f1113;
+            --muted: #94a3b8;
+            --accent: #b6c7d6;
+            --glass: rgba(255,255,255,.035);
+            --overlay-glass: rgba(15,17,19,.85);
+            --shadow: 0 10px 30px rgba(0,0,0,.65);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         }
-        html,body{margin:0;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
-        .wrap{max-width:1200px;margin:28px auto;padding:18px}
-        header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
-        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
-        .logo img{width:100%;height:100%;object-fit:cover}
-        .title-main{font-size:26px;font-weight:800}
-        .title-sub{font-size:15px;color:var(--muted)}
+        html, body { margin:0; background: linear-gradient(180deg, var(--bg), #050506 120%); color:#e6eef6; }
+        .wrap { max-width:1200px; margin:28px auto; padding:18px; }
+        header { display:flex; align-items:center; gap:18px; margin-bottom:18px; }
+        .logo { width:72px; height:72px; border-radius:12px; overflow:hidden; }
+        .logo img { width:100%; height:100%; object-fit:cover; }
+        .title-wrap { display:flex; flex-direction:column; }
+        .title-main { font-size:26px; font-weight:800; line-height:1.1; }
+        .title-sub { font-size:15px; color:var(--muted); font-weight:500; }
+        .controls { display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap; margin-bottom:10px; }
+        .controls-left { display:flex; flex-direction:column; gap:8px; }
+        .tabs { display:flex; gap:8px; }
+        .tab-btn, .sort-btn { background: var(--panel); border:1px solid rgba(255,255,255,.08); padding:9px 14px; border-radius:10px; color:inherit; font-size:14px; cursor:pointer; transition:.12s; }
+        .tab-btn.active, .sort-btn.active { background: var(--accent); color:#000; font-weight:700; }
+        .contact { font-size:12px; color:var(--muted); }
+        .contact a { color:var(--accent); text-decoration:none; }
+        .sort-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; min-width:280px; }
+        .search-input { background: var(--panel); border:1px solid rgba(255,255,255,.05); padding:9px 14px; border-radius:10px; color:inherit; font-size:14px; min-width:220px; }
+        .grid { display:grid; grid-auto-flow:dense; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:16px; margin-top:16px; padding-top:100px; }
+        .card { background:var(--glass); border-radius:12px; overflow:hidden; box-shadow:var(--shadow); transition: transform .15s; display:flex; flex-direction:column; }
+        .card:hover { transform:translateY(-6px); }
+        .thumb-wrapper { position:relative; width:100%; aspect-ratio:1/1; overflow:hidden; background:#000; border-radius:8px; }
+        .thumb { width:100%; height:100%; object-fit:contain; object-position:center; image-rendering:pixelated; cursor:pointer; transition:transform .2s; background:#111; }
+        .thumb:hover { transform: scale(1.04); }
+        .meta { padding:8px 10px; display:flex; flex-direction:column; gap:6px; text-align:center; }
+        .thumb-preview { position:fixed; top:5vh; right:5vw; width:35vw; height:35vw; max-width:450px; max-height:450px; border:3px solid var(--accent); border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.8); pointer-events:none; z-index:999; opacity:0; transition:opacity .25s; background:#000; image-rendering:pixelated; object-fit:contain; object-position:center; }
+        .thumb-preview.visible { opacity:1; }
+        @media (hover:none),(pointer:coarse){ .thumb-preview{display:none!important;} .thumb:hover{transform:none;} }
 
-        .controls{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
-        .tabs{display:flex;gap:8px}
-        .tab-btn,.sort-btn{
-            background:var(--panel);
-            border:1px solid rgba(255,255,255,.08);
-            padding:9px 14px;
-            border-radius:10px;
-            color:inherit;
-            cursor:pointer
-        }
-        .tab-btn.active,.sort-btn.active{
-            background:var(--accent);
-            color:#000;
-            font-weight:700
-        }
-        .search-input{
-            background:var(--panel);
-            border:1px solid rgba(255,255,255,.05);
-            padding:9px 14px;
-            border-radius:10px;
-            color:inherit
-        }
-
-        .grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-            gap:16px;
-            margin-top:16px;
-            padding-top:90px
-        }
-        .card{background:var(--glass);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
-        .thumb-wrapper{aspect-ratio:1/1;background:#000}
-        .thumb{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;cursor:pointer}
-
-        .modal{
-            position:fixed;inset:0;
-            background:rgba(3,6,10,.96);
-            display:flex;
-            opacity:0;
-            pointer-events:none;
-            transition:.25s;
-            z-index:100
-        }
-        .modal.open{opacity:1;pointer-events:auto}
-
-        .modal-viewport{
-            flex:1;
-            position:relative;
-            overflow:hidden;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            touch-action:none
-        }
-        .modal-img{
-            user-select:none;
-            image-rendering:pixelated;
-            transform-origin:center;
-            cursor:grab
-        }
-        .modal-img:active{cursor:grabbing}
-
-        .nav-arrow{
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            font-size:34px;
-            padding:14px 18px;
-            background:rgba(0,0,0,.55);
-            border-radius:12px;
-            cursor:pointer;
-            opacity:.25;
-            transition:opacity .4s
-        }
-        .nav-arrow.prev{left:20px}
-        .nav-arrow.next{right:20px}
-        .nav-arrow.visible{opacity:.9}
-
-        .modal-overlay{
-            position:absolute;
-            bottom:24px;
-            left:50%;
-            transform:translateX(-50%);
-            background:var(--overlay-glass);
-            backdrop-filter:blur(12px);
-            padding:16px 26px;
-            border-radius:18px;
-            max-width:92%;
-            text-align:center;
-            box-shadow:0 8px 30px rgba(0,0,0,.6)
-        }
-        .modal-overlay strong{font-size:18px}
-        .modal-overlay .date{font-size:13px;color:var(--muted)}
-        .modal-overlay .desc{font-size:14px;margin-top:8px;line-height:1.5}
-
-        .modal-controls{
-            position:absolute;
-            bottom:24px;
-            right:24px;
-            background:var(--overlay-glass);
-            backdrop-filter:blur(12px);
-            padding:12px;
-            border-radius:14px;
-            font-size:11px;
-            display:flex;
-            flex-direction:column;
-            gap:6px;
-            opacity:.25;
-            transition:opacity .4s
-        }
-        .modal-controls.visible{opacity:.9}
-
-        .slider-row{display:flex;align-items:center;gap:8px}
-        .slider-row input{flex:1}
-
-        .close-x{
-            position:absolute;
-            top:18px;
-            right:18px;
-            font-size:22px;
-            background:var(--panel);
-            padding:8px 12px;
-            border-radius:10px;
-            cursor:pointer
-        }
+        .modal { position:fixed; inset:0; background:rgba(3,6,10,.94); display:flex; align-items:center; justify-content:center; z-index:80; opacity:0; pointer-events:none; transition:.25s; }
+        .modal.open { opacity:1; pointer-events:auto; }
+        #modalInner { width:100vw; height:100vh; background:transparent; display:flex; flex-direction:column; }
+        .modal-viewport { flex:1; background:#000; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:move; }
+        .modal-img { image-rendering:pixelated; user-select:none; pointer-events:none; transition:none; transform-origin: center center; }
+        .nav-arrow { position:absolute; top:50%; transform:translateY(-50%); width:50px; height:80px; background:rgba(0,0,0,.5); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:32px; color:#fff; cursor:pointer; z-index:15; opacity:0.8; transition:opacity .3s .5s; backdrop-filter:blur(4px);}
+        .nav-arrow.visible { opacity:0.8; }
+        .nav-arrow.hidden { opacity:0.25; transition:opacity .3s; }
+        .nav-arrow:hover { opacity:1; background:rgba(0,0,0,.7);}
+        .nav-arrow.prev { left:20px; }
+        .nav-arrow.next { right:20px; }
+        .close-x { position:absolute; top:16px; right:18px; font-size:22px; background:var(--panel); padding:8px 12px; border-radius:10px; cursor:pointer; z-index:20; }
+        .modal-overlay { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:var(--overlay-glass); backdrop-filter:blur(12px); padding:14px 24px; border-radius:16px; max-width:90%; text-align:center; color:#fff; z-index:10; box-shadow:0 8px 30px rgba(0,0,0,.6); opacity:1; }
+        .modal-overlay strong { font-size:18px; display:block; margin-bottom:6px; }
+        .modal-overlay .date { color:var(--muted); font-size:13px; margin:6px 0; }
+        .modal-overlay .desc { font-size:14px; line-height:1.5; color:#d0d8e2; max-width:800px; margin:12px auto 0; }
+        .modal-overlay .credit { font-size:12px; color:var(--accent); margin-top:8px; }
+        .modal-controls { position:absolute; bottom:20px; right:20px; display:flex; flex-direction:column; gap:6px; padding:10px 12px; background:var(--overlay-glass); backdrop-filter:blur(12px); border-radius:12px; font-size:11px; z-index:10; }
+        @media (pointer:coarse) { .modal-controls { bottom:10px; right:10px; } }
     </style>
 </head>
-
 <body>
 <div class="wrap">
     <header>
-        <div class="logo"><img src="images/DTM.png"></div>
-        <div>
-            <div class="title-main">DuctTapeMessiah</div>
-            <div class="title-sub">2B2T Gallery</div>
-        </div>
+        <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+        <div class="title-wrap"><div class="title-main">DuctTapeMessiah</div><div class="title-sub">2B2T Gallery</div></div>
     </header>
 
     <div class="controls">
-        <div class="tabs">
-            <button id="tabMapart" class="tab-btn active">Mapart</button>
-            <button id="tabScreens" class="tab-btn">Screenshots</button>
+        <div class="controls-left">
+            <div class="tabs">
+                <button id="tabMapart" class="tab-btn active">My Mapart</button>
+                <button id="tabScreens" class="tab-btn">Screenshots</button>
+            </div>
+            <div class="contact">Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a></div>
         </div>
-        <input id="search" class="search-input" placeholder="Search">
+
+        <div class="sort-grid">
+            <button class="sort-btn active" data-sort="date-desc">Newest</button>
+            <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
+            <button class="sort-btn" data-sort="date-asc">Oldest</button>
+            <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
+        </div>
+
+        <input id="search" class="search-input" placeholder="Search...">
     </div>
 
     <div id="gallery" class="grid"></div>
 </div>
 
+<img id="hoverPreview" class="thumb-preview" alt="Preview">
+
 <div id="modal" class="modal">
-    <div class="close-x" id="closeBtn">×</div>
-    <div class="modal-viewport" id="viewport">
-        <img id="modalImg" class="modal-img">
-        <div class="nav-arrow prev" id="prev">‹</div>
-        <div class="nav-arrow next" id="next">›</div>
-    </div>
-    <div class="modal-overlay" id="overlay"></div>
-    <div class="modal-controls" id="controls">
-        <button id="resetView">Reset View</button>
-        <div class="slider-row">Zoom <input id="zoom" type="range" min="0.1" max="6" step="0.01"></div>
+    <div class="close-x" id="modalClose">×</div>
+    <div id="modalInner">
+        <div class="modal-viewport" id="modalViewport">
+            <img id="modalImg" class="modal-img" alt="Full view">
+            <div class="nav-arrow prev" id="prevBtn">‹</div>
+            <div class="nav-arrow next" id="nextBtn">›</div>
+        </div>
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-controls" id="modalControls">
+            <div class="slider-row"><button id="resetViewBtn">Reset View</button></div>
+            <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="5" step="0.01" value="1"></div>
+            <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.001" value="0"></div>
+            <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.001" value="0"></div>
+        </div>
     </div>
 </div>
 
 <script>
     const gallery = document.getElementById('gallery');
+    const hover = document.getElementById('hoverPreview');
     const modal = document.getElementById('modal');
-    const img = document.getElementById('modalImg');
-    const viewport = document.getElementById('viewport');
-    const overlay = document.getElementById('overlay');
-    const zoom = document.getElementById('zoom');
-    const controls = document.getElementById('controls');
+    const modalImg = document.getElementById('modalImg');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalViewport = document.getElementById('modalViewport');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const resetBtn = document.getElementById('resetViewBtn');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const panXSlider = document.getElementById('panXSlider');
+    const panYSlider = document.getElementById('panYSlider');
 
-    let DATA=[], SHOTS=[], items=[], index=0;
-    let state={scale:1,x:0,y:0,drag:false,sx:0,sy:0};
+    let mode = 'mapart';
+    let sort = 'date-desc';
+    let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1;
+    let arrowTimeout;
 
-    const dateFromFilename = p=>{
-        const m=p.match(/(\d{4}-\d{2}-\d{2})/);
-        return m?m[1]:'';
+    let state = {
+        scale: 1,
+        offsetX: 0,
+        offsetY: 0,
+        isDragging: false,
+        startX: 0,
+        startY: 0
     };
 
-    async function load(u){try{return(await fetch(u)).json()}catch{return[]}}
-
-    async function boot(){
-        DATA=await load('maps.json');
-        SHOTS=(await load('screenshots.json')).map(s=>({
-            ...s,
-            date:s.date||dateFromFilename(s.image),
-            title:s.title||dateFromFilename(s.image)
-        }));
-        render(DATA);
+    async function loadJSON(u) {
+        try {
+            const r = await fetch(u);
+            return r.ok ? await r.json() : [];
+        } catch {
+            return [];
+        }
     }
 
-    function render(arr){
-        gallery.innerHTML='';
-        items=arr;
-        arr.forEach((m,i)=>{
-            const d=document.createElement('div');
-            d.className='card';
-            d.innerHTML=`<div class="thumb-wrapper"><img class="thumb" src="${m.image}"></div>`;
-            d.onclick=()=>open(i);
-            gallery.appendChild(d);
+    function extractDateFromFilename(filename) {
+        const match = filename.match(/(\d{4}-\d{2}-\d{2})/);
+        return match ? match[1] : '';
+    }
+
+    async function boot() {
+        DATA = await loadJSON('maps.json');
+        SCREENSHOTS = await loadJSON('screenshots.json');
+
+        await Promise.all(DATA.map(m => new Promise(resolve => {
+            const img = new Image();
+            img.src = m.image;
+            img.onload = () => {
+                m.pixelWidth = img.naturalWidth;
+                m.pixelHeight = img.naturalHeight;
+                m.w = Math.round(img.naturalWidth / 128);
+                m.h = Math.round(img.naturalHeight / 128);
+                m.totalMaps = m.w * m.h;
+                resolve();
+            };
+            img.onerror = () => { m.totalMaps = 0; resolve(); };
+        })));
+
+        render();
+    }
+
+    function applySort(arr) {
+        if (sort.startsWith('date')) {
+            arr.sort((a, b) => {
+                const da = new Date(a.date || a.dateBuilt || extractDateFromFilename(a.image) || 0);
+                const db = new Date(b.date || b.dateBuilt || extractDateFromFilename(b.image) || 0);
+                return sort === 'date-desc' ? db - da : da - db;
+            });
+        } else if (mode === 'mapart') {
+            arr.sort((a, b) => {
+                const aSize = a.totalMaps || 0, bSize = b.totalMaps || 0;
+                return sort === 'size-desc' ? bSize - aSize : aSize - bSize;
+            });
+        }
+    }
+
+    function render() {
+        gallery.innerHTML = '';
+        const q = document.getElementById('search').value.toLowerCase();
+        const allItems = mode === 'mapart' ? DATA : SCREENSHOTS;
+        items = allItems.filter(i => !q || (i.title || '').toLowerCase().includes(q));
+        applySort(items);
+
+        document.getElementById('sortLarge').style.display = mode === 'mapart' ? '' : 'none';
+        document.getElementById('sortSmall').style.display = mode === 'mapart' ? '' : 'none';
+
+        items.forEach((m, idx) => {
+            const c = document.createElement('div'); c.className = 'card';
+            const w = document.createElement('div'); w.className = 'thumb-wrapper';
+            if (mode === 'mapart' && m.w && m.h) {
+                let ratio = m.w / m.h, spanX = Math.min(m.w, 4), spanY = Math.min(m.h, 4);
+                if (ratio > 3) spanX = Math.min(m.w, 6), spanY = 1;
+                if (ratio < 1 / 3) spanX = 1, spanY = Math.min(m.h, 6);
+                w.style.gridColumnEnd = `span ${spanX}`;
+                w.style.gridRowEnd = `span ${spanY}`;
+            }
+            const i = document.createElement('img'); i.className = 'thumb'; i.src = m.thumb || m.image; i.loading = 'lazy'; i.alt = m.title || 'Thumbnail';
+            if (!/Mobi|Android/i.test(navigator.userAgent)) {
+                i.onmouseenter = () => { hover.src = m.image; hover.classList.add('visible'); };
+                i.onmouseleave = () => hover.classList.remove('visible');
+            }
+            i.onclick = () => openModal(idx);
+            w.appendChild(i); c.appendChild(w);
+
+            const meta = document.createElement('div'); meta.className = 'meta';
+            if (mode === 'mapart') {
+                const maps = m.totalMaps ?? '?';
+                meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}</div></div>`;
+            } else {
+                meta.innerHTML = `<div class="title">${m.title || ''}</div>`;
+            }
+            c.appendChild(meta); gallery.appendChild(c);
         });
     }
 
-    function clampPan(){
-        const iw=img.naturalWidth*state.scale;
-        const ih=img.naturalHeight*state.scale;
-        const vw=viewport.clientWidth;
-        const vh=viewport.clientHeight;
-        const maxX=Math.max(0,(iw-vw)/2);
-        const maxY=Math.max(0,(ih-vh)/2);
-        state.x=Math.min(maxX,Math.max(-maxX,state.x));
-        state.y=Math.min(maxY,Math.max(-maxY,state.y));
+    function showArrows() {
+        clearTimeout(arrowTimeout);
+        prevBtn.classList.add('visible');
+        nextBtn.classList.add('visible');
+        prevBtn.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+        arrowTimeout = setTimeout(() => {
+            prevBtn.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+        }, 5000);
     }
 
-    function apply(){
-        clampPan();
-        img.style.transform=`translate(${state.x}px,${state.y}px) scale(${state.scale})`;
-        zoom.value=state.scale;
+    function updateOverlay(item) {
+        let title = item.title || '';
+        let date = item.date || item.dateBuilt || '';
+        if (mode === 'screens' && !date) {
+            date = extractDateFromFilename(item.image);
+        }
+        let desc = item.description || item.desc || '';
+
+        modalOverlay.innerHTML = `
+            ${title ? `<strong>${title}</strong>` : ''}
+            ${date ? `<div class="date">${date}</div>` : ''}
+            ${desc ? `<div class="desc">${desc}</div>` : ''}
+        `;
     }
 
-    function reset(){
-        const s=Math.min(
-            viewport.clientWidth/img.naturalWidth,
-            viewport.clientHeight/img.naturalHeight
-        );
-        state={...state,scale:s,x:0,y:0};
-        apply();
+    function resetView() {
+        state.scale = 1;
+        state.offsetX = 0;
+        state.offsetY = 0;
+        updateTransform();
+        zoomSlider.value = 1;
+        updatePanSliders();
     }
 
-    function open(i){
-        index=i;
-        const m=items[i];
-        img.src=m.image;
-        overlay.innerHTML=`<strong>${m.title||''}</strong>
-            <div class="date">${m.date||''}</div>
-            <div class="desc">${m.description||''}</div>`;
+    function updateTransform() {
+        modalImg.style.transform = `translate(${state.offsetX}px, ${state.offsetY}px) scale(${state.scale})`;
+    }
+
+    function clampPan() {
+        const img = modalImg;
+        if (!img.naturalWidth) return;
+
+        const vpW = modalViewport.clientWidth;
+        const vpH = modalViewport.clientHeight;
+        const scaledW = img.naturalWidth * state.scale;
+        const scaledH = img.naturalHeight * state.scale;
+
+        const maxX = Math.max(0, (scaledW - vpW) / 2);
+        const maxY = Math.max(0, (scaledH - vpH) / 2);
+
+        state.offsetX = Math.max(-maxX, Math.min(maxX, state.offsetX));
+        state.offsetY = Math.max(-maxY, Math.min(maxY, state.offsetY));
+    }
+
+    function updatePanSliders() {
+        const vpW = modalViewport.clientWidth;
+        const vpH = modalViewport.clientHeight;
+        const imgW = modalImg.naturalWidth * state.scale;
+        const imgH = modalImg.naturalHeight * state.scale;
+
+        const rangeX = Math.max(0, (imgW - vpW) / 2);
+        const rangeY = Math.max(0, (imgH - vpH) / 2);
+
+        if (rangeX === 0) {
+            panXSlider.value = 0;
+        } else {
+            panXSlider.value = state.offsetX / rangeX;
+        }
+        if (rangeY === 0) {
+            panYSlider.value = 0;
+        } else {
+            panYSlider.value = state.offsetY / rangeY;
+        }
+    }
+
+    function openModal(idx) {
+        currentIndex = idx;
+        const m = items[idx];
+        if (!m) return;
+
         modal.classList.add('open');
-        document.body.style.overflow='hidden';
-        img.onload=reset;
+        document.body.style.overflow = 'hidden';
+        modalImg.src = m.image;
+
+        updateOverlay(m);
+
+        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
+        nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
+        showArrows();
+
+        state = { scale: 1, offsetX: 0, offsetY: 0, isDragging: false, startX: 0, startY: 0 };
+        resetView();
+
+        modalImg.onload = () => {
+            resetView();
+        };
     }
 
-    img.onmousedown=e=>{
-        state.drag=true;
-        state.sx=e.clientX-state.x;
-        state.sy=e.clientY-state.y;
-    };
-    window.onmouseup=()=>state.drag=false;
-    window.onmousemove=e=>{
-        if(!state.drag)return;
-        state.x=e.clientX-state.sx;
-        state.y=e.clientY-state.sy;
-        apply();
+    function navigate(delta) {
+        const newIdx = currentIndex + delta;
+        if (newIdx >= 0 && newIdx < items.length) openModal(newIdx);
+    }
+
+    zoomSlider.oninput = () => {
+        state.scale = parseFloat(zoomSlider.value);
+        clampPan();
+        updateTransform();
+        updatePanSliders();
     };
 
-    zoom.oninput=()=>{state.scale=parseFloat(zoom.value);apply()};
-    document.getElementById('resetView').onclick=reset;
-    document.getElementById('closeBtn').onclick=()=>{modal.classList.remove('open');document.body.style.overflow='';};
+    panXSlider.oninput = () => {
+        const vpW = modalViewport.clientWidth;
+        const imgW = modalImg.naturalWidth * state.scale;
+        const rangeX = Math.max(0, (imgW - vpW) / 2);
+        state.offsetX = parseFloat(panXSlider.value) * rangeX;
+        updateTransform();
+    };
+
+    panYSlider.oninput = () => {
+        const vpH = modalViewport.clientHeight;
+        const imgH = modalImg.naturalHeight * state.scale;
+        const rangeY = Math.max(0, (imgH - vpH) / 2);
+        state.offsetY = parseFloat(panYSlider.value) * rangeY;
+        updateTransform();
+    };
+
+    resetBtn.onclick = resetView;
+
+    modalViewport.addEventListener('mousedown', e => {
+        if (e.button === 0) {
+            state.isDragging = true;
+            state.startX = e.clientX - state.offsetX;
+            state.startY = e.clientY - state.offsetY;
+            modalViewport.style.cursor = 'grabbing';
+        }
+    });
+
+    modalViewport.addEventListener('mousemove', e => {
+        if (!state.isDragging) return;
+        state.offsetX = e.clientX - state.startX;
+        state.offsetY = e.clientY - state.startY;
+        clampPan();
+        updateTransform();
+        updatePanSliders();
+    });
+
+    modalViewport.addEventListener('mouseup', () => {
+        state.isDragging = false;
+        modalViewport.style.cursor = 'move';
+    });
+
+    modalViewport.addEventListener('mouseleave', () => {
+        state.isDragging = false;
+        modalViewport.style.cursor = 'move';
+    });
+
+    let lastTouchDistance = null;
+    modalViewport.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+            lastTouchDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            state.startScale = state.scale;
+        } else if (e.touches.length === 1) {
+            state.startX = e.touches[0].clientX - state.offsetX;
+            state.startY = e.touches[0].clientY - state.offsetY;
+        }
+    }, { passive: true });
+
+    modalViewport.addEventListener('touchmove', e => {
+        if (e.touches.length === 2) {
+            const dist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            const scaleFactor = dist / lastTouchDistance;
+            state.scale = Math.max(0.1, Math.min(5, state.startScale * scaleFactor));
+            zoomSlider.value = state.scale;
+            clampPan();
+            updateTransform();
+            updatePanSliders();
+        } else if (e.touches.length === 1) {
+            state.offsetX = e.touches[0].clientX - state.startX;
+            state.offsetY = e.touches[0].clientY - state.startY;
+            clampPan();
+            updateTransform();
+            updatePanSliders();
+        }
+    }, { passive: false });
+
+    prevBtn.onclick = () => { navigate(-1); showArrows(); };
+    nextBtn.onclick = () => { navigate(1); showArrows(); };
+
+    document.addEventListener('keydown', e => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'ArrowLeft') { navigate(-1); showArrows(); }
+        if (e.key === 'ArrowRight') { navigate(1); showArrows(); }
+        if (e.key === 'Escape') closeModal();
+    });
+
+    modal.onclick = e => { if (e.target === modal) closeModal(); };
+    document.getElementById('modalClose').onclick = closeModal;
+
+    document.getElementById('tabMapart').onclick = () => {
+        mode = 'mapart';
+        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+        document.getElementById('tabMapart').classList.add('active');
+        render();
+    };
+    document.getElementById('tabScreens').onclick = () => {
+        mode = 'screens';
+        document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+        document.getElementById('tabScreens').classList.add('active');
+        render();
+    };
+    document.getElementById('search').oninput = () => setTimeout(render, 150);
+    document.querySelectorAll('.sort-btn').forEach(b => {
+        b.onclick = () => {
+            sort = b.dataset.sort;
+            document.querySelectorAll('.sort-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            render();
+        };
+    });
+
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        currentIndex = -1;
+        clearTimeout(arrowTimeout);
+    }
 
     boot();
 </script>

@@ -5,227 +5,85 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DuctTapeMessiah — 2B2T Gallery</title>
     <link rel="canonical" href="https://ducttapemessiah.art"/>
-
     <style>
         :root{
           --bg:#0b0b0d;
           --panel:#0f1113;
           --muted:#94a3b8;
           --accent:#b6c7d6;
-          --glass:rgba(255,255,255,.035);
-          --shadow:0 10px 30px rgba(0,0,0,.65);
-          font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
+          --glass:rgba(255,255,255,0.03);
+          --card-shadow:0 6px 18px rgba(2,6,23,.6);
+          font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial
         }
-
-        html,body{
-          margin:0;
-          background:linear-gradient(180deg,var(--bg),#050506 120%);
-          color:#e6eef6
-        }
-
+        html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
         .wrap{max-width:1200px;margin:28px auto;padding:18px}
-
-        /* ---------- HEADER ---------- */
-        header{
-          display:flex;
-          align-items:center;
-          gap:18px;
-          margin-bottom:18px
-        }
-        .logo{
-          width:72px;height:72px;
-          border-radius:12px;
-          overflow:hidden
-        }
+        header{display:flex;align-items:center;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0}
         .logo img{width:100%;height:100%;object-fit:cover}
-
-        .title-wrap{display:flex;flex-direction:column}
-        .title-main{font-size:26px;font-weight:800;line-height:1.1}
-        .title-sub{font-size:15px;color:var(--muted);font-weight:500}
-
-        /* ---------- CONTROLS ---------- */
-        .controls{
-          display:flex;
-          gap:14px;
-          align-items:flex-start;
-          flex-wrap:wrap;
-          margin-bottom:10px
-        }
-        .controls-left{
-          display:flex;
-          flex-direction:column;
-          gap:8px
-        }
+        .title-wrap{display:flex;flex-direction:column;gap:2px}
+        .title-main{font-size:22px;font-weight:700;line-height:1}
+        .title-sub{font-size:14px;color:var(--muted);font-weight:500}
+        .controls{display:flex;gap:12px;align-items:flex-start;margin:10px 0;flex-wrap:wrap}
+        .controls-left{display:flex;flex-direction:column;gap:6px}
         .tabs{display:flex;gap:8px}
-
-        .tab-btn,.sort-btn{
-          background:var(--panel);
-          border:1px solid rgba(255,255,255,.08);
-          padding:9px 14px;
-          border-radius:10px;
-          color:inherit;
-          font-size:14px;
-          cursor:pointer;
-          transition:.12s
-        }
-        .tab-btn.active,.sort-btn.active{
-          background:var(--accent);
-          color:#000;
-          font-weight:700
-        }
-
+        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:280px}
+        .sort-btn,.tab-btn{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:.12s}
+        .sort-btn.active,.tab-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
+        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,.05);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:220px}
         .contact{font-size:12px;color:var(--muted)}
         .contact a{color:var(--accent);text-decoration:none}
-
-        .sort-grid{
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:8px;
-          min-width:280px
-        }
-
-        .search-input{
-          background:var(--panel);
-          border:1px solid rgba(255,255,255,.05);
-          padding:9px 14px;
-          border-radius:10px;
-          color:inherit;
-          font-size:14px;
-          min-width:220px
-        }
-
-        /* ---------- GALLERY ---------- */
-        .grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-          gap:14px;
-          margin-top:16px
-        }
-
-        .card{
-          background:var(--glass);
-          border-radius:12px;
-          overflow:hidden;
-          box-shadow:var(--shadow);
-          transition:transform .15s
-        }
+        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:14px}
+        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.04);box-shadow:var(--card-shadow);transition:transform .12s}
         .card:hover{transform:translateY(-6px)}
-
         .thumb-wrapper{
+          position:relative;
           width:100%;
-          aspect-ratio:3 / 1;
-          max-height:300px;
+          aspect-ratio:1 / 3;
+          max-height:360px;
           overflow:hidden;
-          background:#000
-        }
-
-        .thumb{
-          width:100%;
-          height:100%;
-          object-fit:cover;
+          background:#000;
           image-rendering:pixelated;
           cursor:pointer
         }
-
-        .meta{
-          padding:8px 10px;
-          display:flex;
-          flex-direction:column;
-          gap:6px
-        }
-        .meta .title{font-weight:600;font-size:14px}
-        .maps-tag{
-          align-self:flex-start;
-          font-size:12px;
-          padding:4px 9px;
-          border-radius:999px;
-          background:rgba(182,199,214,.18);
-          color:var(--accent);
-          font-weight:700
-        }
-
-        /* ---------- HOVER PREVIEW ---------- */
+        .meta{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+        .title{font-weight:600;font-size:14px}
+        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(182,199,214,.18);color:var(--accent);font-weight:600}
         .thumb-preview{
           position:fixed;
           left:50%;top:50%;
           transform:translate(-50%,-50%);
-          max-width:95vw;
-          max-height:95vh;
+          max-width:90vw;
+          max-height:90vh;
           border:4px solid var(--accent);
-          border-radius:14px;
-          box-shadow:0 30px 90px rgba(0,0,0,.9);
+          border-radius:12px;
+          box-shadow:0 30px 80px rgba(0,0,0,.9);
           pointer-events:none;
           z-index:999;
           opacity:0;
           transition:opacity .15s;
+          image-rendering:pixelated;
           background:#000;
-          image-rendering:pixelated
         }
         .thumb-preview.visible{opacity:1}
-
-        /* ---------- MODAL ---------- */
-        .modal{
-          position:fixed;
-          inset:0;
-          background:rgba(3,6,10,.94);
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          z-index:80;
-          opacity:0;
-          pointer-events:none;
-          transition:.25s
-        }
+        .modal{position:fixed;inset:0;background:rgba(3,6,10,.94);display:flex;align-items:center;justify-content:center;padding:10px;z-index:80;opacity:0;pointer-events:none;transition:.25s}
         .modal.open{opacity:1;pointer-events:auto}
-
-        #modalInner{
-          width:95vw;
-          height:95vh;
-          max-width:1600px;
-          background:var(--panel);
-          border-radius:14px;
-          overflow:hidden;
-          display:flex;
-          flex-direction:column
-        }
-
-        .modal-viewport{
-          flex:1;
-          background:#000;
-          display:flex;
-          align-items:center;
-          justify-content:center
-        }
-
-        .modal-img{
-          max-width:100%;
-          max-height:100%;
-          image-rendering:pixelated
-        }
-
-        .modal-controls{
-          padding:10px 14px;
-          background:rgba(15,17,19,.95);
-          font-size:13px;
-          color:var(--muted)
-        }
-
-        .close-x{
-          position:absolute;
-          top:16px;
-          right:18px;
-          font-size:22px;
-          background:var(--panel);
-          padding:8px 12px;
-          border-radius:10px;
-          cursor:pointer
-        }
+        #modalInner{display:flex;flex-direction:column;width:calc(100vw - 20px);height:92vh;max-width:1500px;border-radius:12px;overflow:hidden;background:var(--panel)}
+        .modal-viewport{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000}
+        .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none}
+        .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none}
+        .modal-controls{background:rgba(15,17,19,.95);padding:8px 12px;display:flex;gap:14px;align-items:flex-start}
+        .modal-meta{color:var(--muted);font-size:12px;flex:1}
+        .slider-wrap{display:flex;gap:8px;align-items:center}
+        .slider-label{font-size:11px;color:var(--muted);width:36px;text-align:right}
+        .slider-column{display:flex;flex-direction:column;gap:8px}
+        .slider-column input[type=range]{width:150px;height:4px;-webkit-appearance:none;background:var(--muted);border-radius:4px}
+        .slider-column input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:var(--accent);border-radius:50%}
+        .close-x{position:absolute;top:16px;right:18px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;font-size:18px}
+        @media(max-width:768px){.slider-column{display:none}}
     </style>
 </head>
-
 <body>
 <div class="wrap">
-
     <header>
         <div class="logo"><img src="images/DTM.png"></div>
         <div class="title-wrap">
@@ -240,9 +98,7 @@
                 <button id="tabMapart" class="tab-btn active">My Mapart</button>
                 <button id="tabScreens" class="tab-btn">Screenshots</button>
             </div>
-            <div class="contact">
-                Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
-            </div>
+            <div class="contact">Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a></div>
         </div>
 
         <div class="sort-grid" id="sortBar">
@@ -255,7 +111,7 @@
         <input id="search" class="search-input" placeholder="Search...">
     </div>
 
-    <div id="gallery" class="grid"></div>
+    <div class="grid" id="gallery"></div>
 </div>
 
 <img id="hoverPreview" class="thumb-preview">
@@ -263,30 +119,28 @@
 <div id="modal" class="modal">
     <div class="close-x" id="modalClose">×</div>
     <div id="modalInner">
-        <div class="modal-viewport">
-            <img id="modalImg" class="modal-img">
+        <div class="modal-viewport"><div class="modal-panzoom" id="panzoom"><img id="modalImg" class="modal-img"></div></div>
+        <div class="modal-controls">
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="slider-column">
+                <div class="slider-wrap"><div class="slider-label">Zoom</div><input type="range" id="zoom" min="30" max="500" value="100"></div>
+                <div class="slider-wrap"><div class="slider-label">Pan X</div><input type="range" id="panX" min="-2000" max="2000" value="0"></div>
+                <div class="slider-wrap"><div class="slider-label">Pan Y</div><input type="range" id="panY" min="-2000" max="2000" value="0"></div>
+            </div>
         </div>
-        <div class="modal-controls" id="modalMeta"></div>
     </div>
 </div>
 
 <script>
-    const gallery=document.getElementById('gallery');
-    const hover=document.getElementById('hoverPreview');
-    const modal=document.getElementById('modal');
-    const modalImg=document.getElementById('modalImg');
-    const modalMeta=document.getElementById('modalMeta');
-
+    const gallery=document.getElementById('gallery'),hover=document.getElementById('hoverPreview');
+    const sortLarge=document.getElementById('sortLarge');
+    const sortSmall=document.getElementById('sortSmall');
     let mode='mapart',sort='date-desc',DATA=[],SCREENSHOTS=[];
 
-    async function loadJSON(u){try{const r=await fetch(u);return r.ok?await r.json():[]}catch{return[]}}
-    const base=n=>n.split('/').pop().replace(/\.[^.]+$/,'');
+    async function loadJSON(url){try{const r=await fetch(url);if(!r.ok)throw 0;return await r.json()}catch{return []}}
+    function base(name){return name.split('/').pop().split('.').slice(0,-1).join('.')}
 
-    async function boot(){
-      DATA=await loadJSON('maps.json');
-      SCREENSHOTS=await loadJSON('screenshots.json');
-      render();
-    }
+    async function boot(){DATA=await loadJSON('maps.json');SCREENSHOTS=await loadJSON('screenshots.json');render()}
 
     function applySort(items){
       if(sort.startsWith('date')){
@@ -295,81 +149,71 @@
           const db=new Date(b.date||b.dateBuilt||0);
           return sort==='date-desc'?db-da:da-db;
         });
-      }else if(mode==='mapart'){
-        items.sort((a,b)=>sort==='size-desc'
-          ?(b.total||0)-(a.total||0)
-          :(a.total||0)-(b.total||0));
+      } else if(mode==='mapart'){
+        items.sort((a,b)=>(sort==='size-desc'?(b.total||0)-(a.total||0):(a.total||0)-(b.total||0)));
       }
     }
 
     function render(){
       gallery.innerHTML='';
       const q=document.getElementById('search').value.toLowerCase();
-      const items=(mode==='mapart'?DATA:SCREENSHOTS)
-        .filter(i=>!q||((i.title||base(i.image)).toLowerCase().includes(q)));
+      let items=(mode==='mapart'?DATA:SCREENSHOTS).filter(i=>!q||((i.title||base(i.image)).toLowerCase().includes(q)));
       applySort(items);
 
-      document.getElementById('sortLarge').style.display=mode==='mapart'?'':'none';
-      document.getElementById('sortSmall').style.display=mode==='mapart'?'':'none';
+      sortLarge.style.display=mode==='mapart'?'':'none';
+      sortSmall.style.display=mode==='mapart'?'':'none';
 
       items.forEach(m=>{
-        const c=document.createElement('div');c.className='card';
+        const card=document.createElement('div');card.className='card';
         const w=document.createElement('div');w.className='thumb-wrapper';
-        const i=document.createElement('img');i.className='thumb';i.src=m.thumb||m.image;
-
-        i.onmouseenter=()=>{hover.src=m.image;hover.classList.add('visible')};
-        i.onmouseleave=()=>hover.classList.remove('visible');
-        i.onclick=()=>openModal(m);
-
-        w.appendChild(i);c.appendChild(w);
-
+        const img=document.createElement('img');img.className='thumb';img.src=m.thumb||m.image;
+        img.onmouseenter=()=>{hover.src=m.image;hover.classList.add('visible')};
+        img.onmouseleave=()=>hover.classList.remove('visible');
+        img.onclick=()=>openModal(m);
+        w.appendChild(img);card.appendChild(w);
         if(mode==='mapart'){
-          const meta=document.createElement('div');
-          meta.className='meta';
+          const meta=document.createElement('div');meta.className='meta';
           meta.innerHTML=`<div class=title>${m.title}</div><div class=maps-tag>${m.total||''}</div>`;
-          c.appendChild(meta);
+          card.appendChild(meta);
         }
-        gallery.appendChild(c);
+        gallery.appendChild(card);
       });
     }
 
     function openModal(m){
-      modal.classList.add('open');
+      document.getElementById('modal').classList.add('open');
       document.body.style.overflow='hidden';
-      modalImg.src=m.image;
-      modalMeta.innerHTML=`<strong style="color:#fff">${m.title||base(m.image)}</strong>`;
+      document.getElementById('modalImg').src=m.image;
+
+      const link=(mode==='mapart'&&SCREENSHOTS.find(s=>base(s.image)===base(m.image)))
+        ?`<br><a style=color:var(--accent) onclick=\"switchToShot('${base(m.image)}')\">View in-game screenshot</a>`:'';
+
+      document.getElementById('modalMeta').innerHTML=
+        `<strong style=color:#fff>${m.title||base(m.image)}</strong>`+
+        (m.description?`<br>${m.description}`:'')+link;
     }
 
-    modal.onclick=e=>{
-      if(e.target===modal) closeModal();
-    };
-    document.getElementById('modalClose').onclick=closeModal;
-    function closeModal(){
-      modal.classList.remove('open');
-      document.body.style.overflow='';
+    function switchToShot(b){
+      mode='screens';
+      document.getElementById('tabScreens').classList.add('active');
+      document.getElementById('tabMapart').classList.remove('active');
+      document.getElementById('modal').classList.remove('open');
+      render();
+      setTimeout(()=>{const s=SCREENSHOTS.find(x=>base(x.image)===b);if(s)openModal(s)},50);
     }
 
-    document.querySelectorAll('.sort-btn').forEach(b=>b.onclick=()=>{
+    Array.from(document.querySelectorAll('.sort-btn')).forEach(b=>b.onclick=()=>{
       sort=b.dataset.sort;
       document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));
       b.classList.add('active');
       render();
     });
 
-    document.getElementById('tabMapart').onclick=e=>{
-      mode='mapart';
-      e.target.classList.add('active');
-      document.getElementById('tabScreens').classList.remove('active');
-      render();
-    };
-    document.getElementById('tabScreens').onclick=e=>{
-      mode='screens';
-      e.target.classList.add('active');
-      document.getElementById('tabMapart').classList.remove('active');
-      render();
-    };
+    document.getElementById('tabMapart').onclick=e=>{mode='mapart';e.target.classList.add('active');document.getElementById('tabScreens').classList.remove('active');render()};
+    document.getElementById('tabScreens').onclick=e=>{mode='screens';e.target.classList.add('active');document.getElementById('tabMapart').classList.remove('active');render()};
 
-    document.getElementById('search').oninput=render;
+    document.getElementById('search').oninput=()=>render();
+    document.getElementById('modalClose').onclick=()=>{document.getElementById('modal').classList.remove('open');document.body.style.overflow=''};
 
     boot();
 </script>

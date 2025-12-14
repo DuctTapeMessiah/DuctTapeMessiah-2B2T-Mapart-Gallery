@@ -116,6 +116,7 @@
             image-rendering:pixelated;
             cursor:pointer;
             transition:transform .2s;
+            loading:lazy;
         }
         .thumb:hover{
             transform:scale(1.05);
@@ -141,24 +142,35 @@
             font-weight:700
         }
 
-        /* ---------- HOVER PREVIEW ---------- */
+        /* ---------- HOVER PREVIEW (DESKTOP) ---------- */
         .thumb-preview{
             position:fixed;
             left:50%;top:50%;
             transform:translate(-50%,-50%);
-            max-width:95vw;
-            max-height:95vh;
+            width:calc(95vw - 8px);
+            height:calc(95vh - 8px);
             border:4px solid var(--accent);
             border-radius:14px;
             box-shadow:0 30px 90px rgba(0,0,0,.9);
             pointer-events:none;
             z-index:999;
             opacity:0;
-            transition:opacity .15s;
+            transition:opacity .2s;
             background:#000;
-            image-rendering:pixelated
+            image-rendering:pixelated;
+            object-fit:contain;
+            object-position:center;
         }
         .thumb-preview.visible{opacity:1}
+
+        @media (hover: none), (pointer: coarse) {
+            .thumb-preview {
+                display: none !important;
+            }
+            .thumb:hover {
+                transform: none;
+            }
+        }
 
         /* ---------- MODAL ---------- */
         .modal{
@@ -268,6 +280,9 @@
 
     let mode = 'mapart', sort = 'date-desc', DATA = [], SCREENSHOTS = [];
 
+    // Detect if device supports hover (desktop) vs touch (mobile)
+    const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     async function loadJSON(u) {
         try {
             const r = await fetch(u);
@@ -323,13 +338,24 @@
             i.className = 'thumb';
             i.src = m.thumb || m.image;
             i.alt = m.title || 'Thumbnail';
+            i.loading = 'lazy';
 
-            i.onmouseenter = () => {
-                hover.src = m.image;
-                hover.classList.add('visible');
+            // Only enable hover preview on non-touch devices
+            if (!isTouchDevice()) {
+                i.onmouseenter = () => {
+                    hover.src = m.image;
+                    hover.classList.add('visible');
+                };
+                i.onmouseleave = () => {
+                    hover.classList.remove('visible');
+                };
+            }
+
+            // Click always opens modal (on both desktop and mobile)
+            i.onclick = (e) => {
+                e.preventDefault();
+                openModal(m);
             };
-            i.onmouseleave = () => hover.classList.remove('visible');
-            i.onclick = () => openModal(m);
 
             w.appendChild(i);
             c.appendChild(w);

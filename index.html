@@ -18,7 +18,7 @@
             font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial
         }
         html,body{margin:0;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
-        .wrap{max-width:85%;margin:28px auto 28px 5%;padding:18px}
+        .wrap{max-width:1200px;margin:28px auto;padding:18px}
 
         header{display:flex;align-items:center;gap:18px;margin-bottom:18px}
         .logo{width:72px;height:72px;border-radius:12px;overflow:hidden}
@@ -77,8 +77,8 @@
 
         .thumb-preview{
             position:fixed;
-            top:280px;
-            right:5vw;
+            top:calc(5vh + 28px);
+            right:10vw;
             width:35vw;height:35vw;
             max-width:450px;max-height:450px;
             border:3px solid var(--accent);border-radius:14px;

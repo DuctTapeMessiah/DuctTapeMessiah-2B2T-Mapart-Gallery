@@ -174,6 +174,24 @@
             .slider-label{display:none}
             .slider-row button{font-size:14px;padding:10px}
         }
+        .modal-stats{
+            margin:10px 0;
+          text-align:center;
+          display:flex;
+          flex-direction:column;
+           gap:10px;
+        }
+        .modal-stat-label{
+          font-size:12px;
+          color:var(--muted);
+          letter-spacing:0.04em;
+        }
+        .modal-stat-value{
+         font-size:16px;
+         font-weight:700;
+            color:var(--accent);
+        }
+
     </style>
 </head>
 <body>
@@ -370,13 +388,29 @@
                 dateStr = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             }
         }
+        let statsBlock = '';
 
-        const totalMapsStr = mode === 'mapart' ? `<div style="margin:6px 0;font-size:13px;color:var(--accent)">${m.totalMaps || '?'} maps</div>` : '';
+        if (mode === 'mapart') {
+            statsBlock = `
+                <div class="modal-stats">
+                 <div>
+                      <div class="modal-stat-label">TOTAL MAPS</div>
+                       <div class="modal-stat-value">${m.totalMaps ?? '?'}</div>
+                   </div>
+                   ${dateStr ? `
+                   <div>
+                        <div class="modal-stat-label">DATE BUILT</div>
+                     <div class="modal-stat-value">${dateStr}</div>
+                   </div>` : ''}
+             </div>
+          `;
+        }
+
+
 
         modalOverlay.innerHTML = `
             ${m.title ? `<strong>${m.title}</strong>` : ''}
-            ${dateStr ? `<div class="date">${dateStr}</div>` : ''}
-            ${totalMapsStr}
+            ${statsBlock}
             ${m.description || m.artistCredit ? `<button class="details-btn" id="detailsBtn">Show Details ▼</button>` : ''}
             <div id="extraDetails" style="display:none;">
                 ${m.description ? `<div class="desc">${m.description}</div>` : ''}

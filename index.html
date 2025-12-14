@@ -3,219 +3,112 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DuctTapeMessiah — 2B2T Gallery</title>
+    <title>DuctTapeMessiah — 2B2T Mapart Gallery</title>
     <link rel="canonical" href="https://ducttapemessiah.art"/>
     <style>
         :root{
-          --bg:#0b0b0d;
-          --panel:#0f1113;
-          --muted:#94a3b8;
-          --accent:#b6c7d6;
-          --glass:rgba(255,255,255,0.03);
-          --card-shadow:0 6px 18px rgba(2,6,23,.6);
-          font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial
+         --bg:#0b0b0d;
+         --panel:#0f1113;
+         --muted:#94a3b8;
+         --accent:#6ee7b7;
+         --glass:rgba(255,255,255,0.03);
+         --card-shadow:0 6px 18px rgba(2,6,23,.6);
+         font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial
         }
         html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--bg),#050506 120%);color:#e6eef6}
         .wrap{max-width:1200px;margin:28px auto;padding:18px}
-        header{display:flex;align-items:center;gap:18px;margin-bottom:18px;flex-wrap:wrap}
-        .logo{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0}
+        header{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wrap}
+        .logo{width:80px;height:80px;border-radius:12px;overflow:hidden;flex-shrink:0}
         .logo img{width:100%;height:100%;object-fit:cover}
-        .title-wrap{display:flex;flex-direction:column;gap:2px}
-        .title-main{font-size:22px;font-weight:700;line-height:1}
-        .title-sub{font-size:14px;color:var(--muted);font-weight:500}
-        .controls{display:flex;gap:12px;align-items:flex-start;margin:10px 0;flex-wrap:wrap}
-        .controls-left{display:flex;flex-direction:column;gap:6px}
-        .tabs{display:flex;gap:8px}
-        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:280px}
-        .sort-btn,.tab-btn{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:.12s}
-        .sort-btn.active,.tab-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
-        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,.05);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:220px}
-        .contact{font-size:12px;color:var(--muted)}
-        .contact a{color:var(--accent);text-decoration:none}
-        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:14px}
-        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.04);box-shadow:var(--card-shadow);transition:transform .12s}
+        h1{font-size:20px;margin:0;font-weight:600}
+        .controls{display:flex;gap:12px;align-items:center;margin:12px 0;flex-wrap:wrap;justify-content:space-between}
+        .sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:320px;max-width:720px;width:60%}
+        .sort-btn{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:9px 12px;border-radius:10px;color:inherit;font-size:14px;cursor:pointer;transition:.12s;display:flex;align-items:center;justify-content:center}
+        .sort-btn.active{background:var(--accent);color:#000;font-weight:600;border-color:var(--accent)}
+        .search-input{background:var(--panel);border:1px solid rgba(255,255,255,.03);padding:8px 12px;border-radius:8px;color:inherit;font-size:14px;min-width:240px}
+        .stats{margin-left:auto;display:flex;gap:16px;align-items:center;color:var(--muted);font-size:14px;font-weight:500}
+        .grid{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px;margin-top:16px}
+        .card{background:var(--glass);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.02);box-shadow:var(--card-shadow);transition:transform .12s;display:flex;flex-direction:column}
         .card:hover{transform:translateY(-6px)}
-        .thumb-wrapper{
-          position:relative;
-          width:100%;
-          aspect-ratio:1 / 3;
-          max-height:360px;
-          overflow:hidden;
-          background:#000;
-          image-rendering:pixelated;
-          cursor:pointer
-        }
-        .meta{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
-        .title{font-weight:600;font-size:14px}
-        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(182,199,214,.18);color:var(--accent);font-weight:600}
-        .thumb-preview{
-          position:fixed;
-          left:50%;top:50%;
-          transform:translate(-50%,-50%);
-          max-width:90vw;
-          max-height:90vh;
-          border:4px solid var(--accent);
-          border-radius:12px;
-          box-shadow:0 30px 80px rgba(0,0,0,.9);
-          pointer-events:none;
-          z-index:999;
-          opacity:0;
-          transition:opacity .15s;
-          image-rendering:pixelated;
-          background:#000;
-        }
+        .thumb-wrapper{position:relative;width:100%;max-width:384px;max-height:320px;align-self:center;overflow:hidden;border-radius:6px}
+        .thumb{width:100%;height:100%;object-fit:contain;background:#000;image-rendering:pixelated;cursor:pointer}
+        .thumb-preview{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:75vw;max-height:75vh;border:4px solid var(--accent);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.9);pointer-events:none;z-index:999;opacity:0;transition:.18s;image-rendering:pixelated;background:#000}
         .thumb-preview.visible{opacity:1}
-        .modal{position:fixed;inset:0;background:rgba(3,6,10,.94);display:flex;align-items:center;justify-content:center;padding:10px;z-index:80;opacity:0;pointer-events:none;transition:.25s}
+        .meta{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between}
+        .title{font-weight:600;font-size:14px;line-height:1.3}
+        .maps-tag{align-self:flex-start;font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(110,231,183,.15);color:var(--accent);font-weight:600}
+        .close-x{position:absolute;top:18px;right:20px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;z-index:100;font-size:18px}
+        .modal{position:fixed;inset:0;background:rgba(3,6,10,.94);display:flex;align-items:center;justify-content:center;padding:20px;z-index:80;opacity:0;pointer-events:none;transition:.25s}
         .modal.open{opacity:1;pointer-events:auto}
-        #modalInner{display:flex;flex-direction:column;width:calc(100vw - 20px);height:92vh;max-width:1500px;border-radius:12px;overflow:hidden;background:var(--panel)}
-        .modal-viewport{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000}
-        .modal-panzoom{width:100%;height:100%;display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none}
-        .modal-img{max-width:none;max-height:none;image-rendering:pixelated;user-select:none;pointer-events:none}
-        .modal-controls{background:rgba(15,17,19,.95);padding:8px 12px;display:flex;gap:14px;align-items:flex-start}
-        .modal-meta{color:var(--muted);font-size:12px;flex:1}
-        .slider-wrap{display:flex;gap:8px;align-items:center}
-        .slider-label{font-size:11px;color:var(--muted);width:36px;text-align:right}
-        .slider-column{display:flex;flex-direction:column;gap:8px}
-        .slider-column input[type=range]{width:150px;height:4px;-webkit-appearance:none;background:var(--muted);border-radius:4px}
-        .slider-column input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:var(--accent);border-radius:50%}
-        .close-x{position:absolute;top:16px;right:18px;background:var(--panel);border-radius:8px;padding:8px;cursor:pointer;font-size:18px}
-        @media(max-width:768px){.slider-column{display:none}}
+        #modalInner{display:flex;flex-direction:column;width:calc(100vw - 40px);height:85vh;max-width:1400px;border-radius:12px;overflow:hidden;background:var(--panel)}
+        .modal-viewport{flex:1;display:flex;align-items:center;justify-content:center;background:#000}
+        .modal-img{image-rendering:pixelated}
+        .modal-controls{background:rgba(15,17,19,.95);padding:8px 12px}
     </style>
 </head>
 <body>
 <div class="wrap">
     <header>
         <div class="logo"><img src="images/DTM.png"></div>
-        <div class="title-wrap">
-            <div class="title-main">DuctTapeMessiah</div>
-            <div class="title-sub">2B2T Gallery</div>
-        </div>
+        <h1>DuctTapeMessiah — 2B2T Mapart Gallery</h1>
+        <div class="stats"><div>Entries: <span id="totalCount">0</span></div><div>Total: <span id="totalTiles">0</span> maps</div></div>
     </header>
-
     <div class="controls">
-        <div class="controls-left">
-            <div class="tabs">
-                <button id="tabMapart" class="tab-btn active">My Mapart</button>
-                <button id="tabScreens" class="tab-btn">Screenshots</button>
-            </div>
-            <div class="contact">Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a></div>
+        <div class="sort-grid">
+            <button class="sort-btn" data-sort="date-desc">Newest First</button>
+            <button class="sort-btn" data-sort="size-desc">Largest First</button>
+            <button class="sort-btn" data-sort="date-asc">Oldest First</button>
+            <button class="sort-btn" data-sort="size-asc">Smallest First</button>
         </div>
-
-        <div class="sort-grid" id="sortBar">
-            <button class="sort-btn active" data-sort="date-desc">Newest</button>
-            <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
-            <button class="sort-btn" data-sort="date-asc">Oldest</button>
-            <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
-        </div>
-
-        <input id="search" class="search-input" placeholder="Search...">
+        <input id="search" class="search-input" placeholder="Search title...">
     </div>
-
     <div class="grid" id="gallery"></div>
 </div>
-
 <img id="hoverPreview" class="thumb-preview">
-
-<div id="modal" class="modal">
-    <div class="close-x" id="modalClose">×</div>
-    <div id="modalInner">
-        <div class="modal-viewport"><div class="modal-panzoom" id="panzoom"><img id="modalImg" class="modal-img"></div></div>
-        <div class="modal-controls">
-            <div class="modal-meta" id="modalMeta"></div>
-            <div class="slider-column">
-                <div class="slider-wrap"><div class="slider-label">Zoom</div><input type="range" id="zoom" min="30" max="500" value="100"></div>
-                <div class="slider-wrap"><div class="slider-label">Pan X</div><input type="range" id="panX" min="-2000" max="2000" value="0"></div>
-                <div class="slider-wrap"><div class="slider-label">Pan Y</div><input type="range" id="panY" min="-2000" max="2000" value="0"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<div id="modal" class="modal"><div class="close-x" id="modalClose">×</div><div id="modalInner"><div class="modal-viewport"><img id="modalImg" class="modal-img"></div><div class="modal-controls" id="modalMeta"></div></div></div>
 <script>
-    const gallery=document.getElementById('gallery'),hover=document.getElementById('hoverPreview');
-    const sortLarge=document.getElementById('sortLarge');
-    const sortSmall=document.getElementById('sortSmall');
-    let mode='mapart',sort='date-desc',DATA=[],SCREENSHOTS=[];
+    async function loadMaps(){const r=await fetch('maps.json');return r.ok?await r.json():[]}
+    const gallery=document.getElementById('gallery');
+    const modal=document.getElementById('modal');
+    const modalImg=document.getElementById('modalImg');
+    const modalMeta=document.getElementById('modalMeta');
+    const hover=document.getElementById('hoverPreview');
+    const totalCountEl=document.getElementById('totalCount');
+    const totalTilesEl=document.getElementById('totalTiles');
+    let sort='date-desc';
 
-    async function loadJSON(url){try{const r=await fetch(url);if(!r.ok)throw 0;return await r.json()}catch{return []}}
-    function base(name){return name.split('/').pop().split('.').slice(0,-1).join('.')}
+    document.querySelectorAll('.sort-btn').forEach(b=>b.onclick=()=>{sort=b.dataset.sort;document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()});
 
-    async function boot(){DATA=await loadJSON('maps.json');SCREENSHOTS=await loadJSON('screenshots.json');render()}
+    function openModal(m){modal.classList.add('open');document.body.style.overflow='hidden';modalImg.src=m.image;modalMeta.textContent=m.title}
+    function closeModal(){modal.classList.remove('open');document.body.style.overflow=''}
+    document.getElementById('modalClose').onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()}
 
-    function applySort(items){
-      if(sort.startsWith('date')){
-        items.sort((a,b)=>{
-          const da=new Date(a.date||a.dateBuilt||0);
-          const db=new Date(b.date||b.dateBuilt||0);
-          return sort==='date-desc'?db-da:da-db;
-        });
-      } else if(mode==='mapart'){
-        items.sort((a,b)=>(sort==='size-desc'?(b.total||0)-(a.total||0):(a.total||0)-(b.total||0)));
-      }
+    async function render(){
+     const maps=await loadMaps();
+     let items=maps.map(m=>({...m,total:m.w*m.h||0,date:new Date(m.dateBuilt||0)}));
+     const q=document.getElementById('search').value.toLowerCase();
+     if(q)items=items.filter(i=>i.title.toLowerCase().includes(q));
+     if(sort==='date-desc')items.sort((a,b)=>b.date-a.date);
+     if(sort==='date-asc')items.sort((a,b)=>a.date-b.date);
+     if(sort==='size-desc')items.sort((a,b)=>b.total-a.total);
+     if(sort==='size-asc')items.sort((a,b)=>a.total-b.total);
+     totalCountEl.textContent=items.length;
+     totalTilesEl.textContent=items.reduce((s,i)=>s+i.total,0);
+     gallery.innerHTML='';
+     items.forEach(m=>{
+      const card=document.createElement('div');card.className='card';
+      const w=document.createElement('div');w.className='thumb-wrapper';
+      const img=document.createElement('img');img.className='thumb';img.src=m.thumb||m.image;
+      img.onmouseenter=()=>{hover.src=m.image;hover.classList.add('visible')};
+      img.onmouseleave=()=>hover.classList.remove('visible');
+      img.onclick=()=>openModal(m);
+      w.appendChild(img);
+      const meta=document.createElement('div');meta.className='meta';
+      meta.innerHTML=`<div class=title>${m.title}</div><div class=maps-tag>${m.total} maps</div>`;
+      card.append(w,meta);gallery.appendChild(card);
+     });
     }
-
-    function render(){
-      gallery.innerHTML='';
-      const q=document.getElementById('search').value.toLowerCase();
-      let items=(mode==='mapart'?DATA:SCREENSHOTS).filter(i=>!q||((i.title||base(i.image)).toLowerCase().includes(q)));
-      applySort(items);
-
-      sortLarge.style.display=mode==='mapart'?'':'none';
-      sortSmall.style.display=mode==='mapart'?'':'none';
-
-      items.forEach(m=>{
-        const card=document.createElement('div');card.className='card';
-        const w=document.createElement('div');w.className='thumb-wrapper';
-        const img=document.createElement('img');img.className='thumb';img.src=m.thumb||m.image;
-        img.onmouseenter=()=>{hover.src=m.image;hover.classList.add('visible')};
-        img.onmouseleave=()=>hover.classList.remove('visible');
-        img.onclick=()=>openModal(m);
-        w.appendChild(img);card.appendChild(w);
-        if(mode==='mapart'){
-          const meta=document.createElement('div');meta.className='meta';
-          meta.innerHTML=`<div class=title>${m.title}</div><div class=maps-tag>${m.total||''}</div>`;
-          card.appendChild(meta);
-        }
-        gallery.appendChild(card);
-      });
-    }
-
-    function openModal(m){
-      document.getElementById('modal').classList.add('open');
-      document.body.style.overflow='hidden';
-      document.getElementById('modalImg').src=m.image;
-
-      const link=(mode==='mapart'&&SCREENSHOTS.find(s=>base(s.image)===base(m.image)))
-        ?`<br><a style=color:var(--accent) onclick=\"switchToShot('${base(m.image)}')\">View in-game screenshot</a>`:'';
-
-      document.getElementById('modalMeta').innerHTML=
-        `<strong style=color:#fff>${m.title||base(m.image)}</strong>`+
-        (m.description?`<br>${m.description}`:'')+link;
-    }
-
-    function switchToShot(b){
-      mode='screens';
-      document.getElementById('tabScreens').classList.add('active');
-      document.getElementById('tabMapart').classList.remove('active');
-      document.getElementById('modal').classList.remove('open');
-      render();
-      setTimeout(()=>{const s=SCREENSHOTS.find(x=>base(x.image)===b);if(s)openModal(s)},50);
-    }
-
-    Array.from(document.querySelectorAll('.sort-btn')).forEach(b=>b.onclick=()=>{
-      sort=b.dataset.sort;
-      document.querySelectorAll('.sort-btn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      render();
-    });
-
-    document.getElementById('tabMapart').onclick=e=>{mode='mapart';e.target.classList.add('active');document.getElementById('tabScreens').classList.remove('active');render()};
-    document.getElementById('tabScreens').onclick=e=>{mode='screens';e.target.classList.add('active');document.getElementById('tabMapart').classList.remove('active');render()};
-
-    document.getElementById('search').oninput=()=>render();
-    document.getElementById('modalClose').onclick=()=>{document.getElementById('modal').classList.remove('open');document.body.style.overflow=''};
-
-    boot();
+    render();
 </script>
 </body>
 </html>

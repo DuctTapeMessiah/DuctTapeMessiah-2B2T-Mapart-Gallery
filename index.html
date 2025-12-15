@@ -47,7 +47,7 @@
           background-repeat: no-repeat;
           filter: brightness(0.65) blur(2px);
           opacity: 0;
-          transition: opacity 1.5s ease-in-out;
+          transition: opacity 2s ease-in-out;
           will-change: opacity, transform;
         }
 
@@ -486,7 +486,7 @@
         }
 
         .slider-row button {
-          padding: 6px 10px;
+          padding: 6px 10, 10px;
           font-size: 12px;
           background: var(--panel);
           border: none;
@@ -589,15 +589,8 @@
     const fitViewBtn = document.getElementById('fitViewBtn');
     const fillViewBtn = document.getElementById('fillViewBtn');
 
-    if (fitViewBtn) fitViewBtn.onclick = () => {
-      fitView();
-      showUI();
-    };
-
-    if (fillViewBtn) fillViewBtn.onclick = () => {
-      fillView();
-      showUI();
-    };
+    if (fitViewBtn) fitViewBtn.onclick = () => { fitView(); showUI(); };
+    if (fillViewBtn) fillViewBtn.onclick = () => { fillView(); showUI(); };
 
     let mode = 'mapart';
     let sort = 'date-desc';
@@ -641,10 +634,7 @@
           m.totalMaps = m.w * m.h;
           resolve();
         };
-        img.onerror = () => {
-          m.totalMaps = 0;
-          resolve();
-        };
+        img.onerror = () => { m.totalMaps = 0; resolve(); };
       })));
 
       startBackgroundSlideshow(9000);
@@ -653,25 +643,24 @@
       render();
     }
 
-    let bgIndex = 0;
     let bgToggle = false;
     let bgTimer = null;
 
     function startBackgroundSlideshow(interval = 9000) {
-  if (!SCREENSHOTS.length) return;
+      if (!SCREENSHOTS.length) return;
 
-  const bgA = document.getElementById('bgA');
-  const bgB = document.getElementById('bgB');
+      const bgA = document.getElementById('bgA');
+      const bgB = document.getElementById('bgB');
 
-  let shuffled = [...SCREENSHOTS];
-  let currentIdx = 0;
+      let shuffled = [...SCREENSHOTS];
+      let currentIdx = 0;
 
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
 
-  function nextBackground() {
+      function nextBackground() {
         const next = shuffled[currentIdx];
         const src = next.image || `screenshots/${next.file}`;
 
@@ -680,22 +669,32 @@
 
         incoming.style.backgroundImage = `url('${src}')`;
         incoming.classList.add('active', 'animate');
-        outgoing.classList.remove('active', 'animate');
+        incoming.classList.remove('fadeout');
+
+        outgoing.classList.add('fadeout');
 
         bgToggle = !bgToggle;
         currentIdx = (currentIdx + 1) % shuffled.length;
 
         if (currentIdx === 0) {
-        for (let i = shuffled.length - 1; i > 0; i--) {
+          for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
         }
-        }
+      }
+
+      nextBackground();
+      bgTimer = setInterval(nextBackground, interval);
     }
 
-    nextBackground();
-    bgTimer = setInterval(nextBackground, interval);
-    }
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+      .bg-layer.fadeout {
+        opacity: 0 !important;
+        transition: opacity 2s ease-in-out;
+      }
+    `, styleSheet.cssRules.length);
 
     function extractDateFromFilename(filename) {
       const match = filename.match(/(\d{4}-\d{2}-\d{2})/);

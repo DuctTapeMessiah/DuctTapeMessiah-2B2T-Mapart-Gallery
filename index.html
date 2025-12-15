@@ -77,7 +77,7 @@
 
         .modal-details {
             position: absolute;
-            top: 80px;
+            top: calc(16px + var(--title-height, 72px) + 10px);
             left: 16px;
             background: var(--overlay-glass);
             backdrop-filter: blur(12px);
@@ -162,28 +162,35 @@
             right: 80px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding: 12px 14px;
+            gap: 6px;
+            padding: 8px 10px;
             background: var(--overlay-glass);
             backdrop-filter: blur(12px);
-            border-radius: 12px;
-            font-size: 11px;
+            border-radius: 10px;
+            font-size: 10px;
             z-index: 20;
             transition: opacity .4s;
             opacity: 0;
-            min-width: 180px;
-            align-items: center;
+            min-width: 120px;
         }
+
         .modal-controls.visible { opacity: 1; }
 
         .slider-row {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #e6eef6;
+            gap: 4px;
             width: 100%;
         }
+
+        .slider-label {
+            width: auto;
+            font-size: 10px;
+            opacity: .75;
+            text-align: center;
+        }
+
         .slider-row input[type="range"] {
             flex: 1;
             height: 6px;
@@ -199,7 +206,6 @@
             border-radius: 50%;
             cursor: pointer;
         }
-        .slider-label { width: 42px; font-size: 11px; }
         .slider-row button {
             padding: 6px 10px;
             font-size: 12px;
@@ -262,10 +268,13 @@
     </div>
 
     <div class="modal-controls" id="modalControls">
-        <div class="slider-row"><button id="resetViewBtn">Reset View</button></div>
+        <div class="slider-row" style="flex-direction:row; gap:6px;">
+            <button id="fitViewBtn">Fit</button>
+            <button id="fillViewBtn">Fill</button>
+        </div>
         <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
-        <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.001" value="0"></div>
-        <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.001" value="0"></div>
+        <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
+        <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
     </div>
 </div>
 
@@ -279,10 +288,22 @@
     const modalViewport = document.getElementById('modalViewport');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const resetBtn = document.getElementById('resetViewBtn');
     const zoomSlider = document.getElementById('zoomSlider');
     const panXSlider = document.getElementById('panXSlider');
     const panYSlider = document.getElementById('panYSlider');
+    const modalControls = document.getElementById('modalControls');
+    const fitViewBtn = document.getElementById('fitViewBtn');
+    const fillViewBtn = document.getElementById('fillViewBtn');
+
+    if (fitViewBtn) fitViewBtn.onclick = () => {
+        fitView();
+        showUI();
+    };
+
+    if (fillViewBtn) fillViewBtn.onclick = () => {
+        fillView();
+        showUI();
+    };
 
     let mode = 'mapart';
     let sort = 'date-desc';
@@ -417,6 +438,24 @@
         syncSliders();
     }
 
+    function fillView(){
+            if (!modalImg.naturalWidth) return;
+            const vpW = modalViewport.clientWidth;
+            const vpH = modalViewport.clientHeight;
+
+            const scale = Math.max(
+                vpW / modalImg.naturalWidth,
+                vpH / modalImg.naturalHeight
+            );
+
+            state.scale = scale;
+            state.offsetX = 0;
+            state.offsetY = 0;
+            clampPan();
+            updateTransform();
+            syncSliders();
+        }
+
     function resetView(){
         state.scale = state.initialFitScale;
         state.offsetX = 0;
@@ -454,48 +493,65 @@
 
 
     function openModal(idx){
-        currentIndex=idx; const m=items[idx]; if(!m) return;
-        modal.classList.add('open'); document.body.style.overflow='hidden';
-        modalImg.src=m.image;
+        currentIndex = idx;
+        const m = items[idx];
+        if (!m) return;
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        modalImg.src = m.image;
 
         let titleHtml = '';
-        if(m.title) titleHtml += `<strong>${m.title}</strong>`;
+        if (m.title) titleHtml += `<strong>${m.title}</strong>`;
+
         let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
-        if(dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
+        if (dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
 
         const desc = m.description || '';
         const credit = m.artistCredit || '';
         const hasDetails = desc || credit;
 
-        if(hasDetails){
+        if (hasDetails){
             titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
         }
 
         modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
 
+        requestAnimationFrame(() => {
+            const h = modalTitleOverlay.getBoundingClientRect().height;
+            document.documentElement.style.setProperty('--title-height', `${h}px`);
+        });
+
         let detailsHtml = '';
-        if(desc) detailsHtml += `<div class="desc">${desc}</div>`;
-        if(credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
+        if (desc) detailsHtml += `<div class="desc">${desc}</div>`;
+        if (credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
         modalDetails.innerHTML = detailsHtml;
 
         state.detailsShown = false;
         modalDetails.classList.remove('visible');
 
         const toggleBtn = document.getElementById('toggleDetails');
-        if(toggleBtn){
+        if (toggleBtn){
             toggleBtn.onclick = () => {
                 state.detailsShown = !state.detailsShown;
                 toggleBtn.textContent = state.detailsShown ? 'Hide Details' : 'View Details';
                 modalDetails.classList.toggle('visible', state.detailsShown);
+
+                requestAnimationFrame(() => {
+                    const h = modalTitleOverlay.getBoundingClientRect().height;
+                    document.documentElement.style.setProperty('--title-height', `${h}px`);
+                });
+
                 showUI();
             };
         }
 
         showUI();
 
-        prevBtn.style.display=idx>0?'flex':'none';
-        nextBtn.style.display=idx<items.length-1?'flex':'none';
+        prevBtn.style.display = idx > 0 ? 'flex' : 'none';
+        nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
     }
+
 
     zoomSlider.oninput = () => {
         state.scale = parseFloat(zoomSlider.value);
@@ -515,7 +571,6 @@
         updateTransform();
     };
 
-    resetBtn.onclick = resetView;
 
     modalViewport.addEventListener('wheel', e => {
         e.preventDefault();

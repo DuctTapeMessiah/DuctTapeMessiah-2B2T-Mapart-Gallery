@@ -25,19 +25,6 @@
           overflow-x: hidden;
         }
 
-        #bgLayer {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          filter: brightness(0.65) blur(2px);
-        }
-
         .bg-layer {
           position: fixed;
           inset: 0;
@@ -216,7 +203,7 @@
           height: 100%;
           object-fit: contain;
           object-position: center;
-          image-rendering: pixelated;
+          image-rendering: auto;
           cursor: pointer;
           transition: transform .2s;
         }
@@ -371,7 +358,7 @@
         }
 
         .modal-img {
-          image-rendering: pixelated;
+          image-rendering: auto;
           user-select: none;
           pointer-events: none;
           transform-origin: center center;
@@ -449,6 +436,12 @@
           min-width: 120px;
         }
 
+        .mapart .thumb,
+        .mapart .modal-img,
+        .mapart .thumb-preview {
+          image-rendering: pixelated;
+        }
+
         .modal-controls.visible {
           opacity: 1;
         }
@@ -486,7 +479,7 @@
         }
 
         .slider-row button {
-          padding: 6px 10, 10px;
+          padding: 6px 10px;
           font-size: 12px;
           background: var(--panel);
           border: none;
@@ -510,6 +503,51 @@
             right: 12px;
           }
         }
+
+        body.ui-hidden .wrap,
+        body.ui-hidden .modal > *:not(#uiToggleBtn),
+        body.ui-hidden .thumb-preview {
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+
+        body.ui-hidden .bg-layer {
+          filter: brightness(1) blur(0px);
+        }
+
+        #uiToggleBtn {
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          background: var(--panel);
+          border: 1px solid rgba(255,255,255,.08);
+          box-shadow: var(--shadow);
+          padding: 9px 14px;
+          border-radius: 10px;
+          font-size: 14px;
+          color: inherit;
+          cursor: pointer;
+          z-index: 1000;
+          transition: opacity .2s ease, transform .12s ease;
+        }
+
+        #uiToggleBtn:hover {
+          transform: translateY(-2px);
+          opacity: 1 !important;
+        }
+
+        body.ui-hidden #uiToggleBtn {
+          opacity: 0.6;
+        }
+
+        body:not(.ui-hidden) #uiToggleBtn {
+          opacity: 0.85;
+        }
+
+        .bg-layer.fadeout {
+          opacity: 0 !important;
+          transition: opacity 2s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -531,11 +569,13 @@
                 <button id="tabMapart" class="tab-btn active">My Mapart</button>
                 <button id="tabScreens" class="tab-btn">Screenshots</button>
             </div>
-            <div class="contact">Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a></div>
+            <div class="contact">
+                Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
+            </div>
         </div>
 
         <div class="sort-grid">
-            <button class="sort-btn" data-sort="date-desc">Newest</button>
+            <button class="sort-btn active" data-sort="date-desc">Newest</button>
             <button class="sort-btn" data-sort="size-desc" id="sortLarge">Largest</button>
             <button class="sort-btn" data-sort="date-asc">Oldest</button>
             <button class="sort-btn" data-sort="size-asc" id="sortSmall">Smallest</button>
@@ -572,6 +612,8 @@
     </div>
 </div>
 
+<button id="uiToggleBtn">Hide UI</button>
+
 <script>
     const gallery = document.getElementById('gallery');
     const hover = document.getElementById('hoverPreview');
@@ -588,6 +630,7 @@
     const modalControls = document.getElementById('modalControls');
     const fitViewBtn = document.getElementById('fitViewBtn');
     const fillViewBtn = document.getElementById('fillViewBtn');
+    const uiToggleBtn = document.getElementById('uiToggleBtn');
 
     if (fitViewBtn) fitViewBtn.onclick = () => { fitView(); showUI(); };
     if (fillViewBtn) fillViewBtn.onclick = () => { fillView(); showUI(); };
@@ -595,6 +638,8 @@
     let mode = 'mapart';
     let sort = 'date-desc';
     let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1, uiTimeout;
+    let uiHidden = false;
+
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
     let state = {
@@ -619,6 +664,17 @@
       }
     }
 
+    function toggleUIHide() {
+        uiHidden = !uiHidden;
+        if (uiHidden) {
+            document.body.classList.add('ui-hidden');
+            uiToggleBtn.textContent = 'Show UI';
+        } else {
+            document.body.classList.remove('ui-hidden');
+            uiToggleBtn.textContent = 'Hide UI';
+        }
+    }
+
     async function boot() {
       DATA = await loadJSON('maps.json');
       SCREENSHOTS = await loadJSON('screenshots.json');
@@ -636,6 +692,8 @@
         };
         img.onerror = () => { m.totalMaps = 0; resolve(); };
       })));
+
+      uiToggleBtn.onclick = toggleUIHide;
 
       startBackgroundSlideshow(9000);
 
@@ -672,6 +730,10 @@
         incoming.classList.remove('fadeout');
 
         outgoing.classList.add('fadeout');
+        setTimeout(() => {
+            outgoing.classList.remove('active', 'animate', 'fadeout');
+            outgoing.style.transform = '';
+        }, 1200);
 
         bgToggle = !bgToggle;
         currentIdx = (currentIdx + 1) % shuffled.length;
@@ -687,14 +749,6 @@
       nextBackground();
       bgTimer = setInterval(nextBackground, interval);
     }
-
-    const styleSheet = document.styleSheets[0];
-    styleSheet.insertRule(`
-      .bg-layer.fadeout {
-        opacity: 0 !important;
-        transition: opacity 2s ease-in-out;
-      }
-    `, styleSheet.cssRules.length);
 
     function extractDateFromFilename(filename) {
       const match = filename.match(/(\d{4}-\d{2}-\d{2})/);
@@ -1031,10 +1085,15 @@
     nextBtn.onclick = () => { navigate(1); showUI(); };
 
     document.addEventListener('keydown', e => {
-      if (!modal.classList.contains('open')) return;
-      if (e.key === 'ArrowLeft') { navigate(-1); showUI(); }
-      if (e.key === 'ArrowRight') { navigate(1); showUI(); }
-      if (e.key === 'Escape') closeModal();
+      if (modal.classList.contains('open')) {
+        if (e.key === 'ArrowLeft') { navigate(-1); showUI(); }
+        if (e.key === 'ArrowRight') { navigate(1); showUI(); }
+        if (e.key === 'Escape') closeModal();
+      } else if (document.body.classList.contains('ui-hidden')) {
+        if (e.key === 'Escape' || e.key === ' ') {
+          toggleUIHide();
+        }
+      }
     });
 
     modal.onclick = e => { if (e.target === modal) closeModal(); };
@@ -1042,6 +1101,8 @@
 
     document.getElementById('tabMapart').onclick = () => {
       mode = 'mapart';
+      document.body.classList.add('mapart');
+      document.body.classList.remove('screens');
       document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
       document.getElementById('tabMapart').classList.add('active');
       render();
@@ -1049,6 +1110,8 @@
 
     document.getElementById('tabScreens').onclick = () => {
       mode = 'screens';
+      document.body.classList.add('screens');
+      document.body.classList.remove('mapart');
       document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
       document.getElementById('tabScreens').classList.add('active');
       render();

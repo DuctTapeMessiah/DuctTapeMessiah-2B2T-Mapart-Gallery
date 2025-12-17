@@ -42,13 +42,15 @@
         "image": "screenshots/2025-09-16_23.08.24.png"
     },
     {
-        "image": "screenshots/2025-10-06_11.58.42.png"
+        "image": "screenshots/2025-10-06_11.58.42.png",
+        "mapart": "Fit Vs Rusher"
     },
     {
         "image": "screenshots/2025-10-07_18.07.49.png"
     },
     {
-        "image": "screenshots/2025-10-24_12.06.43.png"
+        "image": "screenshots/2025-10-24_12.06.43.png",
+        "mapart": "Logarithmic View Of The Universe"
     },
     {
         "image": "screenshots/2025-10-24_12.08.06.png"
@@ -63,10 +65,12 @@
         "image": "screenshots/2025-11-09_00.15.13.png"
     },
     {
-        "image": "screenshots/2025-11-19_07.41.31.png"
+        "image": "screenshots/2025-11-19_07.41.31.png",
+        "mapart": "Godzilla"
     },
     {
-        "image": "screenshots/2025-12-11_11.32.57.png"
+        "image": "screenshots/2025-12-11_11.32.57.png",
+        "mapart": "Sleep Token German Tour Poster"
     },
     {
         "image": "screenshots/2025-11-22_21.01.52.png"
@@ -126,7 +130,8 @@
         "image": "screenshots/2025-12-15_13.20.14.png"
     },
     {
-        "image": "screenshots/2025-11-23_13.51.29.png"
+        "image": "screenshots/2025-11-23_13.51.29.png",
+        "mapart": "2025 Oscars Poster"
     },
     {
         "image": "screenshots/2025-11-10_20.50.51.png"

@@ -34,7 +34,7 @@
           background-repeat: no-repeat;
           filter: brightness(0.65) blur(2px);
           opacity: 0;
-          transition: opacity 3s ease-in-out; /* longer, smoother fade */
+          transition: opacity 3s ease-in-out;
           will-change: opacity, transform;
         }
 
@@ -51,13 +51,11 @@
             to { transform: scale(1.08); }
         }
 
-        /* New: stronger fade-out class */
         .bg-layer.fadeout {
           opacity: 0 !important;
           transition: opacity 3s ease-in-out;
         }
 
-        /* Rest of your styles unchanged until modal-img related */
         .wrap { max-width: 1200px; margin: 28px auto; padding: 18px; }
         header { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
         .logo { width: 72px; height: 72px; border-radius: 12px; overflow: hidden; }
@@ -115,7 +113,9 @@
         .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 4px; }
         .modal-title-overlay .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
         .modal-title-overlay .details-btn { padding: 6px 12px; background: var(--panel); border: none;
-                                            border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: 100%; }
+                                            border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: 100%; margin-bottom: 6px; }
+        .modal-title-overlay .linked-btn { padding: 6px 12px; background: rgba(182,199,214,0.15); border: 1px solid var(--accent);
+                                            border-radius: 8px; color: var(--accent); font-size: 13px; cursor: pointer; width: 100%; }
         .modal-details { position: absolute; top: calc(16px + var(--title-height, 72px) + 10px); left: 16px;
                          background: var(--overlay-glass); backdrop-filter: blur(12px); padding: 12px 16px;
                          border-radius: 12px; max-width: 60%; z-index: 20; font-size: 14px; line-height: 1.5;
@@ -132,7 +132,7 @@
           image-rendering: auto; user-select: none; pointer-events: none;
           transform-origin: center center; max-width: none; max-height: none;
           width: auto; height: auto; object-fit: none;
-          transition: transform 0.3s ease-out; /* smooth manual panning */
+          transition: transform 0.3s ease-out;
         }
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 80px;
                      background: rgba(0,0,0,.5); border-radius: 8px; display: flex; align-items: center;
@@ -272,6 +272,9 @@
     let sort = 'date-desc';
     let DATA = [], SCREENSHOTS = [], items = [], currentIndex = -1, uiTimeout;
     let uiHidden = false;
+    let linkMap = {};
+    let returnToMode = null;
+    let returnToItem = null;
 
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
@@ -371,9 +374,35 @@
         }
     }
 
+    function buildLinkMap() {
+      linkMap = {};
+
+      SCREENSHOTS.forEach((screenshot, sIdx) => {
+        if (screenshot.mapart) {
+          const mapartMatch = DATA.find(m => m.title === screenshot.mapart);
+          if (mapartMatch) {
+            linkMap[`screenshot-${sIdx}`] = { type: 'mapart', title: mapartMatch.title };
+            linkMap[`mapart-${mapartMatch.title}`] = { type: 'screenshot', index: sIdx };
+          }
+        }
+      });
+
+      DATA.forEach(mapart => {
+        if (mapart.screenshot) {
+          const screenshotMatch = SCREENSHOTS.findIndex(s => s.title === mapart.screenshot);
+          if (screenshotMatch !== -1) {
+            linkMap[`mapart-${mapart.title}`] = { type: 'screenshot', index: screenshotMatch };
+            linkMap[`screenshot-${screenshotMatch}`] = { type: 'mapart', title: mapart.title };
+          }
+        }
+      });
+    }
+
     async function boot() {
       DATA = await loadJSON('maps.json');
       SCREENSHOTS = await loadJSON('screenshots.json');
+
+      buildLinkMap();
 
       await Promise.all(DATA.map(m => new Promise(resolve => {
         const img = new Image();
@@ -637,6 +666,28 @@
         titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
       }
 
+      let linkKey;
+      if (mode === 'mapart') {
+        linkKey = `mapart-${m.title}`;
+      } else {
+        const globalIdx = SCREENSHOTS.indexOf(m);
+        linkKey = `screenshot-${globalIdx}`;
+      }
+
+      const linkedContent = linkMap[linkKey];
+
+      if (linkedContent) {
+        const isReturning = returnToMode && returnToItem;
+
+        if (linkedContent.type === 'screenshot') {
+          const btnText = isReturning ? '↩ Return to Mapart' : '📸 In-Game Screenshot';
+          titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
+        } else if (linkedContent.type === 'mapart') {
+          const btnText = isReturning ? '↩ Return to Screenshot' : '🎨 View Mapart';
+          titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
+        }
+      }
+
       modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
 
       requestAnimationFrame(() => {
@@ -668,10 +719,86 @@
         };
       }
 
+      const viewLinkedBtn = document.getElementById('viewLinkedBtn');
+      if (viewLinkedBtn && linkedContent) {
+        viewLinkedBtn.onclick = () => {
+          if (returnToMode && returnToItem) {
+            if (returnToMode === 'mapart') {
+              const tempTitle = returnToItem;
+              returnToMode = null;
+              returnToItem = null;
+              switchToMapart(tempTitle, false);
+            } else {
+              const tempIdx = returnToItem;
+              returnToMode = null;
+              returnToItem = null;
+              switchToScreenshots(tempIdx, false);
+            }
+          } else {
+            if (linkedContent.type === 'screenshot') {
+              returnToMode = 'mapart';
+              returnToItem = m.title;
+              switchToScreenshots(linkedContent.index, true);
+            } else if (linkedContent.type === 'mapart') {
+              returnToMode = 'screens';
+              const globalIdx = SCREENSHOTS.indexOf(m);
+              returnToItem = globalIdx;
+              switchToMapart(linkedContent.title, true);
+            }
+          }
+        };
+      }
+
       showUI();
 
       prevBtn.style.display = idx > 0 ? 'flex' : 'none';
       nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
+    }
+
+    function switchToScreenshots(screenshotGlobalIdx) {
+      const screenshot = SCREENSHOTS[screenshotGlobalIdx];
+      if (!screenshot) return;
+
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      clearTimeout(uiTimeout);
+      hideUI();
+      stopAutoPan();
+
+      mode = 'screens';
+      document.body.classList.add('screens');
+      document.body.classList.remove('mapart');
+      document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+      document.getElementById('tabScreens').classList.add('active');
+      render();
+
+      const targetIdx = items.findIndex(item => item === screenshot);
+      if (targetIdx !== -1) {
+        setTimeout(() => openModal(targetIdx), 100);
+      }
+    }
+
+    function switchToMapart(mapartTitle) {
+      const mapart = DATA.find(m => m.title === mapartTitle);
+      if (!mapart) return;
+
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      clearTimeout(uiTimeout);
+      hideUI();
+      stopAutoPan();
+
+      mode = 'mapart';
+      document.body.classList.add('mapart');
+      document.body.classList.remove('screens');
+      document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+      document.getElementById('tabMapart').classList.add('active');
+      render();
+
+      const targetIdx = items.findIndex(item => item === mapart);
+      if (targetIdx !== -1) {
+        setTimeout(() => openModal(targetIdx), 100);
+      }
     }
 
     zoomSlider.oninput = () => {
@@ -829,12 +956,28 @@
     });
 
     function closeModal() {
+      if (returnToMode && returnToItem) {
+        const tempMode = returnToMode;
+        const tempItem = returnToItem;
+        returnToMode = null;
+        returnToItem = null;
+
+        if (tempMode === 'mapart') {
+          switchToMapart(tempItem, false);
+        } else {
+          switchToScreenshots(tempItem, false);
+        }
+        return;
+      }
+
       modal.classList.remove('open');
       document.body.style.overflow = '';
       currentIndex = -1;
       clearTimeout(uiTimeout);
       hideUI();
       stopAutoPan();
+      returnToMode = null;
+      returnToItem = null;
     }
 
     modalImg.onload = () => {

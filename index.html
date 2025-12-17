@@ -7,19 +7,17 @@
     <meta name="description" content="A collection of Mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
     <link rel="canonical" href="https://ducttapemessiah.art"/>
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ducttapemessiah.art/">
     <meta property="og:title" content="DuctTapeMessiah — 2B2T Gallery">
     <meta property="og:description" content="A collection of Mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
-    <meta property="og:image" content="https://ducttapemessiah.art/preview.jpeg">
+    <meta property="og:image" content="https://ducttapemessiah.art/preview1.jpeg">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://ducttapemessiah.art/">
     <meta property="twitter:title" content="DuctTapeMessiah — 2B2T Gallery">
     <meta property="twitter:description" content="A collection of mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
-    <meta property="twitter:image" content="https://ducttapemessiah.art/preview.jpeg">
+    <meta property="twitter:image" content="https://ducttapemessiah.art/preview1.jpeg">
     <style>
         :root {
           --bg: #0b0b0d;
@@ -692,16 +690,20 @@
       const linkedContent = linkMap[linkKey];
 
       if (linkedContent) {
-        const isReturning = returnToMode && returnToItem;
+        let btnText = '';
 
-        if (linkedContent.type === 'screenshot') {
-          const btnText = isReturning ? '↩ Return to Mapart' : '📸 In-Game Screenshot';
-          titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
-        } else if (linkedContent.type === 'mapart') {
-          const btnText = isReturning ? '↩ Return to Screenshot' : '🎨 View Mapart';
-          titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
+        if (returnToMode === 'mapart') {
+            btnText = '↩ Return to Mapart';
+        } else if (returnToMode === 'screens') {
+            btnText = '↩ Return to Screenshot';
+        } else {
+            btnText = linkedContent.type === 'screenshot'
+            ? '📸 In-Game Screenshot'
+            : '🎨 View Mapart';
         }
-      }
+  titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
+}
+
 
       modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
 

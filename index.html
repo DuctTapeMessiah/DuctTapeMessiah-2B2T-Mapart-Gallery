@@ -308,7 +308,7 @@
     let panDirection = 1;
 
     function startAutoPan() {
-      if (!modal.classList.contains('open') || !uiHidden || autoPanInterval) return;
+      if (!modal.classList.contains('open') || autoPanInterval) return;
 
       const vpW = modalViewport.clientWidth;
       const vpH = modalViewport.clientHeight;
@@ -326,7 +326,7 @@
       const wideRatio = scaledW / vpW;
       const tallRatio = scaledH / vpH;
 
-      if (wideRatio < 1.3 && tallRatio < 1.3) return;
+      if (wideRatio < 1.05 && tallRatio < 1.05) return;
 
       const isWide = wideRatio > tallRatio;
 
@@ -338,7 +338,7 @@
 
       clearInterval(autoPanInterval);
       autoPanInterval = setInterval(() => {
-        if (!uiHidden || !modal.classList.contains('open')) {
+        if (!modal.classList.contains('open')) {
           clearInterval(autoPanInterval);
           autoPanInterval = null;
           return;
@@ -379,11 +379,9 @@
         if (uiHidden) {
             document.body.classList.add('ui-hidden');
             uiToggleBtn.textContent = 'Show UI';
-            startAutoPan();
         } else {
             document.body.classList.remove('ui-hidden');
             uiToggleBtn.textContent = 'Hide UI';
-            stopAutoPan();
         }
     }
 
@@ -571,23 +569,22 @@
     }
 
     function showUI() {
-      clearTimeout(uiTimeout);
-      modalTitleOverlay.classList.add('visible');
-      modalDetails.classList.toggle('visible', state.detailsShown);
-      prevBtn.classList.add('visible');
-      nextBtn.classList.add('visible');
-      modalControls.classList.add('visible');
-      stopAutoPan();
-      uiTimeout = setTimeout(hideUI, 2500);
+        clearTimeout(uiTimeout);
+        modalTitleOverlay.classList.add('visible');
+        modalDetails.classList.toggle('visible', state.detailsShown);
+        prevBtn.classList.add('visible');
+        nextBtn.classList.add('visible');
+        modalControls.classList.add('visible');
+        uiTimeout = setTimeout(hideUI, 2500);
     }
 
     function hideUI() {
-      modalTitleOverlay.classList.remove('visible');
-      modalDetails.classList.remove('visible');
-      prevBtn.classList.remove('visible');
-      nextBtn.classList.remove('visible');
-      modalControls.classList.remove('visible');
-      if (uiHidden) startAutoPan();
+        modalTitleOverlay.classList.remove('visible');
+        modalDetails.classList.remove('visible');
+        prevBtn.classList.remove('visible');
+        nextBtn.classList.remove('visible');
+        modalControls.classList.remove('visible');
+        startAutoPan();
     }
 
     function fitView() {
@@ -999,9 +996,8 @@
 
     modalImg.onload = () => {
       fitView();
-      if (uiHidden) startAutoPan();
-    };
-
+      startAutoPan()
+     };
     boot();
 </script>
 </body>

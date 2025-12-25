@@ -446,7 +446,9 @@
       const bgA = document.getElementById('bgA');
       const bgB = document.getElementById('bgB');
 
-      let shuffled = [...SCREENSHOTS];
+      let shuffled = SCREENSHOTS.filter(s => s.show !== false);
+      if (!shuffled.length) return;
+
       let currentIdx = 0;
 
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -514,7 +516,8 @@
     function render() {
       gallery.innerHTML = '';
       const q = document.getElementById('search').value.toLowerCase();
-      const allItems = mode === 'mapart' ? DATA : SCREENSHOTS;
+      const allItems = mode === 'mapart' ? DATA : SCREENSHOTS.filter(s => s.show !== false);
+
       items = allItems.filter(i => !q || (i.title || '').toLowerCase().includes(q));
       applySort(items);
 

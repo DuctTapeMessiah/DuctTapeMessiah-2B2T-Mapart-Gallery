@@ -548,7 +548,8 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "excludeFromCount": true
   },
   {
     "title": "Let There Be Carnage",
@@ -575,6 +576,36 @@
     "image": "images/acotar.png",
     "dateBuilt": "2025-12-07",
     "artistCredit": "",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  },
+  {
+    "title": "World's Greatest Mom: Steve",
+    "image": "images/worldsgreatestmomsteve.png",
+    "dateBuilt": "2025-12-26",
+    "artistCredit": "",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  },
+  {
+    "title": "Princess Mononoke",
+    "image": "images/princessmononoke.png",
+    "dateBuilt": "2026-01-03",
+    "artistCredit": "https://www.tumblr.com/dereklaufman/186333850791/so-princess-mononoke-was-pretty-awesome-eh-really",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  },
+  {
+    "title": "Maliketh The Black Blade - Elden Ring",
+    "image": "images/Maliketh.png",
+    "dateBuilt": "2026-01-09",
+    "artistCredit": "https://www.instagram.com/p/DPGNPEhkRlP/",
     "description": "",
     "layoutType": "flat",
     "blockType": "",

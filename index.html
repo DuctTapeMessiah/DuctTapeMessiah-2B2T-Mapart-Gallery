@@ -10,7 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ducttapemessiah.art/">
     <meta property="og:title" content="DuctTapeMessiah — 2B2T Gallery">
-    <meta property="og:description" content="A collection of Mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
+    <meta property="og:description" content="A collection of mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
     <meta property="og:image" content="https://ducttapemessiah.art/preview1.jpeg">
 
     <meta property="twitter:card" content="summary_large_image">
@@ -24,7 +24,8 @@
           --panel: #0f1113;
           --muted: #94a3b8;
           --accent: #b6c7d6;
-          --glass: rgba(255,255,255,.035);
+          --accent-bright: #d4e3f2;
+          --glass: rgba(255,255,255,.025);
           --overlay-glass: rgba(15,17,19,.85);
           --shadow: 0 10px 30px rgba(0,0,0,.65);
           font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -51,33 +52,188 @@
           will-change: opacity, transform;
         }
 
-        .bg-layer.active {
-          opacity: 1;
-        }
-
-        .bg-layer.animate {
-          animation: bgZoom 12s linear forwards;
-        }
+        .bg-layer.active { opacity: 1; }
+        .bg-layer.animate { animation: bgZoom 12s linear forwards; }
 
         @keyframes bgZoom {
             from { transform: scale(1); }
             to { transform: scale(1.08); }
         }
 
-        .bg-layer.fadeout {
-          opacity: 0 !important;
-          transition: opacity 3s ease-in-out;
+        .wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+
+        .top-header-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 16px;
+          flex-wrap: wrap;
         }
 
-        .wrap { max-width: 1200px; margin: 28px auto; padding: 18px; }
-        header { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
-        .logo { width: 72px; height: 72px; border-radius: 12px; overflow: hidden; }
+        header {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 16px 20px;
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,.08);
+          border-radius: 12px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(8px);
+          flex: 1;
+          min-width: 300px;
+        }
+
+        .logo { width: 70px; height: 70px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
         .logo img { width: 100%; height: 100%; object-fit: cover; }
-        .title-wrap { display: flex; flex-direction: column; }
-        .title-main { font-size: 26px; font-weight: 800; line-height: 1.1; }
-        .title-sub { font-size: 15px; color: var(--muted); font-weight: 500; }
-        .controls { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 10px; }
-        .controls-left { display: flex; flex-direction: column; gap: 8px; }
+
+        .title-wrap { flex: 1; }
+        .title-main { font-size: 28px; font-weight: 800; color: #f1f5f9; line-height: 1.1; }
+        .title-sub { font-size: 14px; color: #cbd5e1; font-weight: 500; }
+
+        .award-banner {
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,.1);
+          border-radius: 12px;
+          padding: 16px 20px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          min-width: 360px;
+          flex-shrink: 0;
+        }
+
+        .award-icon { font-size: 36px; flex-shrink: 0; }
+        .award-title { font-size: 16px; font-weight: 800; color: #f1f5f9; margin-bottom: 2px; }
+        .award-subtitle { font-size: 13px; color: #cbd5e1; }
+        .award-link { font-size: 11px; color: #a5b4fc; text-decoration: none; }
+        .award-link:hover { color: #c7d2fe; text-decoration: underline; }
+
+        .info-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          margin-bottom: 20px;
+        }
+
+        .stats-column .stats-container {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .right-column {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .stat-card {
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,.08);
+          border-radius: 12px;
+          padding: 16px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(8px);
+        }
+
+        .stat-label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
+        .stat-value { font-size: 28px; font-weight: 800; color: var(--accent-bright); line-height: 1; }
+        .stat-sublabel { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+        .group-projects {
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,.08);
+          border-radius: 12px;
+          padding: 14px 16px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(8px);
+          height: fit-content;
+        }
+
+        .group-projects-title {
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--accent-bright);
+          margin-bottom: 8px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .project-list { display: flex; flex-direction: column; gap: 4px; }
+        .project-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 4px 8px;
+          background: rgba(255,255,255,.02);
+          border-radius: 6px;
+          font-size: 10px;
+        }
+
+        .project-name { color: var(--accent); font-weight: 600; }
+        .project-date { color: var(--muted); font-size: 9px; margin-right: 6px; }
+        .project-maps { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
+
+        .contact-card {
+          background: var(--glass);
+          border: 1px solid rgba(255,255,255,.08);
+          border-radius: 12px;
+          padding: 16px;
+          box-shadow: var(--shadow);
+          backdrop-filter: blur(8px);
+        }
+
+        .social-label {
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--accent-bright);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 10px;
+        }
+
+        .social-links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          font-size: 14px;
+          margin-bottom: 12px;
+        }
+
+        .social-links a {
+          color: var(--accent);
+          text-decoration: none;
+        }
+
+        .social-links a:hover {
+          color: var(--accent-bright);
+          text-decoration: underline;
+        }
+
+        .free-maps {
+          font-size: 15px;
+          color: var(--accent-bright);
+          font-weight: 600;
+        }
+
+        .controls {
+          display: flex;
+          gap: 14px;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+        }
+
+        .controls-left {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
         .tabs { display: flex; gap: 8px; }
         .tab-btn, .sort-btn {
           background: var(--panel); border: 1px solid rgba(255,255,255,.08);
@@ -85,18 +241,19 @@
           cursor: pointer; transition: .12s;
         }
         .tab-btn.active, .sort-btn.active { background: var(--accent); color: #000; font-weight: 700; }
-        .contact { font-size: 12px; color: var(--muted); }
-        .contact a { color: var(--accent); text-decoration: none; }
+
         .sort-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 280px; }
         .search-input {
           background: var(--panel); border: 1px solid rgba(255,255,255,.05);
           padding: 9px 14px; border-radius: 10px; color: inherit; font-size: 14px; min-width: 220px;
         }
+
         .grid {
           display: grid; grid-auto-flow: dense;
           grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 16px; margin-top: 16px; padding-top: 100px;
+          gap: 16px; margin-top: 16px;
         }
+
         .card { background: var(--glass); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
                 transition: transform .15s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-6px); }
@@ -108,12 +265,14 @@
         }
         .thumb:hover { transform: scale(1.04); }
         .meta { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; text-align: center; }
+
         .thumb-preview { position: fixed; top: 5vh; right: 5vw; width: 35vw; height: 35vw;
                          max-width: 450px; max-height: 450px; border: 3px solid var(--accent);
                          border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.8); pointer-events: none;
                          z-index: 999; opacity: 0; transition: opacity .25s; background: #000;
                          image-rendering: pixelated; object-fit: contain; object-position: center; }
         .thumb-preview.visible { opacity: 1; }
+
         @media (hover:none),(pointer:coarse) { .thumb-preview { display: none !important; } .thumb:hover { transform: none; } }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: flex; flex-direction: column;
@@ -158,10 +317,9 @@
         .close-x { position: absolute; top: 16px; right: 18px; font-size: 22px; background: var(--panel);
                    padding: 8px 12px; border-radius: 10px; cursor: pointer; z-index: 20; }
         .modal-controls { position: absolute; top: 16px; right: 80px; display: flex; flex-direction: column;
-                          gap: 6px; padding: 8px 10px; background: var(--overlay-glass); backdrop-filter: blur(12px);
+                          gap: 6px; padding: 10px 12px; background: var(--overlay-glass); backdrop-filter: blur(12px);
                           border-radius: 10px; font-size: 10px; z-index: 20; transition: opacity .4s; opacity: 0;
-                          min-width: 120px; }
-        .mapart .thumb, .mapart .modal-img, .mapart .thumb-preview { image-rendering: pixelated; }
+                          min-width: 140px; align-items: center; }
         .modal-controls.visible { opacity: 1; }
         .slider-row { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
         .slider-label { width: auto; font-size: 10px; opacity: .75; text-align: center; }
@@ -170,12 +328,33 @@
         .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
                                                                 height: 14px; background: var(--accent);
                                                                 border-radius: 50%; cursor: pointer; }
-        .slider-row button { padding: 6px 10px; font-size: 12px; background: var(--panel); border: none;
-                             border-radius: 8px; cursor: pointer; color: inherit; width: 100%; }
-        @media (max-width:768px) {
-          .modal-title-overlay, .modal-details { left: 12px; top: 12px; max-width: 80%; }
-          .modal-controls { right: 12px; top: 70px; }
-          .close-x { right: 12px; }
+        .slider-row button, .action-row button { padding: 6px 10px; font-size: 12px; background: var(--panel); border: none;
+                             border-radius: 8px; cursor: pointer; color: inherit; min-width: 60px; }
+        .action-row { display: flex; gap: 8px; margin-top: 10px; }
+
+        .modal-notification {
+          position: absolute;
+          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: var(--overlay-glass);
+          backdrop-filter: blur(12px);
+          padding: 10px 20px;
+          border-radius: 12px;
+          font-size: 15px;
+          font-weight: 600;
+          color: var(--accent-bright);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 25;
+          box-shadow: var(--shadow);
+        }
+
+        @media (max-width:968px) {
+          .top-header-row { flex-direction: column; align-items: stretch; }
+          header, .award-banner { min-width: auto; }
+          .info-row { grid-template-columns: 1fr; }
         }
 
         body.ui-hidden .wrap,
@@ -201,22 +380,97 @@
 <div id="bgB" class="bg-layer"></div>
 
 <div class="wrap">
-    <header>
-        <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
-        <div class="title-wrap">
-            <div class="title-main">DuctTapeMessiah</div>
-            <div class="title-sub">2B2T Gallery</div>
+    <div class="top-header-row">
+        <header>
+            <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+            <div class="title-wrap">
+                <div class="title-main">DuctTapeMessiah</div>
+                <div class="title-sub">Mapartist since 1/13/2024</div>
+            </div>
+        </header>
+
+        <div class="award-banner">
+            <div class="award-icon">🏆</div>
+            <div class="award-content">
+                <div class="award-title">Best Mapartist of the Year</div>
+                <div class="award-subtitle">2025 Oscars Winner</div>
+                <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2toscars.com →</a>
+            </div>
         </div>
-    </header>
+    </div>
+
+    <div class="info-row">
+        <div class="stats-column">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">Total Maps</div>
+                    <div class="stat-value" id="totalMaps">-</div>
+                    <div class="stat-sublabel">Individual maparts created</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Group Contributions</div>
+                    <div class="stat-value" id="groupMaps">-</div>
+                    <div class="stat-sublabel">Maps in collaborative projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Grand Total</div>
+                    <div class="stat-value" id="grandTotal">-</div>
+                    <div class="stat-sublabel">All maps combined</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="group-projects">
+                <div class="group-projects-title">Group Projects</div>
+                <div class="project-list">
+                    <div class="project-item">
+                        <span><span class="project-date">6/30/24</span><span class="project-name">2024 Family Feud</span></span>
+                        <span class="project-maps">116</span>
+                    </div>
+                    <div class="project-item">
+                        <span><span class="project-date">12/25/24</span><span class="project-name">2024 Advent Calendar</span></span>
+                        <span class="project-maps">38</span>
+                    </div>
+                    <div class="project-item">
+                        <span><span class="project-date">10/2/25</span><span class="project-name">Bad Apple</span></span>
+                        <span class="project-maps">3,599</span>
+                    </div>
+                    <div class="project-item">
+                        <span><span class="project-date">11/23/25</span><span class="project-name">2025 Oscars</span></span>
+                        <span class="project-maps">361</span>
+                    </div>
+                    <div class="project-item">
+                        <span><span class="project-date">12/25/25</span><span class="project-name">2025 Advent Calendar</span></span>
+                        <span class="project-maps">57</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Maps Copied</div>
+                <div class="stat-value">479,752</div>
+                <div class="stat-sublabel">As of January 10, 2026</div>
+            </div>
+
+            <div class="contact-card">
+                <div class="social-label">Socials & Contact</div>
+                <div class="social-links">
+                    <a href="https://discord.com/users/ducttapemessiah" target="_blank" rel="noopener">Discord</a>
+                    <a href="http://youtube.com/DuctTapeMessiah" target="_blank" rel="noopener">YouTube</a>
+                    <a href="https://www.reddit.com/user/DuctTapeMessiah/" target="_blank" rel="noopener">Reddit</a>
+                    <a href="https://github.com/DuctTapeMessiah/" target="_blank" rel="noopener">GitHub</a>
+                </div>
+                <div class="free-maps">Please contact me for free maps!</div>
+            </div>
+        </div>
+    </div>
 
     <div class="controls">
         <div class="controls-left">
             <div class="tabs">
                 <button id="tabMapart" class="tab-btn active">My Mapart</button>
                 <button id="tabScreens" class="tab-btn">Screenshots</button>
-            </div>
-            <div class="contact">
-                Discord: <a href="https://discord.com/users/" target="_blank">DuctTapeMessiah</a>
             </div>
         </div>
 
@@ -237,25 +491,27 @@
 
 <div id="modal" class="modal">
     <div class="close-x" id="modalClose">×</div>
-
     <div class="modal-title-overlay" id="modalTitleOverlay"></div>
     <div class="modal-details" id="modalDetails"></div>
-
     <div class="modal-viewport" id="modalViewport">
         <img id="modalImg" class="modal-img" alt="Full view">
         <div class="nav-arrow prev" id="prevBtn">‹</div>
         <div class="nav-arrow next" id="nextBtn">›</div>
     </div>
-
     <div class="modal-controls" id="modalControls">
-        <div class="slider-row" style="flex-direction:row; gap:6px;">
+        <div class="slider-row" style="flex-direction:row; gap:8px;">
             <button id="fitViewBtn">Fit</button>
             <button id="fillViewBtn">Fill</button>
         </div>
         <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
         <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
         <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
+        <div class="action-row">
+            <button id="copyBtn">Copy</button>
+            <button id="downloadBtn">Download</button>
+        </div>
     </div>
+    <div id="modalNotification" class="modal-notification"></div>
 </div>
 
 <button id="uiToggleBtn">Hide UI</button>
@@ -277,6 +533,7 @@
     const fitViewBtn = document.getElementById('fitViewBtn');
     const fillViewBtn = document.getElementById('fillViewBtn');
     const uiToggleBtn = document.getElementById('uiToggleBtn');
+    const modalNotification = document.getElementById('modalNotification');
 
     if (fitViewBtn) fitViewBtn.onclick = () => { fitView(); showUI(); };
     if (fillViewBtn) fillViewBtn.onclick = () => { fillView(); showUI(); };
@@ -288,6 +545,14 @@
     let linkMap = {};
     let returnToMode = null;
     let returnToItem = null;
+
+    const GROUP_PROJECTS = [
+        { name: '2024 Family Feud', date: '6/30/2024', maps: 116 },
+        { name: '2024 Advent Calendar', date: '12/25/2024', maps: 38 },
+        { name: 'Bad Apple', date: '10/2/2025', maps: 3599 },
+        { name: '2025 Oscars', date: '11/23/2025', maps: 361 },
+        { name: '2025 Advent Calendar', date: '12/25/2025', maps: 57 }
+    ];
 
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
@@ -306,6 +571,23 @@
 
     let autoPanInterval = null;
     let panDirection = 1;
+
+    function calculateStats() {
+      let totalIndividualMaps = 0;
+
+      DATA.forEach(m => {
+        if (m.excludeFromCount !== true && m.totalMaps) {
+          totalIndividualMaps += m.totalMaps;
+        }
+      });
+
+      const groupTotal = GROUP_PROJECTS.reduce((sum, p) => sum + p.maps, 0);
+      const grandTotal = totalIndividualMaps + groupTotal;
+
+      document.getElementById('totalMaps').textContent = totalIndividualMaps.toLocaleString();
+      document.getElementById('groupMaps').textContent = groupTotal.toLocaleString();
+      document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
+    }
 
     function startAutoPan() {
       if (!modal.classList.contains('open') || autoPanInterval) return;
@@ -428,6 +710,8 @@
         };
         img.onerror = () => { m.totalMaps = 0; resolve(); };
       })));
+
+      calculateStats();
 
       uiToggleBtn.onclick = toggleUIHide;
 
@@ -563,7 +847,8 @@
 
         if (mode === 'mapart') {
           const maps = m.totalMaps ?? '?';
-          meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}</div></div>`;
+          const excludeNote = m.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
+          meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${excludeNote}</div></div>`;
         } else {
           meta.innerHTML = `<div class="title">${m.title || ''}</div>`;
         }
@@ -590,6 +875,15 @@
         nextBtn.classList.remove('visible');
         modalControls.classList.remove('visible');
         startAutoPan();
+    }
+
+    function showNotification(text) {
+      modalNotification.textContent = text;
+      modalNotification.style.opacity = '1';
+      clearTimeout(modalNotification._timeout);
+      modalNotification._timeout = setTimeout(() => {
+        modalNotification.style.opacity = '0';
+      }, 3000);
     }
 
     function fitView() {
@@ -1023,6 +1317,32 @@
       fitView();
       startAutoPan();
     };
+
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      showUI();
+      try {
+        const response = await fetch(modalImg.src);
+        if (!response.ok) throw new Error('Network error');
+        const blob = await response.blob();
+        await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
+        showNotification('Copied to clipboard');
+      } catch (err) {
+        showNotification('Copy failed');
+      }
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      showUI();
+      const a = document.createElement('a');
+      a.href = modalImg.src;
+      const filename = modalImg.src.split('/').pop() || 'image.png';
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showNotification('Download should begin');
+    });
+
     boot();
 </script>
 </body>

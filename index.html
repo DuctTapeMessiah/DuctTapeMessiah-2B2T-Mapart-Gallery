@@ -321,6 +321,14 @@
                           border-radius: 10px; font-size: 10px; z-index: 20; transition: opacity .4s; opacity: 0;
                           min-width: 140px; align-items: center; }
         .modal-controls.visible { opacity: 1; }
+
+        .fit-fill-row {
+          display: flex;
+          gap: 8px;
+          width: 100%;
+          justify-content: center;
+        }
+
         .slider-row { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
         .slider-label { width: auto; font-size: 10px; opacity: .75; text-align: center; }
         .slider-row input[type="range"] { flex: 1; height: 6px; -webkit-appearance: none;
@@ -330,7 +338,7 @@
                                                                 border-radius: 50%; cursor: pointer; }
         .slider-row button, .action-row button { padding: 6px 10px; font-size: 12px; background: var(--panel); border: none;
                              border-radius: 8px; cursor: pointer; color: inherit; min-width: 60px; }
-        .action-row { display: flex; gap: 8px; margin-top: 10px; }
+        .action-row { display: flex; gap: 8px; margin-top: 10px; width: 100%; justify-content: center; }
 
         .modal-notification {
           position: absolute;
@@ -355,6 +363,63 @@
           .top-header-row { flex-direction: column; align-items: stretch; }
           header, .award-banner { min-width: auto; }
           .info-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+          .modal-title-overlay,
+          .modal-details {
+            left: 16px;
+            max-width: calc(100% - 180px);
+          }
+
+          .modal-controls {
+            top: 70px;
+            right: 16px;
+            min-width: 120px;
+            padding: 8px 10px;
+          }
+
+          .close-x {
+            top: 16px;
+            right: 16px;
+          }
+
+          .fit-fill-row {
+            flex-direction: column;
+          }
+
+          .action-row {
+            flex-direction: column;
+            gap: 6px;
+          }
+
+          .action-row button,
+          .fit-fill-row button {
+            font-size: 11px;
+            padding: 5px 8px;
+          }
+
+          .slider-label {
+            font-size: 9px;
+          }
+
+          .slider-row input[type="range"] {
+            height: 5px;
+          }
+
+          .slider-row input[type="range"]::-webkit-slider-thumb {
+            width: 12px;
+            height: 12px;
+          }
+
+          .nav-arrow {
+            width: 44px;
+            height: 70px;
+            font-size: 28px;
+          }
+
+          .nav-arrow.prev { left: 8px; }
+          .nav-arrow.next { right: 8px; }
         }
 
         body.ui-hidden .wrap,
@@ -499,7 +564,7 @@
         <div class="nav-arrow next" id="nextBtn">›</div>
     </div>
     <div class="modal-controls" id="modalControls">
-        <div class="slider-row" style="flex-direction:row; gap:8px;">
+        <div class="fit-fill-row">
             <button id="fitViewBtn">Fit</button>
             <button id="fillViewBtn">Fill</button>
         </div>

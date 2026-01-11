@@ -29,7 +29,7 @@
           --muted: #94a3b8;
           --accent: #b6c7d6;
           --accent-bright: #d4e3f2;
-          --glass: rgba(255,255,255,.025);
+          --glass: rgba(255,255,255,.06);
           --overlay-glass: rgba(15,17,19,.85);
           --shadow: 0 10px 30px rgba(0,0,0,.65);
           font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -50,7 +50,7 @@
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          filter: brightness(0.65) blur(2px);
+          filter: brightness(0.4) blur(2px);
           opacity: 0;
           transition: opacity 3s ease-in-out;
           will-change: opacity, transform;
@@ -138,15 +138,15 @@
 
         .stat-card {
           background: var(--glass);
-          border: 1px solid rgba(255,255,255,.08);
-          border-radius: 12px;
-          padding: 16px;
+          border: 1px solid rgba(255,255,255,.06);
+          border-radius: 6px;
+          padding: 14px;
           box-shadow: var(--shadow);
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(6px);
         }
 
         .stat-label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
-        .stat-value { font-size: 28px; font-weight: 800; color: var(--accent-bright); line-height: 1; }
+        .stat-value { font-size: 24px; font-weight: 800; color: var(--accent-bright); line-height: 1; }
         .stat-sublabel { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
         .group-projects {
@@ -227,9 +227,9 @@
 
         .controls {
           display: flex;
+          flex-direction: column;
           gap: 14px;
-          align-items: flex-start;
-          flex-wrap: wrap;
+          align-items: center;
           margin-bottom: 10px;
         }
 
@@ -237,6 +237,7 @@
           display: flex;
           flex-direction: column;
           gap: 12px;
+          align-items: center;
         }
 
         .tabs { display: flex; gap: 8px; }
@@ -249,8 +250,14 @@
 
         .sort-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 280px; }
         .search-input {
-          background: var(--panel); border: 1px solid rgba(255,255,255,.05);
-          padding: 9px 14px; border-radius: 10px; color: inherit; font-size: 14px; min-width: 220px;
+          background: var(--panel);
+          border: 1px solid rgba(255,255,255,.05);
+          padding: 9px 14px;
+          border-radius: 10px;
+          color: inherit;
+          font-size: 14px;
+          min-width: 280px;
+          width: 280px;
         }
 
         .grid {
@@ -311,7 +318,6 @@
         .close-x { position: absolute; top: 16px; right: 18px; font-size: 22px; background: var(--panel);
                    padding: 8px 12px; border-radius: 10px; cursor: pointer; z-index: 20; }
 
-        /* Bottom controls bar */
         .modal-controls {
           position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
           display: flex; flex-direction: row; gap: 20px; padding: 14px 20px;
@@ -358,7 +364,6 @@
           color: var(--accent-bright); opacity: 0; transition: opacity 0.4s; z-index: 25;
         }
 
-        /* Desktop layout */
         @media (min-width: 769px) {
           .modal-title-overlay { left: 16px; max-width: 60%; transform: none; }
           .modal-details { left: 16px; top: calc(16px + var(--title-height, 72px) + 10px); max-width: 60%; transform: none; }
@@ -373,27 +378,65 @@
           .fit-fill-row { flex-direction: row; }
         }
 
-        /* Mobile layout */
         @media (max-width: 768px) {
-          .modal-title-overlay {
-            left: 50%; transform: translateX(-50%); top: 16px; max-width: 90%;
-          }
+          .top-header-row { flex-direction: column; }
 
-          .modal-details {
+        header {
+            padding: 12px 16px;
+            min-width: unset;
+            width: 100%;
+        }
+
+        .logo { width: 50px; height: 50px; }
+
+        .title-main { font-size: 21px; }
+        .title-sub { font-size: 12px; }
+
+        .award-banner {
+            padding: 12px 16px;
+            min-width: unset;
+            width: 100%;
+        }
+
+        .award-icon { font-size: 28px; }
+        .award-title { font-size: 14px; }
+        .award-subtitle { font-size: 11px; }
+
+        .info-row {
+            grid-template-columns: 1fr;
+        }
+
+        .right-column {
+            order: -1;
+        }
+
+        .right-column > .stat-card {
+            order: 2;
+        }
+
+        .right-column > .contact-card {
+            order: 3;
+        }
+
+        .modal-title-overlay {
+            left: 50%; transform: translateX(-50%); top: 16px; max-width: 90%;
+        }
+
+        .modal-details {
             left: 50%; top: 50%; transform: translate(-50%, -50%);
             max-width: 90%; max-height: 70vh;
-          }
+        }
 
-          button { padding: 12px 18px; font-size: 15px; min-width: 100px; }
+        button { padding: 12px 18px; font-size: 15px; min-width: 100px; }
 
-          .slider-row input[type="range"] { height: 8px; }
-          .slider-row input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
+        .slider-row input[type="range"] { height: 8px; }
+        .slider-row input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
 
-          .close-x { top: 12px; right: 12px; font-size: 26px; padding: 12px 16px; }
+        .close-x { top: 12px; right: 12px; font-size: 26px; padding: 12px 16px; }
 
-          .nav-arrow { width: 56px; height: 100px; font-size: 40px; }
-          .nav-arrow.prev { left: 8px; }
-          .nav-arrow.next { right: 8px; }
+        .nav-arrow { width: 56px; height: 100px; font-size: 40px; }
+        .nav-arrow.prev { left: 8px; }
+        .nav-arrow.next { right: 8px; }
         }
 
         body.ui-hidden .wrap,
@@ -433,7 +476,7 @@
             <div class="award-content">
                 <div class="award-title">Best Mapartist of the Year</div>
                 <div class="award-subtitle">2025 Oscars Winner</div>
-                <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2toscars.com →</a>
+                <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2tOscars.com →</a>
             </div>
         </div>
     </div>
@@ -456,6 +499,11 @@
                     <div class="stat-value" id="grandTotal">-</div>
                     <div class="stat-sublabel">All maps combined</div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-label">Maps Copied</div>
+                    <div class="stat-value">479,752</div>
+                    <div class="stat-sublabel">As of January 10, 2026</div>
+                </div>
             </div>
         </div>
 
@@ -464,7 +512,7 @@
                 <div class="group-projects-title">Group Projects</div>
                 <div class="project-list">
                     <div class="project-item">
-                        <span><span class="project-date">6/30/24</span><span class="project-name">2024 Family Feud</span></span>
+                        <span><span class="project-date">06/30/24</span><span class="project-name">2024 Family Feud</span></span>
                         <span class="project-maps">116</span>
                     </div>
                     <div class="project-item">
@@ -472,7 +520,7 @@
                         <span class="project-maps">38</span>
                     </div>
                     <div class="project-item">
-                        <span><span class="project-date">10/2/25</span><span class="project-name">Bad Apple</span></span>
+                        <span><span class="project-date">10/02/25</span><span class="project-name">Bad Apple</span></span>
                         <span class="project-maps">3,599</span>
                     </div>
                     <div class="project-item">
@@ -484,12 +532,6 @@
                         <span class="project-maps">57</span>
                     </div>
                 </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">Maps Copied</div>
-                <div class="stat-value">479,752</div>
-                <div class="stat-sublabel">As of January 10, 2026</div>
             </div>
 
             <div class="contact-card">
@@ -509,7 +551,7 @@
         <div class="controls-left">
             <div class="tabs">
                 <button id="tabMapart" class="tab-btn active">My Mapart</button>
-                <button id="tabScreens" class="tab-btn">Screenshots</button>
+                <button id="tabScreens" class="tab-btn">My Screenshots</button>
             </div>
         </div>
 
@@ -590,9 +632,9 @@
     let returnToItem = null;
 
     const GROUP_PROJECTS = [
-        { name: '2024 Family Feud', date: '6/30/2024', maps: 116 },
+        { name: '2024 Family Feud', date: '06/30/2024', maps: 116 },
         { name: '2024 Advent Calendar', date: '12/25/2024', maps: 38 },
-        { name: 'Bad Apple', date: '10/2/2025', maps: 3599 },
+        { name: 'Bad Apple', date: '10/02/2025', maps: 3599 },
         { name: '2025 Oscars', date: '11/23/2025', maps: 361 },
         { name: '2025 Advent Calendar', date: '12/25/2025', maps: 57 }
     ];
@@ -626,16 +668,20 @@
 
       const groupTotal = GROUP_PROJECTS.reduce((sum, p) => sum + p.maps, 0);
       const grandTotal = totalIndividualMaps + groupTotal;
+      const startDate = new Date('2024-01-13');
+      const currentDate = new Date();
+      const daysSince = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+      const mapsPerDay = (grandTotal / daysSince).toFixed(2)
 
       document.getElementById('totalMaps').textContent = totalIndividualMaps.toLocaleString();
       document.getElementById('groupMaps').textContent = groupTotal.toLocaleString();
       document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
+      const titleSub = document.querySelector('.title-sub');
+      titleSub.innerHTML = `Mapartist since 1/13/2024<br><span style="font-size: 11px; opacity: 0.7;">${mapsPerDay} Map IDs per day</span>`;
     }
 
     function startAutoPan() {
-      // Disable auto-pan on touch devices (mobile) to prevent "random" panning
       if (isTouchDevice) return;
-
       if (!modal.classList.contains('open') || autoPanInterval) return;
 
       const vpW = modalViewport.clientWidth;

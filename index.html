@@ -369,58 +369,22 @@
         }
 
         @media (max-width: 768px) {
-          .modal-title-overlay,
+          .modal-title-overlay {
+            left: 50%; transform: translateX(-50%); top: 16px; max-width: 90%;
+          }
+
           .modal-details {
-            left: 16px;
-            max-width: calc(100% - 180px);
+            left: 50%; top: 50%; transform: translate(-50%, -50%);
+            max-width: 90%; max-height: 70vh;
           }
+          button { padding: 12px 18px; font-size: 15px; min-width: 100px; }
 
-          .modal-controls {
-            top: 70px;
-            right: 16px;
-            min-width: 120px;
-            padding: 8px 10px;
-          }
+          .slider-row input[type="range"] { height: 8px; }
+          .slider-row input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
 
-          .close-x {
-            top: 16px;
-            right: 16px;
-          }
+          .close-x { top: 12px; right: 12px; font-size: 26px; padding: 12px 16px; }
 
-          .fit-fill-row {
-            flex-direction: column;
-          }
-
-          .action-row {
-            flex-direction: column;
-            gap: 6px;
-          }
-
-          .action-row button,
-          .fit-fill-row button {
-            font-size: 11px;
-            padding: 5px 8px;
-          }
-
-          .slider-label {
-            font-size: 9px;
-          }
-
-          .slider-row input[type="range"] {
-            height: 5px;
-          }
-
-          .slider-row input[type="range"]::-webkit-slider-thumb {
-            width: 12px;
-            height: 12px;
-          }
-
-          .nav-arrow {
-            width: 44px;
-            height: 70px;
-            font-size: 28px;
-          }
-
+          .nav-arrow { width: 56px; height: 100px; font-size: 40px; }
           .nav-arrow.prev { left: 8px; }
           .nav-arrow.next { right: 8px; }
         }
@@ -567,16 +531,20 @@
         <div class="nav-arrow next" id="nextBtn">›</div>
     </div>
     <div class="modal-controls" id="modalControls">
-        <div class="fit-fill-row">
-            <button id="fitViewBtn">Fit</button>
-            <button id="fillViewBtn">Fill</button>
+        <div class="view-controls">
+            <div class="fit-fill-row">
+                <button id="fitViewBtn">Fit</button>
+                <button id="fillViewBtn">Fill</button>
+            </div>
+            <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
+            <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
+            <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
         </div>
-        <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
-        <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
-        <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
-        <div class="action-row">
-            <button id="copyBtn">Copy</button>
-            <button id="downloadBtn">Download</button>
+        <div class="action-controls">
+            <div class="action-row">
+                <button id="copyBtn">Copy</button>
+                <button id="downloadBtn">Download</button>
+            </div>
         </div>
     </div>
     <div id="modalNotification" class="modal-notification"></div>
@@ -1412,6 +1380,9 @@
     });
 
     boot();
+     window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
 </script>
 </body>
 </html>

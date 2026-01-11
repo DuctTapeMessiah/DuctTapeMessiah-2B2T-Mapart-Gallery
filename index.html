@@ -460,32 +460,37 @@
 
         .modal-controls {
             flex-direction: column;
-            gap: 20px;
-            padding: 14px 16px;
-            width: 100%;
+            gap: 14px;
+            padding: 10px 12px;
+            width: 90%;
             justify-content: center;
             align-items: stretch;
         }
 
         .view-controls, .action-controls {
             min-width: unset;
-            width: 100%;
+            width: 90%;
         }
 
         button { 
-            padding: 10px 14px; 
-            font-size: 13px; 
+            padding: 7px 10px; 
+            font-size: 11px; 
             min-width: unset; 
-            width: 100%; 
-        }
+            width: 90%; 
+        } 
 
+       .slider-row:first-child .slider-label {
+          font-size: 10px;
+          opacity: 0.8;
+        }
+ 
         .slider-row input[type="range"] { 
             height: 6px; 
             width: 100%;
         }
         .slider-row input[type="range"]::-webkit-slider-thumb { 
-            width: 14px; 
-            height: 14px; 
+            width: 13px; 
+            height: 13px; 
         }
 
         .close-x { top: 12px; right: 12px; font-size: 26px; padding: 12px 16px; }

@@ -18,6 +18,7 @@
     <meta property="twitter:title" content="DuctTapeMessiah — 2B2T Gallery">
     <meta property="twitter:description" content="A collection of mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
     <meta property="twitter:image" content="https://ducttapemessiah.art/preview1.jpeg">
+
     <style>
         html {
           background: var(--bg);
@@ -35,6 +36,7 @@
           --content-max: 1200px;
           font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         }
+
         .panel {
           background: var(--glass);
           border: 1px solid rgba(255,255,255,.08);
@@ -72,7 +74,13 @@
             to { transform: scale(1.08); }
         }
 
-        .wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; opacity: 0; transition: opacity 1.2s ease; }
+        .wrap {
+          max-width: 1200px;
+          margin: 24px auto;
+          padding: 0 16px;
+          opacity: 0;
+          transition: opacity 1.2s ease;
+        }
         body.loaded .wrap { opacity: 1; }
 
         .top-header-row {
@@ -130,30 +138,11 @@
         .award-link { font-size: 11px; color: #a5b4fc; text-decoration: none; }
         .award-link:hover { color: #c7d2fe; text-decoration: underline; }
 
-        .info-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-          margin-bottom: 20px;
-        }
-
-        .stats-column .stats-container {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .right-column {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
         .stat-card {
           background: var(--glass);
           border: 1px solid rgba(255,255,255,.06);
-          border-radius: 6px;
-          padding: 14px;
+          border-radius: 12px;
+          padding: 16px;
           box-shadow: var(--shadow);
           backdrop-filter: blur(6px);
           text-align: center;
@@ -180,6 +169,7 @@
           margin-bottom: 8px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
+          text-align: center;
         }
 
         .project-list { display: flex; flex-direction: column; gap: 4px; }
@@ -241,12 +231,25 @@
           font-weight: 600;
         }
 
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 16px;
+          margin: 32px 0;
+        }
+
+        .info-column {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
         .controls {
           display: flex;
           flex-direction: column;
           gap: 14px;
           align-items: center;
-          margin-bottom: 10px;
+          margin-bottom: 32px;
         }
 
         .controls-left {
@@ -277,16 +280,33 @@
         }
 
         .grid {
-          display: grid; grid-auto-flow: dense;
+          display: grid;
+          grid-auto-flow: dense;
           grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 16px; margin-top: 16px;
+          gap: 16px;
+          margin-top: 16px;
         }
 
-        .card { background: var(--glass); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
-                transition: transform .15s; display: flex; flex-direction: column; }
+        .card {
+          background: var(--glass);
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+          transition: transform .15s;
+          display: flex;
+          flex-direction: column;
+        }
         .card:hover { transform: translateY(-6px); }
-        .thumb-wrapper { position: relative; width: 100%; padding-top: 100%; background: #111;
-                         border-radius: 6px; overflow: hidden; border: 4px solid rgba(160,170,180,0.3); box-sizing: border-box; }
+        .thumb-wrapper {
+          position: relative;
+          width: 100%;
+          padding-top: 100%;
+          background: #111;
+          border-radius: 6px;
+          overflow: hidden;
+          border: 4px solid rgba(160,170,180,0.3);
+          box-sizing: border-box;
+        }
         .thumb {
           position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;
           object-position: center; image-rendering: auto; cursor: pointer; transition: transform .2s;
@@ -294,17 +314,19 @@
         .thumb:hover { transform: scale(1.04); }
         .meta { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; text-align: center; }
 
-        .thumb-preview { position: fixed; top: 5vh; right: 5vw; width: 35vw; height: 35vw;
-                         max-width: 450px; max-height: 450px; border: 3px solid var(--accent);
-                         border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.8); pointer-events: none;
-                         z-index: 999; opacity: 0; transition: opacity .25s; background: #000;
-                         image-rendering: pixelated; object-fit: contain; object-position: center; }
+        .thumb-preview {
+          position: fixed; top: 5vh; right: 5vw; width: 35vw; height: 35vw;
+          max-width: 450px; max-height: 450px; border: 3px solid var(--accent);
+          border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.8); pointer-events: none;
+          z-index: 999; opacity: 0; transition: opacity .25s; background: #000;
+          image-rendering: pixelated; object-fit: contain; object-position: center;
+        }
         .thumb-preview.visible { opacity: 1; }
 
-        @media (hover:none),(pointer:coarse) { .thumb-preview { display: none !important; } .thumb:hover { transform: none; } }
-
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: flex; flex-direction: column;
-                 z-index: 80; opacity: 0; pointer-events: none; transition: .25s; }
+        .modal {
+          position: fixed; inset: 0; background: rgba(0,0,0,.85); display: flex; flex-direction: column;
+          z-index: 80; opacity: 0; pointer-events: none; transition: .25s;
+        }
         .modal.open { opacity: 1; pointer-events: auto; }
 
         .modal-title-overlay {
@@ -318,13 +340,13 @@
         .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 0px; }
         .modal-title-overlay .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
         .modal-title-overlay button { padding: 8px 16px; background: var(--panel); border: none;
-                                      border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: min-width: 140px;  margin-top: 4px; }
+                                      border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; min-width: 140px; margin-top: 4px; }
 
         .modal-details {
           position: absolute; background: var(--overlay-glass); backdrop-filter: blur(6px);
-          padding: 16px; border-radius: 12px; max-width: var(--content-max); z-index: 20; font-size: 14px; line-height: 1.5;
+          padding: 20px; border-radius: 12px; max-width: var(--content-max); z-index: 20; font-size: 14px; line-height: 1.5;
           transition: opacity .4s .1s; opacity: 0; pointer-events: none; overflow-y: auto; max-height: 70vh;
-          text-align: center; padding: 20px;
+          text-align: center;
         }
         .modal-details.visible { opacity: 1; pointer-events: auto; }
 
@@ -343,7 +365,6 @@
           background: var(--overlay-glass); backdrop-filter: blur(6px);
           border-radius: 12px; z-index: 20; transition: opacity .4s; opacity: 0;
           width: calc(100% - 32px); max-width: var(--content-max); justify-content: space-between; align-items: center;
-
         }
         .modal-controls.visible { opacity: 1; }
 
@@ -385,129 +406,6 @@
           color: var(--accent-bright); opacity: 0; transition: opacity 0.4s; z-index: 25;
         }
 
-        @media (min-width: 769px) {
-      .modal-title-overlay {
-          left: 50%;
-          transform: translateX(-50%);
-          max-width: 60%;
-      }
-
-      .modal-details {
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          max-width: 60%;
-          text-align: center;
-          padding: 24px;
-      }
-    }
-
-          .modal-controls {
-            bottom: 32px;
-            gap: 60px;
-            padding: 20px 40px;
-        }
-
-          .view-controls {
-            min-width: 260px;
-        }
-
-          .action-controls {
-            flex: none;
-        }
-
-          .fit-fill-row {
-            flex-direction: row;
-        }
-
-        @media (max-width: 768px) {
-          .top-header-row { flex-direction: column; }
-
-        header {
-            padding: 12px 16px;
-            min-width: unset;
-            width: 100%;
-        }
-        .view-controls {
-            display: none;
-        }
-
-        .modal-controls {
-            max-width: var(--content-max);
-            padding: 12px 16px;
-            gap: 12px;
-        }
-
-        .action-controls {
-            width: 100%;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .action-controls button {
-            width: 100%;
-            gap: 12px;
-        }
-        }
-        .logo { width: 50px; height: 50px; }
-
-        .title-main { font-size: 21px; }
-        .title-sub { font-size: 12px; }
-
-        .award-banner {
-            padding: 12px 16px;
-            min-width: unset;
-            width: 100%;
-
-        }
-
-        .award-icon { font-size: 28px; }
-        .award-title { font-size: 14px; }
-        .award-subtitle { font-size: 11px; }
-
-        .info-row {
-            grid-template-columns: 1fr;
-        }
-
-        .right-column {
-            order: -1;
-        }
-
-        .right-column > .stat-card {
-            order: 2;
-        }
-
-        .right-column > .contact-card {
-            order: 3;
-        }
-
-        .modal-title-overlay {
-            left: 50%; transform: translateX(-50%); top: 16px; max-width: 90%;
-        }
-
-        .modal-details {
-            left: 50%; top: 50%; transform: translate(-50%, -50%);
-            max-width: 90%; max-height: 70vh;
-        }
-
-        button { padding: 12px 20px; font-size: 15px; min-width: 130px; }
-
-        .slider-row input[type="range"] { height: 8px; }
-        .slider-row input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
-
-        .close-x { top: 12px; right: 12px; font-size: 26px; padding: 12px 16px; }
-
-        .nav-arrow { width: 56px; height: 100px; font-size: 40px; }
-        .nav-arrow.prev { left: 8px; }
-        .nav-arrow.next { right: 8px; }
-        }
-
-        body.ui-hidden .wrap,
-        body.ui-hidden .modal > *:not(#uiToggleBtn),
-        body.ui-hidden .thumb-preview {
-          opacity: 0 !important; pointer-events: none !important;
-        }
-        body.ui-hidden .bg-layer { filter: brightness(1) blur(0px); }
         #uiToggleBtn {
           position: fixed; bottom: 24px; right: 24px; background: var(--panel);
           border: 1px solid rgba(255,255,255,.08); box-shadow: var(--shadow);
@@ -518,6 +416,158 @@
         body.ui-hidden #uiToggleBtn { opacity: 0.6; }
         body:not(.ui-hidden) #uiToggleBtn { opacity: 0.85; }
         .modal.open ~ #uiToggleBtn { display: none; }
+
+        body.ui-hidden .wrap,
+        body.ui-hidden .modal > *:not(#uiToggleBtn),
+        body.ui-hidden .thumb-preview {
+          opacity: 0 !important; pointer-events: none !important;
+        }
+        body.ui-hidden .bg-layer { filter: brightness(1) blur(0px); }
+
+        /* Touch devices */
+        @media (hover:none),(pointer:coarse) {
+          .thumb-preview { display: none !important; }
+          .thumb:hover { transform: none; }
+        }
+
+        /* Desktop */
+        @media (min-width: 769px) {
+          .info-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+
+          .modal-title-overlay {
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 60%;
+          }
+
+          .modal-details {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 60%;
+            padding: 24px;
+          }
+
+          .modal-controls {
+            bottom: 32px;
+            gap: 60px;
+            padding: 20px 40px;
+          }
+
+          .view-controls {
+            min-width: 260px;
+          }
+
+          .action-controls {
+            flex: none;
+          }
+
+          .fit-fill-row {
+            flex-direction: row;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+          .top-header-row {
+            flex-direction: column;
+          }
+
+          header {
+            padding: 12px 16px;
+            min-width: unset;
+            width: 100%;
+          }
+
+          .logo {
+            width: 50px;
+            height: 50px;
+          }
+
+          .title-main {
+            font-size: 21px;
+          }
+
+          .title-sub {
+            font-size: 12px;
+          }
+
+          .award-banner {
+            padding: 12px 16px;
+            min-width: unset;
+            width: 100%;
+          }
+
+          .award-icon {
+            font-size: 28px;
+          }
+
+          .award-title {
+            font-size: 14px;
+          }
+
+          .award-subtitle {
+            font-size: 11px;
+          }
+
+          .view-controls {
+            display: none;
+          }
+
+          .modal-controls {
+            max-width: var(--content-max);
+            padding: 12px 16px;
+            gap: 12px;
+          }
+
+          .action-controls {
+            width: 100%;
+            align-items: center;
+            gap: 12px;
+          }
+
+          .action-controls button {
+            width: 100%;
+          }
+
+          .modal-title-overlay {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 16px;
+            max-width: 90%;
+          }
+
+          .modal-details {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 70vh;
+          }
+
+          button {
+            padding: 12px 20px;
+            font-size: 15px;
+            min-width: 130px;
+          }
+
+          .slider-row input[type="range"] {
+            height: 8px;
+          }
+          .slider-row input[type="range"]::-webkit-slider-thumb {
+            width: 18px;
+            height: 18px;
+          }
+
+          .close-x {
+            top: 12px;
+            right: 12px;
+            font-size: 26px;
+            padding: 12px 16px;
+          }
+        }
     </style>
 </head>
 <body>
@@ -544,33 +594,36 @@
         </div>
     </div>
 
-    <div class="info-row">
-        <div class="stats-column">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-label">Total Maps</div>
-                    <div class="stat-value" id="totalMaps">-</div>
-                    <div class="stat-sublabel">Individual maparts created</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Group Contributions</div>
-                    <div class="stat-value" id="groupMaps">-</div>
-                    <div class="stat-sublabel">Maps in collaborative projects</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Grand Total</div>
-                    <div class="stat-value" id="grandTotal">-</div>
-                    <div class="stat-sublabel">All maps combined</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Maps Copied</div>
-                    <div class="stat-value">479,752</div>
-                    <div class="stat-sublabel">As of January 10, 2026</div>
-                </div>
+    <div class="info-grid">
+        <div class="info-column">
+            <div class="stat-card grand-total">
+                <div class="stat-label">Grand Total</div>
+                <div class="stat-value" id="grandTotal">-</div>
+                <div class="stat-sublabel">All maps combined</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Total Maps</div>
+                <div class="stat-value" id="totalMaps">-</div>
+                <div class="stat-sublabel">Individual maparts created</div>
             </div>
         </div>
 
-        <div class="right-column">
+        <div class="info-column">
+            <div class="stat-card">
+                <div class="stat-label">Group Contributions</div>
+                <div class="stat-value" id="groupMaps">-</div>
+                <div class="stat-sublabel">Maps in collaborative projects</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Maps Copied</div>
+                <div class="stat-value">479,752</div>
+                <div class="stat-sublabel">As of January 11, 2026</div>
+            </div>
+        </div>
+
+        <div class="info-column">
             <div class="group-projects panel">
                 <div class="group-projects-title">Group Projects</div>
                 <div class="project-list">
@@ -666,6 +719,7 @@
 <button id="uiToggleBtn">Hide UI</button>
 
 <script>
+    /* Your original script remains unchanged – it works perfectly with the new layout */
     const gallery = document.getElementById('gallery');
     const hover = document.getElementById('hoverPreview');
     const modal = document.getElementById('modal');
@@ -724,7 +778,8 @@
     function onUserInteract() {
         showUI();
         resetUITimeout();
-        }
+    }
+
     function calculateStats() {
       let totalIndividualMaps = 0;
 

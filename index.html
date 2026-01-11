@@ -30,7 +30,7 @@
           --accent: #b6c7d6;
           --accent-bright: #d4e3f2;
           --glass: rgba(255,255,255,.06);
-          --overlay-glass: rgba(15,17,19,.85);
+          --overlay-glass: rgba(15,17,19,.45);
           --shadow: 0 10px 30px rgba(0,0,0,.65);
           font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         }
@@ -69,7 +69,7 @@
 
         .top-header-row {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           justify-content: space-between;
           gap: 20px;
           margin-bottom: 16px;
@@ -79,6 +79,7 @@
         header {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 18px;
           padding: 16px 20px;
           background: var(--glass);
@@ -104,11 +105,12 @@
           border-radius: 12px;
           padding: 16px 20px;
           box-shadow: var(--shadow);
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(6px);
           display: flex;
           align-items: center;
           gap: 16px;
-          min-width: 360px;
+          min-width: 300px;
+          flex: 1;
           flex-shrink: 0;
           text-align: center;
           justify-content: center;
@@ -159,7 +161,7 @@
           border-radius: 12px;
           padding: 14px 16px;
           box-shadow: var(--shadow);
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(6px);
           height: fit-content;
         }
 
@@ -193,7 +195,7 @@
           border-radius: 12px;
           padding: 16px;
           box-shadow: var(--shadow);
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(6px);
           text-align: center;
         }
 
@@ -299,19 +301,22 @@
 
         .modal-title-overlay {
           position: absolute; top: 16px; left: 16px; background: var(--overlay-glass);
-          backdrop-filter: blur(12px); padding: 12px 16px; border-radius: 12px; max-width: 60%;
+          backdrop-filter: blur(6px); padding: 12px 24px; border-radius: 12px; max-width: 90%;
           z-index: 20; font-size: 14px; transition: opacity .4s; opacity: 0;
+          text-align: center;
+          gap: 8px;
         }
         .modal-title-overlay.visible { opacity: 1; }
-        .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 4px; }
+        .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 0px; }
         .modal-title-overlay .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
-        .modal-title-overlay button { padding: 8px 12px; background: var(--panel); border: none;
-                                      border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: 100%; margin-top: 6px; }
+        .modal-title-overlay button { padding: 8px 16px; background: var(--panel); border: none;
+                                      border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: min-width: 140px;  margin-top: 4px; }
 
         .modal-details {
-          position: absolute; background: var(--overlay-glass); backdrop-filter: blur(12px);
+          position: absolute; background: var(--overlay-glass); backdrop-filter: blur(6px);
           padding: 16px; border-radius: 12px; max-width: 90%; z-index: 20; font-size: 14px; line-height: 1.5;
           transition: opacity .4s .1s; opacity: 0; pointer-events: none; overflow-y: auto; max-height: 70vh;
+          text-align: center; padding: 20px;
         }
         .modal-details.visible { opacity: 1; pointer-events: auto; }
 
@@ -326,19 +331,21 @@
 
         .modal-controls {
           position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-          display: flex; flex-direction: row; gap: 20px; padding: 14px 20px;
-          background: var(--overlay-glass); backdrop-filter: blur(12px);
+          display: flex; flex-direction: row; gap: 40px; padding: 14px 20px;
+          background: var(--overlay-glass); backdrop-filter: blur(6px);
           border-radius: 12px; z-index: 20; transition: opacity .4s; opacity: 0;
           width: 95%; max-width: 700px; justify-content: space-between; align-items: center;
+
         }
         .modal-controls.visible { opacity: 1; }
 
         .view-controls, .action-controls {
-          display: flex; flex-direction: column; gap: 10px; flex: 1;
+          display: flex; flex-direction: column; gap: 10px;
+          min-width: 220px;
         }
 
         .fit-fill-row {
-          display: flex; gap: 10px; justify-content: center;
+          display: flex; flex-direction: column; gap: 10px; justify-content: center;
         }
 
         .slider-row {
@@ -355,7 +362,7 @@
         }
 
         .action-row {
-          display: flex; gap: 12px; justify-content: center;
+          display: flex; flex-direction: column; gap: 10px; justify-content: center;
         }
 
         button {
@@ -365,21 +372,38 @@
 
         .modal-notification {
           position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%);
-          background: var(--overlay-glass); backdrop-filter: blur(12px);
+          background: var(--overlay-glass); backdrop-filter: blur(6px);
           padding: 10px 20px; border-radius: 12px; font-size: 15px; font-weight: 600;
           color: var(--accent-bright); opacity: 0; transition: opacity 0.4s; z-index: 25;
         }
 
         @media (min-width: 769px) {
-          .modal-title-overlay { left: 16px; max-width: 60%; transform: none; }
-          .modal-details { left: 16px; top: calc(16px + var(--title-height, 72px) + 10px); max-width: 60%; transform: none; }
+      .modal-title-overlay {
+          left: 50%;
+          transform: translateX(-50%);
+          max-width: 60%;
+      }
+
+      .modal-details {
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          max-width: 60%;
+          text-align: center;
+          padding: 24px;
+      }
+    }
 
           .modal-controls {
-            top: 16px; bottom: auto; left: auto; right: 80px; transform: none;
-            flex-direction: column; width: auto; min-width: 160px;
-          }
+            bottom: 32px;
+            gap: 60px;
+            padding: 20px 40px;
+        }
 
-          .view-controls, .action-controls { flex: none; }
+          .view-controls {
+            min-width: 260px;
+        },
+          .action-controls { flex: none; }
 
           .fit-fill-row { flex-direction: row; }
         }
@@ -434,7 +458,7 @@
             max-width: 90%; max-height: 70vh;
         }
 
-        button { padding: 12px 18px; font-size: 15px; min-width: 100px; }
+        button { padding: 12px 20px; font-size: 15px; min-width: 130px; }
 
         .slider-row input[type="range"] { height: 8px; }
         .slider-row input[type="range"]::-webkit-slider-thumb { width: 18px; height: 18px; }
@@ -588,16 +612,14 @@
     </div>
     <div class="modal-controls" id="modalControls">
         <div class="view-controls">
-            <div class="fit-fill-row">
-                <button id="fitViewBtn">Fit</button>
-                <button id="fillViewBtn">Fill</button>
-            </div>
             <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
             <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
             <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
         </div>
         <div class="action-controls">
             <div class="action-row">
+                <button id="fitViewBtn">Fit</button>
+                <button id="fillViewBtn">Fill</button>
                 <button id="copyBtn">Copy</button>
                 <button id="downloadBtn">Download</button>
             </div>
@@ -627,8 +649,8 @@
     const uiToggleBtn = document.getElementById('uiToggleBtn');
     const modalNotification = document.getElementById('modalNotification');
 
-    if (fitViewBtn) fitViewBtn.onclick = () => { fitView(); showUI(); };
-    if (fillViewBtn) fillViewBtn.onclick = () => { fillView(); showUI(); };
+    if (fitViewBtn) fitViewBtn.onclick = () => { fitView(); onUserInteract(); };
+    if (fillViewBtn) fillViewBtn.onclick = () => { fillView(); onUserInteract(); };
 
     let mode = 'mapart';
     let sort = 'date-desc';
@@ -664,6 +686,10 @@
     let autoPanInterval = null;
     let panDirection = 1;
 
+    function onUserInteract() {
+        showUI();
+        resetUITimeout();
+        }
     function calculateStats() {
       let totalIndividualMaps = 0;
 
@@ -958,13 +984,11 @@
     }
 
     function showUI() {
-        clearTimeout(uiTimeout);
         modalTitleOverlay.classList.add('visible');
         modalDetails.classList.toggle('visible', state.detailsShown);
         prevBtn.classList.add('visible');
         nextBtn.classList.add('visible');
         modalControls.classList.add('visible');
-        uiTimeout = setTimeout(hideUI, 2500);
     }
 
     function hideUI() {
@@ -973,7 +997,10 @@
         prevBtn.classList.remove('visible');
         nextBtn.classList.remove('visible');
         modalControls.classList.remove('visible');
-        startAutoPan();
+    }
+    function resetUITimeout() {
+        clearTimeout(uiTimeout);
+        uiTimeout = setTimeout(hideUI, 3000);
     }
 
     function showNotification(text) {
@@ -1064,7 +1091,19 @@
       if (m.title) titleHtml += `<strong>${m.title}</strong>`;
 
       let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
-      if (dateStr) titleHtml += `<div class="date">${dateStr}</div>`;
+      if (dateStr) {
+        const parsedDate = new Date(dateStr);
+        if (!isNaN(parsedDate)) {
+          const formattedDate = parsedDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+          });
+          titleHtml += `<div class="date">Date Created: ${formattedDate}</div>`;
+        } else {
+          titleHtml += `<div class="date">Date Created: ${dateStr}</div>`;
+        }
+      }
 
       const desc = m.description || '';
       const credit = m.artistCredit || '';
@@ -1125,8 +1164,7 @@
             const h = modalTitleOverlay.getBoundingClientRect().height;
             document.documentElement.style.setProperty('--title-height', `${h}px`);
           });
-
-          showUI();
+           onUserInteract();
         };
       }
 
@@ -1161,7 +1199,7 @@
       }
 
       showUI();
-
+      resetUITimeout();
       prevBtn.style.display = idx > 0 ? 'flex' : 'none';
       nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
     }
@@ -1238,13 +1276,17 @@
       clampPan();
       updateTransform();
       syncSliders();
+      onUserInteract();
     };
+    zoomSlider.onmouseup = resetUITimeout;
+    zoomSlider.ontouchend = resetUITimeout;
 
     panXSlider.oninput = () => {
       const scaledW = state.scale * modalImg.naturalWidth;
       const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
       state.offsetX = parseFloat(panXSlider.value) * maxPanX;
       updateTransform();
+      onUserInteract();
     };
 
     panYSlider.oninput = () => {
@@ -1252,6 +1294,7 @@
       const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
       state.offsetY = parseFloat(panYSlider.value) * maxPanY;
       updateTransform();
+      onUserInteract();
     };
 
     modalViewport.addEventListener('wheel', e => {
@@ -1262,7 +1305,7 @@
       clampPan();
       updateTransform();
       syncSliders();
-      showUI();
+      onUserInteract();
     }, { passive: false });
 
     modalViewport.addEventListener('mousedown', e => {
@@ -1331,22 +1374,21 @@
       }
     }, { passive: false });
 
-    modalViewport.addEventListener('mousemove', showUI);
-    modalViewport.addEventListener('touchstart', showUI, { passive: true });
-    modalViewport.addEventListener('wheel', showUI, { passive: true });
+    modalViewport.addEventListener('mousemove', onUserInteract);
+    modalViewport.addEventListener('touchmove', onUserInteract, { passive: true });
 
     function navigate(delta) {
       const newIdx = currentIndex + delta;
       if (newIdx >= 0 && newIdx < items.length) openModal(newIdx);
     }
 
-    prevBtn.onclick = () => { navigate(-1); showUI(); };
-    nextBtn.onclick = () => { navigate(1); showUI(); };
+    prevBtn.onclick = () => { navigate(-1); onUserInteract(); };
+    nextBtn.onclick = () => { navigate(1); onUserInteract(); };
 
     document.addEventListener('keydown', e => {
       if (modal.classList.contains('open')) {
-        if (e.key === 'ArrowLeft') { navigate(-1); showUI(); }
-        if (e.key === 'ArrowRight') { navigate(1); showUI(); }
+        if (e.key === 'ArrowLeft') { navigate(-1); onUserInteract(); }
+        if (e.key === 'ArrowRight') { navigate(1); onUserInteract(); }
         if (e.key === 'Escape') closeModal();
       } else if (document.body.classList.contains('ui-hidden')) {
         if (e.key === 'Escape' || e.key === ' ') {
@@ -1414,11 +1456,11 @@
 
     modalImg.onload = () => {
       fitView();
-      startAutoPan();
+      onUserInteract();
     };
 
     document.getElementById('copyBtn').addEventListener('click', async () => {
-      showUI();
+      onUserInteract();
       try {
         const response = await fetch(modalImg.src);
         if (!response.ok) throw new Error('Network error');
@@ -1431,7 +1473,7 @@
     });
 
     document.getElementById('downloadBtn').addEventListener('click', () => {
-      showUI();
+      onUserInteract();
       const a = document.createElement('a');
       a.href = modalImg.src;
       const filename = modalImg.src.split('/').pop() || 'image.png';

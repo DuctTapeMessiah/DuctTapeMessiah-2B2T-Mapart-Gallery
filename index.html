@@ -22,6 +22,7 @@
         html {
           background: var(--bg);
         }
+
         :root {
           --bg: #0b0b0d;
           --panel: #0f1113;
@@ -63,7 +64,8 @@
             to { transform: scale(1.08); }
         }
 
-        .wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+        .wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; opacity: 0; transition: opacity 1.2s ease; }
+        body.loaded .wrap { opacity: 1; }
 
         .top-header-row {
           display: flex;
@@ -281,93 +283,97 @@
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: flex; flex-direction: column;
                  z-index: 80; opacity: 0; pointer-events: none; transition: .25s; }
         .modal.open { opacity: 1; pointer-events: auto; }
-        .modal-title-overlay { position: absolute; top: 16px; left: 16px; background: var(--overlay-glass);
-                               backdrop-filter: blur(12px); padding: 12px 16px; border-radius: 12px; max-width: 60%;
-                               z-index: 20; font-size: 14px; transition: opacity .4s; opacity: 0; }
+
+        .modal-title-overlay {
+          position: absolute; top: 16px; left: 16px; background: var(--overlay-glass);
+          backdrop-filter: blur(12px); padding: 12px 16px; border-radius: 12px; max-width: 60%;
+          z-index: 20; font-size: 14px; transition: opacity .4s; opacity: 0;
+        }
         .modal-title-overlay.visible { opacity: 1; }
         .modal-title-overlay strong { font-size: 17px; display: block; margin-bottom: 4px; }
         .modal-title-overlay .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
-        .modal-title-overlay .details-btn { padding: 6px 12px; background: var(--panel); border: none;
-                                            border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: 100%; margin-bottom: 6px; }
-        .modal-title-overlay .linked-btn { padding: 6px 12px; background: rgba(182,199,214,0.15); border: 1px solid var(--accent);
-                                            border-radius: 8px; color: var(--accent); font-size: 13px; cursor: pointer; width: 100%; }
-        .modal-details { position: absolute; top: calc(16px + var(--title-height, 72px) + 10px); left: 16px;
-                         background: var(--overlay-glass); backdrop-filter: blur(12px); padding: 12px 16px;
-                         border-radius: 12px; max-width: 60%; z-index: 20; font-size: 14px; line-height: 1.5;
-                         transition: opacity .4s .1s; opacity: 0; pointer-events: none; }
+        .modal-title-overlay button { padding: 8px 12px; background: var(--panel); border: none;
+                                      border-radius: 8px; color: inherit; font-size: 13px; cursor: pointer; width: 100%; margin-top: 6px; }
+
+        .modal-details {
+          position: absolute; background: var(--overlay-glass); backdrop-filter: blur(12px);
+          padding: 16px; border-radius: 12px; max-width: 90%; z-index: 20; font-size: 14px; line-height: 1.5;
+          transition: opacity .4s .1s; opacity: 0; pointer-events: none; overflow-y: auto; max-height: 70vh;
+        }
         .modal-details.visible { opacity: 1; pointer-events: auto; }
-        .modal-details .desc { margin: 8px 0; color: #d0d8e2; }
-        .modal-details .credit { font-size: 12px; color: var(--accent); margin-top: 8px; }
+
         .modal-viewport {
           flex: 1; background: #000; position: relative; overflow: hidden;
           display: flex; align-items: center; justify-content: center;
-          touch-action: none; cursor: move; padding: 0; box-sizing: border-box;
+          touch-action: none; cursor: move;
         }
-        .modal-img {
-          image-rendering: auto; user-select: none; pointer-events: none;
-          transform-origin: center center; max-width: none; max-height: none;
-          width: auto; height: auto; object-fit: none;
-          transition: transform 0.3s ease-out;
-        }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 80px;
-                     background: rgba(0,0,0,.5); border-radius: 8px; display: flex; align-items: center;
-                     justify-content: center; font-size: 32px; color: #fff; cursor: pointer; z-index: 15;
-                     opacity: 0; transition: opacity .1s; backdrop-filter: blur(4px); }
-        .nav-arrow.visible { opacity: 0.3; }
-        .nav-arrow:hover { opacity: 0.6; background: rgba(0,0,0,.7); }
-        .nav-arrow.prev { left: 20px; }
-        .nav-arrow.next { right: 20px; }
+
         .close-x { position: absolute; top: 16px; right: 18px; font-size: 22px; background: var(--panel);
                    padding: 8px 12px; border-radius: 10px; cursor: pointer; z-index: 20; }
-        .modal-controls { position: absolute; top: 16px; right: 80px; display: flex; flex-direction: column;
-                          gap: 6px; padding: 10px 12px; background: var(--overlay-glass); backdrop-filter: blur(12px);
-                          border-radius: 10px; font-size: 10px; z-index: 20; transition: opacity .4s; opacity: 0;
-                          min-width: 140px; align-items: center; }
+
+        /* Bottom controls bar */
+        .modal-controls {
+          position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+          display: flex; flex-direction: row; gap: 20px; padding: 14px 20px;
+          background: var(--overlay-glass); backdrop-filter: blur(12px);
+          border-radius: 12px; z-index: 20; transition: opacity .4s; opacity: 0;
+          width: 95%; max-width: 700px; justify-content: space-between; align-items: center;
+        }
         .modal-controls.visible { opacity: 1; }
 
-        .fit-fill-row {
-          display: flex;
-          gap: 8px;
-          width: 100%;
-          justify-content: center;
+        .view-controls, .action-controls {
+          display: flex; flex-direction: column; gap: 10px; flex: 1;
         }
 
-        .slider-row { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
-        .slider-label { width: auto; font-size: 10px; opacity: .75; text-align: center; }
-        .slider-row input[type="range"] { flex: 1; height: 6px; -webkit-appearance: none;
-                                          background: rgba(255,255,255,0.15); border-radius: 4px; }
-        .slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
-                                                                height: 14px; background: var(--accent);
-                                                                border-radius: 50%; cursor: pointer; }
-        .slider-row button, .action-row button { padding: 6px 10px; font-size: 12px; background: var(--panel); border: none;
-                             border-radius: 8px; cursor: pointer; color: inherit; min-width: 60px; }
-        .action-row { display: flex; gap: 8px; margin-top: 10px; width: 100%; justify-content: center; }
+        .fit-fill-row {
+          display: flex; gap: 10px; justify-content: center;
+        }
+
+        .slider-row {
+          display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .slider-label { font-size: 11px; opacity: .8; }
+
+        .slider-row input[type="range"] {
+          width: 100%; height: 7px; -webkit-appearance: none;
+          background: rgba(255,255,255,0.15); border-radius: 4px;
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none; width: 16px; height: 16px; background: var(--accent); border-radius: 50%;
+        }
+
+        .action-row {
+          display: flex; gap: 12px; justify-content: center;
+        }
+
+        button {
+          padding: 10px 16px; background: var(--panel); border: none; border-radius: 8px;
+          color: inherit; font-size: 14px; cursor: pointer; min-width: 90px;
+        }
 
         .modal-notification {
-          position: absolute;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: var(--overlay-glass);
-          backdrop-filter: blur(12px);
-          padding: 10px 20px;
-          border-radius: 12px;
-          font-size: 15px;
-          font-weight: 600;
-          color: var(--accent-bright);
-          opacity: 0;
-          transition: opacity 0.4s ease;
-          pointer-events: none;
-          z-index: 25;
-          box-shadow: var(--shadow);
+          position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%);
+          background: var(--overlay-glass); backdrop-filter: blur(12px);
+          padding: 10px 20px; border-radius: 12px; font-size: 15px; font-weight: 600;
+          color: var(--accent-bright); opacity: 0; transition: opacity 0.4s; z-index: 25;
         }
 
-        @media (max-width:968px) {
-          .top-header-row { flex-direction: column; align-items: stretch; }
-          header, .award-banner { min-width: auto; }
-          .info-row { grid-template-columns: 1fr; }
+        /* Desktop layout */
+        @media (min-width: 769px) {
+          .modal-title-overlay { left: 16px; max-width: 60%; transform: none; }
+          .modal-details { left: 16px; top: calc(16px + var(--title-height, 72px) + 10px); max-width: 60%; transform: none; }
+
+          .modal-controls {
+            top: 16px; bottom: auto; left: auto; right: 80px; transform: none;
+            flex-direction: column; width: auto; min-width: 160px;
+          }
+
+          .view-controls, .action-controls { flex: none; }
+
+          .fit-fill-row { flex-direction: row; }
         }
 
+        /* Mobile layout */
         @media (max-width: 768px) {
           .modal-title-overlay {
             left: 50%; transform: translateX(-50%); top: 16px; max-width: 90%;
@@ -377,6 +383,7 @@
             left: 50%; top: 50%; transform: translate(-50%, -50%);
             max-width: 90%; max-height: 70vh;
           }
+
           button { padding: 12px 18px; font-size: 15px; min-width: 100px; }
 
           .slider-row input[type="range"] { height: 8px; }
@@ -626,6 +633,9 @@
     }
 
     function startAutoPan() {
+      // Disable auto-pan on touch devices (mobile) to prevent "random" panning
+      if (isTouchDevice) return;
+
       if (!modal.classList.contains('open') || autoPanInterval) return;
 
       const vpW = modalViewport.clientWidth;

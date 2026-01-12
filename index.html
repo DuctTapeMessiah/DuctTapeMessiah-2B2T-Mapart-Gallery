@@ -20,10 +20,6 @@
     <meta property="twitter:image" content="https://ducttapemessiah.art/preview1.jpeg">
 
     <style>
-        html {
-            background: var(--bg);
-        }
-
         :root {
             --bg: #0b0b0d;
             --panel: #0f1113;
@@ -37,20 +33,23 @@
             font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
         }
 
+        html, body {
+            margin: 0;
+            height: 100%;
+            color: #e6eef6;
+            overflow-x: hidden;
+        }
+
+        html {
+            background: var(--bg);
+        }
+
         .panel {
             background: var(--glass);
             border: 1px solid rgba(255,255,255,.08);
             border-radius: 12px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(6px);
-        }
-
-        html, body {
-            margin: 0;
-            height: 100%;
-            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-            color: #e6eef6;
-            overflow-x: hidden;
         }
 
         .bg-layer {
@@ -66,13 +65,13 @@
             will-change: opacity, transform;
         }
 
-        .bg-layer.active { opacity: 1; }
-        .bg-layer.fadeout { opacity: 0; }
-        .bg-layer.animate { animation: bgZoom 12s linear forwards; }
+        .bg-layer.active    { opacity: 1; }
+        .bg-layer.fadeout   { opacity: 0; }
+        .bg-layer.animate   { animation: bgZoom 12s linear forwards; }
 
         @keyframes bgZoom {
             from { transform: scale(1); }
-            to { transform: scale(1.08); }
+            to   { transform: scale(1.08); }
         }
 
         .wrap {
@@ -83,7 +82,9 @@
             transition: opacity 1.2s ease;
         }
 
-        body.loaded .wrap { opacity: 1; }
+        body.loaded .wrap {
+            opacity: 1;
+        }
 
         .info-section {
             margin: 32px 0;
@@ -96,21 +97,23 @@
             margin-bottom: 32px;
         }
 
-        .top-header-row > * {
+        header, .award-banner, .contact-card {
             padding: 20px;
         }
 
         header {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 18px;
+            gap: 12px;
             background: var(--glass);
             border: 1px solid rgba(255,255,255,.08);
             border-radius: 12px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(8px);
             text-align: center;
+            padding: 24px 20px;
         }
 
         .logo {
@@ -127,36 +130,60 @@
             object-fit: cover;
         }
 
-        .title-wrap { flex: 1; }
-        .title-main { font-size: 28px; font-weight: 800; color: #f1f5f9; line-height: 1.1; }
-        .title-sub { font-size: 14px; color: #cbd5e1; font-weight: 500; }
+        .title-main {
+            font-size: 28px;
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1.1;
+        }
+
+        .title-sub {
+            font-size: 14px;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
 
         .award-banner {
             background: var(--glass);
             border: 1px solid rgba(255,255,255,.1);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(6px);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             text-align: center;
+            padding: 24px 20px;
         }
 
-        .award-icon { font-size: 36px; flex-shrink: 0; }
-        .award-title { font-size: 16px; font-weight: 800; color: #f1f5f9; margin-bottom: 2px; }
-        .award-subtitle { font-size: 13px; color: #cbd5e1; }
-        .award-link { font-size: 11px; color: #a5b4fc; text-decoration: none; }
-        .award-link:hover { color: #c7d2fe; text-decoration: underline; }
+        .award-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .award-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+        }
+
+        .award-subtitle {
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .award-link {
+            font-size: 11px;
+            color: #a5b4fc;
+            text-decoration: none;
+        }
+
+        .award-link:hover {
+            color: #c7d2fe;
+            text-decoration: underline;
+        }
 
         .contact-card {
-            padding: 20px;
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(6px);
             text-align: center;
         }
 
@@ -212,17 +239,30 @@
             justify-content: center;
         }
 
-        .stat-label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
-        .stat-value { font-size: 28px; font-weight: 800; color: var(--accent-bright); line-height: 1; }
-        .stat-sublabel { font-size: 11px; color: var(--muted); margin-top: 4px; }
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-bright);
+            line-height: 1;
+        }
+
+        .stat-sublabel {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
 
         .group-projects {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 12px;
             padding: 14px 16px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(6px);
             display: flex;
             flex-direction: column;
         }
@@ -256,9 +296,22 @@
             font-size: 10px;
         }
 
-        .project-name { color: var(--accent); font-weight: 600; }
-        .project-date { color: var(--muted); font-size: 9px; margin-right: 6px; }
-        .project-maps { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
+        .project-name {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .project-date {
+            color: var(--muted);
+            font-size: 9px;
+            margin-right: 6px;
+        }
+
+        .project-maps {
+            color: var(--accent-bright);
+            font-weight: 700;
+            font-size: 10px;
+        }
 
         .controls {
             display: flex;
@@ -268,14 +321,10 @@
             margin-bottom: 32px;
         }
 
-        .controls-left {
+        .tabs {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
+            gap: 8px;
         }
-
-        .tabs { display: flex; gap: 8px; }
 
         .tab-btn, .sort-btn {
             background: var(--panel);
@@ -330,7 +379,9 @@
             flex-direction: column;
         }
 
-        .card:hover { transform: translateY(-6px); }
+        .card:hover {
+            transform: translateY(-6px);
+        }
 
         .thumb-wrapper {
             position: relative;
@@ -345,8 +396,7 @@
 
         .thumb {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -356,7 +406,9 @@
             transition: transform .2s;
         }
 
-        .thumb:hover { transform: scale(1.04); }
+        .thumb:hover {
+            transform: scale(1.04);
+        }
 
         .meta {
             padding: 8px 10px;
@@ -384,10 +436,11 @@
             background: #000;
             image-rendering: pixelated;
             object-fit: contain;
-            object-position: center;
         }
 
-        .thumb-preview.visible { opacity: 1; }
+        .thumb-preview.visible {
+            opacity: 1;
+        }
 
         .modal {
             position: fixed;
@@ -404,6 +457,18 @@
         .modal.open {
             opacity: 1;
             pointer-events: auto;
+        }
+
+        .close-x {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            font-size: 22px;
+            background: var(--panel);
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 20;
         }
 
         .modal-title-overlay {
@@ -423,7 +488,9 @@
             gap: 8px;
         }
 
-        .modal-title-overlay.visible { opacity: 1; }
+        .modal-title-overlay.visible {
+            opacity: 1;
+        }
 
         .modal-title-overlay strong {
             font-size: 17px;
@@ -436,18 +503,6 @@
             font-size: 13px;
             margin-bottom: 10px;
             display: block;
-        }
-
-        .modal-title-overlay button {
-            padding: 8px 16px;
-            background: var(--panel);
-            border: none;
-            border-radius: 8px;
-            color: inherit;
-            font-size: 13px;
-            cursor: pointer;
-            min-width: 140px;
-            margin-top: 4px;
         }
 
         .modal-details {
@@ -485,18 +540,6 @@
             cursor: move;
         }
 
-        .close-x {
-            position: absolute;
-            top: 16px;
-            right: 18px;
-            font-size: 22px;
-            background: var(--panel);
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 20;
-        }
-
         .modal-controls {
             position: absolute;
             bottom: 16px;
@@ -518,7 +561,9 @@
             align-items: center;
         }
 
-        .modal-controls.visible { opacity: 1; }
+        .modal-controls.visible {
+            opacity: 1;
+        }
 
         .view-controls, .action-controls {
             display: flex;
@@ -541,7 +586,10 @@
             gap: 4px;
         }
 
-        .slider-label { font-size: 11px; opacity: .8; }
+        .slider-label {
+            font-size: 11px;
+            opacity: .8;
+        }
 
         .slider-row input[type="range"] {
             width: 100%;
@@ -557,24 +605,6 @@
             height: 16px;
             background: var(--accent);
             border-radius: 50%;
-        }
-
-        .action-row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        button {
-            padding: 10px 16px;
-            background: var(--panel);
-            border: none;
-            border-radius: 8px;
-            color: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            min-width: 90px;
         }
 
         .modal-notification {
@@ -610,11 +640,21 @@
             transition: opacity .2s ease, transform .12s ease;
         }
 
-        #uiToggleBtn:hover { transform: translateY(-2px); opacity: 1 !important; }
+        #uiToggleBtn:hover {
+            transform: translateY(-2px);
+        }
 
-        body.ui-hidden #uiToggleBtn { opacity: 0.6; }
-        body:not(.ui-hidden) #uiToggleBtn { opacity: 0.85; }
-        .modal.open ~ #uiToggleBtn { display: none; }
+        body.ui-hidden #uiToggleBtn {
+            opacity: 0.6;
+        }
+
+        body:not(.ui-hidden) #uiToggleBtn {
+            opacity: 0.85;
+        }
+
+        .modal.open ~ #uiToggleBtn {
+            display: none;
+        }
 
         body.ui-hidden .wrap,
         body.ui-hidden .modal > *:not(#uiToggleBtn),
@@ -623,9 +663,11 @@
             pointer-events: none !important;
         }
 
-        body.ui-hidden .bg-layer { filter: brightness(1) blur(0px); }
+        body.ui-hidden .bg-layer {
+            filter: brightness(1) blur(0px);
+        }
 
-        @media (hover:none), (pointer:coarse) {
+        @media (hover: none), (pointer: coarse) {
             .thumb-preview { display: none !important; }
             .thumb:hover { transform: none; }
         }
@@ -637,11 +679,11 @@
                 align-items: stretch;
             }
 
-            .stats-grid > .grand-total { grid-column: 1; grid-row: 1; }
-            .stats-grid > .total-maps { grid-column: 1; grid-row: 2; }
-            .stats-grid > .group-contributions { grid-column: 2; grid-row: 1; }
-            .stats-grid > .maps-copied { grid-column: 2; grid-row: 2; }
-            .stats-grid > .group-projects { grid-column: 3; grid-row: 1 / 3; }
+            .grand-total        { grid-column: 1; grid-row: 1; }
+            .total-maps          { grid-column: 1; grid-row: 2; }
+            .group-contributions { grid-column: 2; grid-row: 1; }
+            .maps-copied         { grid-column: 2; grid-row: 2; }
+            .group-projects      { grid-column: 3; grid-row: 1 / 3; }
 
             .modal-title-overlay {
                 left: 50%;
@@ -664,138 +706,10 @@
             }
 
             .view-controls { min-width: 260px; }
-            .action-controls { flex: none; }
             .fit-fill-row { flex-direction: row; }
         }
 
         @media (max-width: 768px) {
-
-            .info-section {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-                align-items: start;
-            }
-
-            .top-header-row,
-            .stats-grid {
-                display: contents;
-            }
-
-            header {
-                grid-column: 1;
-                grid-row: 1;
-                padding: 12px 16px;
-            }
-
-            .award-banner {
-                grid-column: 2;
-                grid-row: 1;
-                padding: 12px 16px;
-            }
-
-            .contact-card {
-                grid-column: 2;
-                grid-row: 4;
-                padding: 12px 16px;
-            }
-
-            .stat-card.grand-total {
-                grid-column: 1;
-                grid-row: 2;
-            }
-
-            .stat-card.total-maps {
-                grid-column: 2;
-                grid-row: 2;
-            }
-
-            .stat-card.group-contributions {
-                grid-column: 1;
-                grid-row: 3;
-            }
-
-            .stat-card.maps-copied {
-                grid-column: 2;
-                grid-row: 3;
-            }
-
-            .group-projects {
-                grid-column: 1;
-                grid-row: 4;
-            }
-
-            .logo {
-                width: 50px;
-                height: 50px;
-            }
-
-            .title-main { font-size: 21px; }
-            .title-sub { font-size: 12px; }
-
-            .award-icon { font-size: 28px; }
-            .award-title { font-size: 14px; }
-            .award-subtitle { font-size: 11px; }
-
-            .stat-card {
-                padding: 20px;
-            }
-
-            .stat-value {
-                font-size: 24px;
-            }
-
-            .view-controls { display: none; }
-
-            .modal-controls {
-                max-width: var(--content-max);
-                padding: 12px 16px;
-                gap: 12px;
-            }
-
-            .action-controls {
-                width: 100%;
-                align-items: center;
-                gap: 12px;
-            }
-
-            .action-controls button { width: 100%; }
-
-            .modal-title-overlay {
-                left: 50%;
-                transform: translateX(-50%);
-                top: 16px;
-                max-width: 90%;
-            }
-
-            .modal-details {
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                max-width: 90%;
-                max-height: 70vh;
-            }
-
-            button {
-                padding: 12px 20px;
-                font-size: 15px;
-                min-width: 130px;
-            }
-
-            .slider-row input[type="range"] { height: 8px; }
-
-            .slider-row input[type="range"]::-webkit-slider-thumb {
-                width: 18px;
-                height: 18px;
-            }
-
-            .close-x {
-                top: 12px;
-                right: 12px;
-                font-size: 26px;
-                padding: 12px 16px;
-            }
-            @media (max-width: 768px) {
             .wrap {
                 padding: 0 8px;
             }
@@ -812,7 +726,7 @@
                 display: contents;
             }
 
-            .header,
+            header,
             .award-banner,
             .contact-card,
             .stat-card,
@@ -820,25 +734,67 @@
                 padding: 16px;
             }
 
-            .stat-value {
-                font-size: 22px;
+            .grand-total         { grid-column: 1; grid-row: 2; }
+            .total-maps          { grid-column: 2; grid-row: 2; }
+            .group-contributions { grid-column: 1; grid-row: 3; }
+            .maps-copied         { grid-column: 2; grid-row: 3; }
+            .group-projects      { grid-column: 1; grid-row: 4; }
+
+            header { grid-column: 1; grid-row: 1; }
+            .award-banner { grid-column: 2; grid-row: 1; }
+            .contact-card { grid-column: 2; grid-row: 4; }
+
+            .logo {
+                width: 50px;
+                height: 50px;
             }
 
-            .stat-label {
-                font-size: 11px;
+            .title-main { font-size: 21px; }
+            .title-sub  { font-size: 12px; }
+
+            .award-icon    { font-size: 28px; }
+            .award-title   { font-size: 14px; }
+            .award-subtitle { font-size: 11px; }
+
+            .stat-value { font-size: 24px; }
+            .stat-label { font-size: 11px; }
+            .stat-sublabel { font-size: 10px; }
+
+            .view-controls { display: none; }
+
+            .modal-controls {
+                max-width: var(--content-max);
+                padding: 12px 16px;
+                gap: 12px;
             }
 
-            .stat-sublabel {
-                font-size: 10px;
-            }
-            .header {
-                font-size: 11px;
+            .action-controls {
+                width: 100%;
+                align-items: center;
+                gap: 12px;
             }
 
+            .action-controls button {
+                width: 100%;
+            }
+
+            .modal-title-overlay,
+            .modal-details {
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 90%;
+            }
+
+            .modal-details {
+                top: 50%;
+                transform: translate(-50%, -50%);
+                max-height: 70vh;
+            }
         }
     </style>
 </head>
 <body>
+
 <div id="bgA" class="bg-layer"></div>
 <div id="bgB" class="bg-layer"></div>
 
@@ -995,11 +951,11 @@
     let returnToItem = null;
 
     const GROUP_PROJECTS = [
-        { name: '2024 Family Feud', date: '06/30/2024', maps: 116 },
-        { name: '2024 Advent Calendar', date: '12/25/2024', maps: 38 },
-        { name: 'Bad Apple', date: '10/02/2025', maps: 3599 },
-        { name: '2025 Oscars', date: '11/23/2025', maps: 361 },
-        { name: '2025 Advent Calendar', date: '12/25/2025', maps: 57 }
+        { name: '2024 Family Feud',      date: '06/30/2024', maps: 116 },
+        { name: '2024 Advent Calendar',  date: '12/25/2024', maps: 38 },
+        { name: 'Bad Apple',             date: '10/02/2025', maps: 3599 },
+        { name: '2025 Oscars',           date: '11/23/2025', maps: 361 },
+        { name: '2025 Advent Calendar',  date: '12/25/2025', maps: 57 }
     ];
 
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
@@ -1027,7 +983,6 @@
 
     function calculateStats() {
         let totalIndividualMaps = 0;
-
         DATA.forEach(m => {
             if (m.excludeFromCount !== true && m.totalMaps) {
                 totalIndividualMaps += m.totalMaps;
@@ -1046,8 +1001,8 @@
         document.getElementById('groupMaps').textContent = groupTotal.toLocaleString();
         document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
 
-        const titleSub = document.querySelector('.title-sub');
-        titleSub.innerHTML = `Mapartist since 1/13/2024<br><span style="font-size:11px;opacity:0.7;">${mapsPerDay} maps per day</span>`;
+        document.querySelector('.title-sub').innerHTML =
+            `Mapartist since 1/13/2024<br><span style="font-size:11px;opacity:0.7;">${mapsPerDay} maps per day</span>`;
     }
 
     function startAutoPan() {
@@ -1110,8 +1065,8 @@
 
     async function loadJSON(url) {
         try {
-            const response = await fetch(url);
-            return response.ok ? await response.json() : [];
+            const res = await fetch(url);
+            return res.ok ? await res.json() : [];
         } catch {
             return [];
         }
@@ -1126,55 +1081,49 @@
     function buildLinkMap() {
         linkMap = {};
 
-        SCREENSHOTS.forEach((screenshot, sIdx) => {
-            if (screenshot.mapart) {
-                const mapartMatch = DATA.find(m => m.title === screenshot.mapart);
-                if (mapartMatch) {
-                    linkMap[`screenshot-${sIdx}`] = { type: 'mapart', title: mapartMatch.title };
-                    linkMap[`mapart-${mapartMatch.title}`] = { type: 'screenshot', index: sIdx };
+        SCREENSHOTS.forEach((s, i) => {
+            if (s.mapart) {
+                const match = DATA.find(m => m.title === s.mapart);
+                if (match) {
+                    linkMap[`screenshot-${i}`] = { type: 'mapart', title: match.title };
+                    linkMap[`mapart-${match.title}`] = { type: 'screenshot', index: i };
                 }
             }
         });
 
-        DATA.forEach(mapart => {
-            if (mapart.screenshot) {
-                const screenshotMatch = SCREENSHOTS.findIndex(s => s.title === mapart.screenshot);
-                if (screenshotMatch !== -1) {
-                    linkMap[`mapart-${mapart.title}`] = { type: 'screenshot', index: screenshotMatch };
-                    linkMap[`screenshot-${screenshotMatch}`] = { type: 'mapart', title: mapart.title };
+        DATA.forEach(m => {
+            if (m.screenshot) {
+                const idx = SCREENSHOTS.findIndex(s => s.title === m.screenshot);
+                if (idx !== -1) {
+                    linkMap[`mapart-${m.title}`] = { type: 'screenshot', index: idx };
+                    linkMap[`screenshot-${idx}`] = { type: 'mapart', title: m.title };
                 }
             }
         });
     }
 
     function populateProjectList() {
-        const projectList = document.querySelector('.project-list');
-        projectList.innerHTML = '';
+        const list = document.querySelector('.project-list');
+        list.innerHTML = '';
 
-        const sorted = [...GROUP_PROJECTS].sort((a, b) => new Date(b.date) - new Date(a.date));
+        [...GROUP_PROJECTS]
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'project-item';
 
-        sorted.forEach(p => {
-            const item = document.createElement('div');
-            item.className = 'project-item';
+                const d = new Date(p.date);
+                const dateStr = `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`;
 
-            const dateObj = new Date(p.date);
-            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const dd = String(dateObj.getDate()).padStart(2, '0');
-            const yy = String(dateObj.getFullYear()).slice(-2);
-            const formattedDate = `${mm}/${dd}/${yy}`;
-
-            const mapsStr = p.maps.toLocaleString('en-US');
-
-            item.innerHTML = `
-                <span>
-                    <span class="project-date">${formattedDate}</span>
-                    <span class="project-name">${p.name}</span>
-                </span>
-                <span class="project-maps">${mapsStr}</span>
-            `;
-
-            projectList.appendChild(item);
-        });
+                item.innerHTML = `
+                    <span>
+                        <span class="project-date">${dateStr}</span>
+                        <span class="project-name">${p.name}</span>
+                    </span>
+                    <span class="project-maps">${p.maps.toLocaleString('en-US')}</span>
+                `;
+                list.appendChild(item);
+            });
     }
 
     async function boot() {
@@ -1218,38 +1167,31 @@
         let shuffled = SCREENSHOTS.filter(s => s.show !== false);
         if (!shuffled.length) return;
 
-        let currentIdx = 0;
+        shuffled.sort(() => Math.random() - 0.5);
+        let idx = 0;
 
-        shuffled = shuffled.sort(() => Math.random() - 0.5);
-
-        function nextBackground() {
-            const next = shuffled[currentIdx];
-            const src = next.image || `screenshots/${next.file}`;
-
-            const incoming = bgToggle ? bgA : bgB;
+        function next() {
+            const src = shuffled[idx].image || `screenshots/${shuffled[idx].file}`;
+            const incoming  = bgToggle ? bgA : bgB;
             const outgoing = bgToggle ? bgB : bgA;
 
             incoming.style.backgroundImage = `url('${src}')`;
             incoming.classList.add('active', 'animate');
-
             outgoing.classList.add('fadeout');
 
             setTimeout(() => {
                 outgoing.classList.remove('active', 'animate', 'fadeout');
                 outgoing.style.backgroundImage = '';
-                outgoing.style.transform = '';
             }, 3000);
 
             bgToggle = !bgToggle;
-            currentIdx = (currentIdx + 1) % shuffled.length;
+            idx = (idx + 1) % shuffled.length;
 
-            if (currentIdx === 0) {
-                shuffled = shuffled.sort(() => Math.random() - 0.5);
-            }
+            if (idx === 0) shuffled.sort(() => Math.random() - 0.5);
         }
 
-        nextBackground();
-        bgTimer = setInterval(nextBackground, interval);
+        next();
+        bgTimer = setInterval(next, interval);
     }
 
     function extractDateFromFilename(filename) {
@@ -1262,15 +1204,13 @@
             arr.sort((a, b) => {
                 let da = a.date || a.dateBuilt || extractDateFromFilename(a.image) || '0';
                 let db = b.date || b.dateBuilt || extractDateFromFilename(b.image) || '0';
-                da = new Date(da);
-                db = new Date(db);
-                return sort === 'date-desc' ? db - da : da - db;
+                return sort === 'date-desc' ? new Date(db) - new Date(da) : new Date(da) - new Date(db);
             });
         } else if (mode === 'mapart') {
             arr.sort((a, b) => {
-                const aSize = a.totalMaps || 0;
-                const bSize = b.totalMaps || 0;
-                return sort === 'size-desc' ? bSize - aSize : aSize - bSize;
+                const as = a.totalMaps || 0;
+                const bs = b.totalMaps || 0;
+                return sort === 'size-desc' ? bs - as : as - bs;
             });
         }
     }
@@ -1278,9 +1218,9 @@
     function render() {
         gallery.innerHTML = '';
         const query = document.getElementById('search').value.toLowerCase();
-        const allItems = mode === 'mapart' ? DATA : SCREENSHOTS;
+        const all = mode === 'mapart' ? DATA : SCREENSHOTS;
 
-        items = allItems.filter(i => {
+        items = all.filter(i => {
             if (mode === 'screens' && i.show === false) return false;
             return !query || (i.title || '').toLowerCase().includes(query);
         });
@@ -1290,35 +1230,35 @@
         document.getElementById('sortLarge').style.display = mode === 'mapart' ? '' : 'none';
         document.getElementById('sortSmall').style.display = mode === 'mapart' ? '' : 'none';
 
-        items.forEach((m, idx) => {
+        items.forEach((item, i) => {
             const card = document.createElement('div');
             card.className = 'card';
 
             const wrapper = document.createElement('div');
             wrapper.className = 'thumb-wrapper';
 
-            if (mode === 'mapart' && m.w && m.h) {
-                let ratio = m.w / m.h;
-                let spanX = Math.min(m.w, 4);
-                let spanY = Math.min(m.h, 4);
-                if (ratio > 3) { spanX = Math.min(m.w, 6); spanY = 1; }
-                if (ratio < 1/3) { spanX = 1; spanY = Math.min(m.h, 6); }
+            if (mode === 'mapart' && item.w && item.h) {
+                let ratio = item.w / item.h;
+                let spanX = Math.min(item.w, 4);
+                let spanY = Math.min(item.h, 4);
+                if (ratio > 3)  { spanX = Math.min(item.w, 6); spanY = 1; }
+                if (ratio < 1/3){ spanX = 1; spanY = Math.min(item.h, 6); }
                 wrapper.style.gridColumnEnd = `span ${spanX}`;
-                wrapper.style.gridRowEnd = `span ${spanY}`;
+                wrapper.style.gridRowEnd   = `span ${spanY}`;
             }
 
             const thumb = document.createElement('img');
             thumb.className = 'thumb';
-            thumb.src = m.thumb || m.image;
+            thumb.src = item.thumb || item.image;
             thumb.loading = 'lazy';
-            thumb.alt = m.title || 'Thumbnail';
+            thumb.alt = item.title || 'Thumbnail';
 
             if (!isTouchDevice) {
-                thumb.onmouseenter = () => { hover.src = m.image; hover.classList.add('visible'); };
+                thumb.onmouseenter = () => { hover.src = item.image; hover.classList.add('visible'); };
                 thumb.onmouseleave = () => hover.classList.remove('visible');
             }
 
-            thumb.onclick = () => openModal(idx);
+            thumb.onclick = () => openModal(i);
             wrapper.appendChild(thumb);
             card.appendChild(wrapper);
 
@@ -1326,11 +1266,16 @@
             meta.className = 'meta';
 
             if (mode === 'mapart') {
-                const maps = m.totalMaps ?? '?';
-                const excludeNote = m.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
-                meta.innerHTML = `<div class="title">${m.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${excludeNote}</div></div>`;
+                const maps = item.totalMaps ?? '?';
+                const note = item.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
+                meta.innerHTML = `
+                    <div class="title">${item.title || ''}</div>
+                    <div class="maps-tag">
+                        <div style="font-size:11px;opacity:.75;">Total Maps</div>
+                        <div style="font-size:14px;font-weight:800;">${maps}${note}</div>
+                    </div>`;
             } else {
-                meta.innerHTML = `<div class="title">${m.title || ''}</div>`;
+                meta.innerHTML = `<div class="title">${item.title || ''}</div>`;
             }
 
             card.appendChild(meta);
@@ -1369,33 +1314,25 @@
     }
 
     function fitView() {
-        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
-
-        const vpW = modalViewport.clientWidth;
-        const vpH = modalViewport.clientHeight;
-
-        const scale = Math.min(vpW / modalImg.naturalWidth, vpH / modalImg.naturalHeight);
-
-        state.initialFitScale = scale;
-        state.scale = scale;
-        state.offsetX = 0;
-        state.offsetY = 0;
-
+        if (!modalImg.naturalWidth) return;
+        const scale = Math.min(
+            modalViewport.clientWidth / modalImg.naturalWidth,
+            modalViewport.clientHeight / modalImg.naturalHeight
+        );
+        state.initialFitScale = state.scale = scale;
+        state.offsetX = state.offsetY = 0;
         updateTransform();
         syncSliders();
     }
 
     function fillView() {
-        if (!modalImg.naturalWidth || !modalImg.naturalHeight) return;
-
-        const vpW = modalViewport.clientWidth;
-        const vpH = modalViewport.clientHeight;
-
-        const scale = Math.max(vpW / modalImg.naturalWidth, vpH / modalImg.naturalHeight);
-
+        if (!modalImg.naturalWidth) return;
+        const scale = Math.max(
+            modalViewport.clientWidth / modalImg.naturalWidth,
+            modalViewport.clientHeight / modalImg.naturalHeight
+        );
         state.scale = scale;
-        state.offsetX = 0;
-        state.offsetY = 0;
+        state.offsetX = state.offsetY = 0;
         clampPan();
         updateTransform();
         syncSliders();
@@ -1407,14 +1344,11 @@
         const scaledW = state.scale * modalImg.naturalWidth;
         const scaledH = state.scale * modalImg.naturalHeight;
 
-        const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
-        const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
+        const maxX = Math.max(0, (scaledW - modalViewport.clientWidth)  / 2);
+        const maxY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
 
-        const normX = maxPanX !== 0 ? state.offsetX / maxPanX : 0;
-        const normY = maxPanY !== 0 ? state.offsetY / maxPanY : 0;
-
-        panXSlider.value = normX;
-        panYSlider.value = normY;
+        panXSlider.value = maxX ? state.offsetX / maxX : 0;
+        panYSlider.value = maxY ? state.offsetY / maxY : 0;
     }
 
     function updateTransform() {
@@ -1425,7 +1359,7 @@
         const scaledW = state.scale * modalImg.naturalWidth;
         const scaledH = state.scale * modalImg.naturalHeight;
 
-        const extraX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
+        const extraX = Math.max(0, (scaledW - modalViewport.clientWidth)  / 2);
         const extraY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
 
         state.offsetX = Math.max(-extraX, Math.min(extraX, state.offsetX));
@@ -1434,90 +1368,71 @@
 
     function openModal(idx) {
         currentIndex = idx;
-        const m = items[idx];
-        if (!m) return;
+        const item = items[idx];
+        if (!item) return;
 
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
-        modalImg.src = m.image;
+        modalImg.src = item.image;
 
-        let titleHtml = '';
-        if (m.title) titleHtml += `<strong>${m.title}</strong>`;
+        let titleHtml = item.title ? `<strong>${item.title}</strong>` : '';
 
-        let dateStr = m.date || m.dateBuilt || extractDateFromFilename(m.image);
+        let dateStr = item.date || item.dateBuilt || extractDateFromFilename(item.image);
         if (dateStr) {
-            const parsedDate = new Date(dateStr);
-            if (!isNaN(parsedDate)) {
-                const formattedDate = parsedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' });
-                titleHtml += `<div class="date">Date Created: ${formattedDate}</div>`;
-            } else {
-                titleHtml += `<div class="date">Date Created: ${dateStr}</div>`;
-            }
+            const d = new Date(dateStr);
+            titleHtml += `<div class="date">Date Created: ${
+                !isNaN(d) ? d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'2-digit' }) : dateStr
+            }</div>`;
         }
 
-        const desc = m.description || '';
-        const credit = m.artistCredit || '';
-        const hasDetails = desc || credit;
-
-        if (hasDetails) {
+        const desc = item.description || '';
+        const credit = item.artistCredit || '';
+        if (desc || credit) {
             titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
         }
 
-        let linkKey = mode === 'mapart' ? `mapart-${m.title}` : `screenshot-${SCREENSHOTS.indexOf(m)}`;
-        const linkedContent = linkMap[linkKey];
+        const linkKey = mode === 'mapart' ? `mapart-${item.title}` : `screenshot-${SCREENSHOTS.indexOf(item)}`;
+        const linked = linkMap[linkKey];
 
-        if (linkedContent) {
-            let btnText = returnToMode
+        if (linked) {
+            const text = returnToMode
                 ? (returnToMode === 'mapart' ? '↩ Return to Mapart' : '↩ Return to Screenshot')
-                : (linkedContent.type === 'screenshot' ? '📸 In-Game Screenshot' : '🎨 View Mapart');
-
-            titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${btnText}</button>`;
+                : (linked.type === 'screenshot' ? '📸 In-Game Screenshot' : '🎨 View Mapart');
+            titleHtml += `<button class="linked-btn" id="viewLinkedBtn">${text}</button>`;
         }
 
         modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
 
-        let detailsHtml = '';
-        if (desc) detailsHtml += `<div class="desc">${desc}</div>`;
-        if (credit) detailsHtml += `<div class="credit">Artist: ${credit}</div>`;
-        modalDetails.innerHTML = detailsHtml;
+        modalDetails.innerHTML = (desc ? `<div class="desc">${desc}</div>` : '') +
+                                (credit ? `<div class="credit">Artist: ${credit}</div>` : '');
 
         state.detailsShown = false;
         modalDetails.classList.remove('visible');
 
-        const toggleBtn = document.getElementById('toggleDetails');
-        if (toggleBtn) {
-            toggleBtn.onclick = () => {
-                state.detailsShown = !state.detailsShown;
-                toggleBtn.textContent = state.detailsShown ? 'Hide Details' : 'View Details';
-                modalDetails.classList.toggle('visible', state.detailsShown);
-                onUserInteract();
-            };
-        }
+        document.getElementById('toggleDetails')?.addEventListener('click', () => {
+            state.detailsShown = !state.detailsShown;
+            document.getElementById('toggleDetails').textContent = state.detailsShown ? 'Hide Details' : 'View Details';
+            modalDetails.classList.toggle('visible', state.detailsShown);
+            onUserInteract();
+        }, { once: true });
 
-        const viewLinkedBtn = document.getElementById('viewLinkedBtn');
-        if (viewLinkedBtn && linkedContent) {
-            viewLinkedBtn.onclick = () => {
-                if (returnToMode && returnToItem) {
-                    if (returnToMode === 'mapart') {
-                        switchToMapart(returnToItem);
-                    } else {
-                        switchToScreenshots(returnToItem);
-                    }
-                    returnToMode = null;
-                    returnToItem = null;
+        document.getElementById('viewLinkedBtn')?.addEventListener('click', () => {
+            if (returnToMode && returnToItem) {
+                if (returnToMode === 'mapart') switchToMapart(returnToItem);
+                else switchToScreenshots(returnToItem);
+                returnToMode = returnToItem = null;
+            } else if (linked) {
+                if (linked.type === 'screenshot') {
+                    returnToMode = 'mapart';
+                    returnToItem = item.title;
+                    switchToScreenshots(linked.index);
                 } else {
-                    if (linkedContent.type === 'screenshot') {
-                        returnToMode = 'mapart';
-                        returnToItem = m.title;
-                        switchToScreenshots(linkedContent.index);
-                    } else {
-                        returnToMode = 'screens';
-                        returnToItem = SCREENSHOTS.indexOf(m);
-                        switchToMapart(linkedContent.title);
-                    }
+                    returnToMode = 'screens';
+                    returnToItem = SCREENSHOTS.indexOf(item);
+                    switchToMapart(linked.title);
                 }
-            };
-        }
+            }
+        }, { once: true });
 
         showUI();
         resetUITimeout();
@@ -1527,11 +1442,11 @@
     }
 
     function switchToScreenshots(globalIdx) {
-        const screenshot = SCREENSHOTS[globalIdx];
-        if (!screenshot) return;
+        const shot = SCREENSHOTS[globalIdx];
+        if (!shot) return;
 
-        if (screenshot.show === false) {
-            items = [screenshot];
+        if (shot.show === false) {
+            items = [shot];
             mode = 'screens';
             openModal(0);
             return;
@@ -1541,14 +1456,12 @@
         mode = 'screens';
         document.body.classList.add('screens');
         document.body.classList.remove('mapart');
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabScreens').classList.add('active');
         render();
 
-        const targetIdx = items.findIndex(item => item === screenshot);
-        if (targetIdx !== -1) {
-            setTimeout(() => openModal(targetIdx), 100);
-        }
+        const target = items.findIndex(i => i === shot);
+        if (target !== -1) setTimeout(() => openModal(target), 100);
     }
 
     function switchToMapart(title) {
@@ -1559,25 +1472,19 @@
         mode = 'mapart';
         document.body.classList.add('mapart');
         document.body.classList.remove('screens');
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabMapart').classList.add('active');
         render();
 
-        const targetIdx = items.findIndex(item => item === mapart);
-        if (targetIdx !== -1) {
-            setTimeout(() => openModal(targetIdx), 100);
-        }
+        const target = items.findIndex(i => i === mapart);
+        if (target !== -1) setTimeout(() => openModal(target), 100);
     }
 
     function closeModal() {
         if (returnToMode && returnToItem) {
-            if (returnToMode === 'mapart') {
-                switchToMapart(returnToItem);
-            } else {
-                switchToScreenshots(returnToItem);
-            }
-            returnToMode = null;
-            returnToItem = null;
+            if (returnToMode === 'mapart') switchToMapart(returnToItem);
+            else switchToScreenshots(returnToItem);
+            returnToMode = returnToItem = null;
             return;
         }
 
@@ -1588,7 +1495,7 @@
     }
 
     zoomSlider.oninput = () => {
-        state.scale = parseFloat(zoomSlider.value);
+        state.scale = +zoomSlider.value;
         clampPan();
         updateTransform();
         syncSliders();
@@ -1596,17 +1503,15 @@
     };
 
     panXSlider.oninput = () => {
-        const scaledW = state.scale * modalImg.naturalWidth;
-        const maxPanX = Math.max(0, (scaledW - modalViewport.clientWidth) / 2);
-        state.offsetX = parseFloat(panXSlider.value) * maxPanX;
+        const max = Math.max(0, (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2);
+        state.offsetX = +panXSlider.value * max;
         updateTransform();
         onUserInteract();
     };
 
     panYSlider.oninput = () => {
-        const scaledH = state.scale * modalImg.naturalHeight;
-        const maxPanY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
-        state.offsetY = parseFloat(panYSlider.value) * maxPanY;
+        const max = Math.max(0, (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2);
+        state.offsetY = +panYSlider.value * max;
         updateTransform();
         onUserInteract();
     };
@@ -1614,8 +1519,7 @@
     modalViewport.addEventListener('wheel', e => {
         e.preventDefault();
         const factor = e.deltaY > 0 ? 0.9 : 1.1;
-        state.scale *= factor;
-        state.scale = Math.max(0.1, Math.min(10, state.scale));
+        state.scale = Math.max(0.1, Math.min(10, state.scale * factor));
         clampPan();
         updateTransform();
         syncSliders();
@@ -1634,10 +1538,8 @@
 
     document.addEventListener('mousemove', e => {
         if (!state.isPanning) return;
-        const dx = e.clientX - state.startX;
-        const dy = e.clientY - state.startY;
-        state.offsetX = state.startOffsetX + dx;
-        state.offsetY = state.startOffsetY + dy;
+        state.offsetX = state.startOffsetX + (e.clientX - state.startX);
+        state.offsetY = state.startOffsetY + (e.clientY - state.startY);
         clampPan();
         updateTransform();
         syncSliders();
@@ -1673,16 +1575,13 @@
                 e.touches[0].clientX - e.touches[1].clientX,
                 e.touches[0].clientY - e.touches[1].clientY
             );
-            state.scale = state.startScale * (dist / lastTouchDistance);
-            state.scale = Math.max(0.1, Math.min(10, state.scale));
+            state.scale = Math.max(0.1, Math.min(10, state.startScale * (dist / lastTouchDistance)));
             clampPan();
             updateTransform();
             syncSliders();
         } else if (e.touches.length === 1) {
-            const dx = e.touches[0].clientX - state.startX;
-            const dy = e.touches[0].clientY - state.startY;
-            state.offsetX = state.startOffsetX + dx;
-            state.offsetY = state.startOffsetY + dy;
+            state.offsetX = state.startOffsetX + (e.touches[0].clientX - state.startX);
+            state.offsetY = state.startOffsetY + (e.touches[0].clientY - state.startY);
             clampPan();
             updateTransform();
             syncSliders();
@@ -1691,8 +1590,8 @@
     }, { passive: false });
 
     function navigate(delta) {
-        const newIdx = currentIndex + delta;
-        if (newIdx >= 0 && newIdx < items.length) openModal(newIdx);
+        const next = currentIndex + delta;
+        if (next >= 0 && next < items.length) openModal(next);
     }
 
     prevBtn.onclick = () => { navigate(-1); onUserInteract(); };
@@ -1700,9 +1599,9 @@
 
     document.addEventListener('keydown', e => {
         if (modal.classList.contains('open')) {
-            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowLeft')  navigate(-1);
             if (e.key === 'ArrowRight') navigate(1);
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape')     closeModal();
             onUserInteract();
         } else if (document.body.classList.contains('ui-hidden')) {
             if (e.key === 'Escape' || e.key === ' ') toggleUIHide();
@@ -1716,7 +1615,7 @@
         mode = 'mapart';
         document.body.classList.add('mapart');
         document.body.classList.remove('screens');
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabMapart').classList.add('active');
         render();
     };
@@ -1725,7 +1624,7 @@
         mode = 'screens';
         document.body.classList.add('screens');
         document.body.classList.remove('mapart');
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabScreens').classList.add('active');
         render();
     };
@@ -1741,20 +1640,20 @@
         };
     });
 
-    document.getElementById('copyBtn').addEventListener('click', async () => {
+    document.getElementById('copyBtn').onclick = async () => {
         onUserInteract();
         try {
-            const response = await fetch(modalImg.src);
-            if (!response.ok) throw new Error();
-            const blob = await response.blob();
+            const res = await fetch(modalImg.src);
+            if (!res.ok) throw new Error();
+            const blob = await res.blob();
             await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
             showNotification('Copied to clipboard');
         } catch {
             showNotification('Copy failed');
         }
-    });
+    };
 
-    document.getElementById('downloadBtn').addEventListener('click', () => {
+    document.getElementById('downloadBtn').onclick = () => {
         onUserInteract();
         const a = document.createElement('a');
         a.href = modalImg.src;
@@ -1763,7 +1662,7 @@
         a.click();
         document.body.removeChild(a);
         showNotification('Download started');
-    });
+    };
 
     modalImg.onload = () => {
         fitView();
@@ -1772,9 +1671,7 @@
 
     boot();
 
-    window.addEventListener('load', () => {
-        document.body.classList.add('loaded');
-    });
+    window.addEventListener('load', () => document.body.classList.add('loaded'));
 </script>
 </body>
 </html>

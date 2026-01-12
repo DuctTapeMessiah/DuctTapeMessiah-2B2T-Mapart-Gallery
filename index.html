@@ -85,6 +85,10 @@
 
         body.loaded .wrap { opacity: 1; }
 
+        .info-section {
+            margin: 32px 0;
+        }
+
         .top-header-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -193,7 +197,6 @@
         .stats-grid {
             display: grid;
             gap: 24px;
-            margin: 32px 0;
         }
 
         .stat-card {
@@ -666,12 +669,59 @@
         }
 
         @media (max-width: 768px) {
-            .top-header-row {
-                grid-template-columns: 1fr;
+            .info-section {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                align-items: start;
             }
 
-            .top-header-row > * {
+            .top-header-row,
+            .stats-grid {
+                display: contents;
+            }
+
+            header {
+                grid-column: 1;
+                grid-row: 1;
                 padding: 12px 16px;
+            }
+
+            .award-banner {
+                grid-column: 2;
+                grid-row: 1;
+                padding: 12px 16px;
+            }
+
+            .contact-card {
+                grid-column: 2;
+                grid-row: 4;
+                padding: 12px 16px;
+            }
+
+            .stat-card.grand-total {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .stat-card.total-maps {
+                grid-column: 2;
+                grid-row: 2;
+            }
+
+            .stat-card.group-contributions {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .stat-card.maps-copied {
+                grid-column: 2;
+                grid-row: 3;
+            }
+
+            .group-projects {
+                grid-column: 1;
+                grid-row: 4;
             }
 
             .logo {
@@ -685,10 +735,6 @@
             .award-icon { font-size: 28px; }
             .award-title { font-size: 14px; }
             .award-subtitle { font-size: 11px; }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
 
             .stat-card {
                 padding: 20px;
@@ -756,64 +802,66 @@
 <div id="bgB" class="bg-layer"></div>
 
 <div class="wrap">
-    <div class="top-header-row">
-        <header>
-            <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
-            <div class="title-wrap">
-                <div class="title-main">DuctTapeMessiah</div>
-                <div class="title-sub">Mapartist since 1/13/2024</div>
+    <div class="info-section">
+        <div class="top-header-row">
+            <header>
+                <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+                <div class="title-wrap">
+                    <div class="title-main">DuctTapeMessiah</div>
+                    <div class="title-sub">Mapartist since 1/13/2024</div>
+                </div>
+            </header>
+
+            <div class="award-banner">
+                <div class="award-icon">🏆</div>
+                <div>
+                    <div class="award-title">Best Mapartist of the Year</div>
+                    <div class="award-subtitle">2025 Oscars Winner</div>
+                    <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2tOscars.com →</a>
+                </div>
             </div>
-        </header>
 
-        <div class="award-banner">
-            <div class="award-icon">🏆</div>
-            <div>
-                <div class="award-title">Best Mapartist of the Year</div>
-                <div class="award-subtitle">2025 Oscars Winner</div>
-                <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2tOscars.com →</a>
+            <div class="contact-card panel">
+                <div class="social-label">Socials & Contact</div>
+                <div class="social-links">
+                    <a href="https://discord.com/users/ducttapemessiah" target="_blank" rel="noopener">Discord</a>
+                    <a href="http://youtube.com/DuctTapeMessiah" target="_blank" rel="noopener">YouTube</a>
+                    <a href="https://www.reddit.com/user/DuctTapeMessiah/" target="_blank" rel="noopener">Reddit</a>
+                    <a href="https://github.com/DuctTapeMessiah/" target="_blank" rel="noopener">GitHub</a>
+                </div>
+                <div class="free-maps">Please contact me for free maps!</div>
             </div>
         </div>
 
-        <div class="contact-card panel">
-            <div class="social-label">Socials & Contact</div>
-            <div class="social-links">
-                <a href="https://discord.com/users/ducttapemessiah" target="_blank" rel="noopener">Discord</a>
-                <a href="http://youtube.com/DuctTapeMessiah" target="_blank" rel="noopener">YouTube</a>
-                <a href="https://www.reddit.com/user/DuctTapeMessiah/" target="_blank" rel="noopener">Reddit</a>
-                <a href="https://github.com/DuctTapeMessiah/" target="_blank" rel="noopener">GitHub</a>
+        <div class="stats-grid">
+            <div class="stat-card grand-total">
+                <div class="stat-label">Grand Total</div>
+                <div class="stat-value" id="grandTotal">-</div>
+                <div class="stat-sublabel">All maps created</div>
             </div>
-            <div class="free-maps">Please contact me for free maps!</div>
-        </div>
-    </div>
 
-    <div class="stats-grid">
-        <div class="stat-card grand-total">
-            <div class="stat-label">Grand Total</div>
-            <div class="stat-value" id="grandTotal">-</div>
-            <div class="stat-sublabel">All maps combined</div>
-        </div>
+            <div class="stat-card total-maps">
+                <div class="stat-label">Individual Maparts</div>
+                <div class="stat-value" id="totalMaps">-</div>
+                <div class="stat-sublabel">Individual Maparts created</div>
+            </div>
 
-        <div class="stat-card total-maps">
-            <div class="stat-label">Total Maps</div>
-            <div class="stat-value" id="totalMaps">-</div>
-            <div class="stat-sublabel">Individual maparts created</div>
-        </div>
+            <div class="stat-card group-contributions">
+                <div class="stat-label">Group Contributions</div>
+                <div class="stat-value" id="groupMaps">-</div>
+                <div class="stat-sublabel">Maps created in collaborative projects</div>
+            </div>
 
-        <div class="stat-card group-contributions">
-            <div class="stat-label">Group Contributions</div>
-            <div class="stat-value" id="groupMaps">-</div>
-            <div class="stat-sublabel">Maps in collaborative projects</div>
-        </div>
+            <div class="stat-card maps-copied">
+                <div class="stat-label">Maps Copied</div>
+                <div class="stat-value">479,752</div>
+                <div class="stat-sublabel">As of January 11, 2026</div>
+            </div>
 
-        <div class="stat-card maps-copied">
-            <div class="stat-label">Maps Copied</div>
-            <div class="stat-value">479,752</div>
-            <div class="stat-sublabel">As of January 11, 2026</div>
-        </div>
-
-        <div class="group-projects panel">
-            <div class="group-projects-title">Group Projects</div>
-            <div class="project-list"></div>
+            <div class="group-projects panel">
+                <div class="group-projects-title">Group Projects</div>
+                <div class="project-list"></div>
+            </div>
         </div>
     </div>
 
@@ -1432,7 +1480,6 @@
 
         showUI();
         resetUITimeout();
-        startAutoPan();
 
         prevBtn.style.display = idx > 0 ? 'flex' : 'none';
         nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
@@ -1497,7 +1544,6 @@
         document.body.style.overflow = '';
         currentIndex = -1;
         hideUI();
-        stopAutoPan();
     }
 
     zoomSlider.oninput = () => {
@@ -1681,7 +1727,6 @@
     modalImg.onload = () => {
         fitView();
         onUserInteract();
-        startAutoPan();
     };
 
     boot();

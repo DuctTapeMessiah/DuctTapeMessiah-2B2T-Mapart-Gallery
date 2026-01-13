@@ -1446,57 +1446,59 @@
     }
 
     function switchToScreenshots(globalIdx) {
-        const shot = SCREENSHOTS[globalIdx];
-        if (!shot) return;
+    const shot = SCREENSHOTS[globalIdx];
+    if (!shot) return;
 
-        if (shot.show === false) {
-            items = [shot];
-            mode = 'screens';
-            openModal(0);
-            return;
-        }
-
-        closeModal();
+    if (shot.show === false) {
+        items = [shot];
         mode = 'screens';
-        document.body.classList.add('screens');
-        document.body.classList.remove('mapart');
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tabScreens').classList.add('active');
-        render();
-
-        const target = items.findIndex(i => i === shot);
-        if (target !== -1) setTimeout(() => openModal(target), 100);
+        openModal(0);
+        return;
     }
 
-    function switchToMapart(title) {
-        const mapart = DATA.find(m => m.title === title);
-        if (!mapart) return;
+    closeModal(true); // Skip return logic
+    mode = 'screens';
+    document.body.classList.add('screens');
+    document.body.classList.remove('mapart');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tabScreens').classList.add('active');
+    render();
 
-        closeModal();
-        mode = 'mapart';
-        document.body.classList.add('mapart');
-        document.body.classList.remove('screens');
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tabMapart').classList.add('active');
-        render();
+    const target = items.findIndex(i => i === shot);
+    if (target !== -1) setTimeout(() => openModal(target), 100);
+}
 
-        const target = items.findIndex(i => i === mapart);
-        if (target !== -1) setTimeout(() => openModal(target), 100);
+function switchToMapart(title) {
+    const mapart = DATA.find(m => m.title === title);
+    if (!mapart) return;
+
+    closeModal(true); // Skip return logic
+    mode = 'mapart';
+    document.body.classList.add('mapart');
+    document.body.classList.remove('screens');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tabMapart').classList.add('active');
+    render();
+
+    const target = items.findIndex(i => i === mapart);
+    if (target !== -1) setTimeout(() => openModal(target), 100);
+}
+
+
+
+    function closeModal(skipReturn = false) {
+         if (!skipReturn && returnToMode && returnToItem) {
+        if (returnToMode === 'mapart') switchToMapart(returnToItem);
+        else switchToScreenshots(returnToItem);
+        returnToMode = returnToItem = null;
+        return;
     }
 
-    function closeModal() {
-        if (returnToMode && returnToItem) {
-            if (returnToMode === 'mapart') switchToMapart(returnToItem);
-            else switchToScreenshots(returnToItem);
-            returnToMode = returnToItem = null;
-            return;
-        }
-
-        modal.classList.remove('open');
-        document.body.style.overflow = '';
-        currentIndex = -1;
-        hideUI();
-    }
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    currentIndex = -1;
+    hideUI();
+}
 
     zoomSlider.oninput = () => {
         state.scale = +zoomSlider.value;

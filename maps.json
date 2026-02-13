@@ -610,6 +610,16 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
+  },
+  {
+    "title": "Black Hole Sun",
+    "image": "images/blackholesun.png",
+    "dateBuilt": "2026-02-11",
+    "artistCredit": "https://www.instagram.com/p/DPGNPEhkRlP/",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
   }
 ]
 

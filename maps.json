@@ -620,7 +620,7 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
-  }
+  },
   {
     "title": "Cosmopolis ( Speed Racer )",
     "image": "images/cosmopolis.png",
@@ -630,7 +630,7 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
-  }
+  },
   {
     "title": "Cliff Sunset",
     "image": "images/cliffsunset.png",
@@ -640,7 +640,7 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
-  }
+  },
 {
     "title": "Charizard",
     "image": "images/charizard.png",
@@ -650,7 +650,7 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
-}
+},
 {
     "title": "Sleep Token : Vessel",
     "image": "images/sleeptokenvessel.png",
@@ -662,5 +662,6 @@
     "commentsEnabled": true
 }
 ]
+
 
 

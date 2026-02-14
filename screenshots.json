@@ -209,5 +209,25 @@
     },
     {
         "image": "screenshots/2026-01-04_16.44.40.png"
+    },
+    {
+        "image": "screenshots/blackholesun_ss.png",
+        "mapart": "Black Hole Sun",
+        "show": false
+    },
+    {
+        "image": "screenshots/charizard_ss.png",
+        "mapart": "Charizard",
+        "show": false
+    },
+    {
+        "image": "screenshots/cosmopolis_ss.png",
+        "mapart": "Cosmopolis (Speed Racer)",
+        "show": false
+    },
+    {
+        "image": "screenshots/sleeptokenvessel_ss.png",
+        "mapart": "Sleep Token : Vessel",
+        "show": false
     }
 ]

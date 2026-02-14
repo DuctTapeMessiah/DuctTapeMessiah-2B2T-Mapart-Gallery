@@ -1440,9 +1440,12 @@
 
         document.getElementById('viewLinkedBtn')?.addEventListener('click', () => {
             if (returnToMode && returnToItem) {
-                if (returnToMode === 'mapart') switchToMapart(returnToItem);
-                else switchToScreenshots(returnToItem);
+                const tempMode = returnToMode;
+                const tempItem = returnToItem;
                 returnToMode = returnToItem = null;
+
+                if (tempMode === 'mapart') switchToMapart(tempItem);
+                else switchToScreenshots(tempItem);
             } else if (linked) {
                 if (linked.type === 'screenshot') {
                     returnToMode = 'mapart';
@@ -1464,59 +1467,76 @@
     }
 
     function switchToScreenshots(globalIdx) {
-    const shot = SCREENSHOTS[globalIdx];
-    if (!shot) return;
+        const shot = SCREENSHOTS[globalIdx];
+        if (!shot) return;
 
-    if (shot.show === false) {
-        items = [shot];
+        if (shot.show === false) {
+            items = [shot];
+            mode = 'screens';
+            openModal(0);
+            return;
+        }
+
+        closeModal();
+
         mode = 'screens';
-        openModal(0);
-        return;
+        document.body.classList.add('screens');
+        document.body.classList.remove('mapart');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tabScreens').classList.add('active');
+        render();
+
+        const target = items.findIndex(i => i === shot);
+        if (target !== -1) setTimeout(() => openModal(target), 100);
     }
 
-    closeModal(true); // Skip return logic
-    mode = 'screens';
-    document.body.classList.add('screens');
-    document.body.classList.remove('mapart');
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tabScreens').classList.add('active');
-    render();
+    function switchToMapart(title) {
+        const mapart = DATA.find(m => m.title === title);
+        if (!mapart) return;
 
-    const target = items.findIndex(i => i === shot);
-    if (target !== -1) setTimeout(() => openModal(target), 100);
-}
+        closeModal();
 
-function switchToMapart(title) {
-    const mapart = DATA.find(m => m.title === title);
-    if (!mapart) return;
+        mode = 'mapart';
+        document.body.classList.add('mapart');
+        document.body.classList.remove('screens');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tabMapart').classList.add('active');
+        render();
 
-    closeModal(true); // Skip return logic
-    mode = 'mapart';
-    document.body.classList.add('mapart');
-    document.body.classList.remove('screens');
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tabMapart').classList.add('active');
-    render();
-
-    const target = items.findIndex(i => i === mapart);
-    if (target !== -1) setTimeout(() => openModal(target), 100);
-}
-
-
-
-    function closeModal(skipReturn = false) {
-         if (!skipReturn && returnToMode && returnToItem) {
-        if (returnToMode === 'mapart') switchToMapart(returnToItem);
-        else switchToScreenshots(returnToItem);
-        returnToMode = returnToItem = null;
-        return;
+        const target = items.findIndex(i => i === mapart);
+        if (target !== -1) setTimeout(() => openModal(target), 100);
     }
 
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-    currentIndex = -1;
-    hideUI();
-}
+    function closeModal() {
+        if (returnToMode && returnToItem) {
+            const tempMode = returnToMode;
+            const tempItem = returnToItem;
+            returnToMode = returnToItem = null;
+
+            if (tempMode === 'mapart') {
+                mode = 'mapart';
+                document.body.classList.add('mapart');
+                document.body.classList.remove('screens');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('tabMapart').classList.add('active');
+                render();
+            } else {
+                mode = 'screens';
+                document.body.classList.add('screens');
+                document.body.classList.remove('mapart');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('tabScreens').classList.add('active');
+                render();
+            }
+        } else {
+            returnToMode = returnToItem = null;
+        }
+
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        currentIndex = -1;
+        hideUI();
+    }
 
     zoomSlider.oninput = () => {
         state.scale = +zoomSlider.value;
@@ -1561,6 +1581,11 @@ function switchToMapart(title) {
     });
 
     document.addEventListener('mousemove', e => {
+        // Show UI on mouse movement when modal is open
+        if (modal.classList.contains('open')) {
+            onUserInteract();
+        }
+
         if (!state.isPanning) return;
         state.offsetX = state.startOffsetX + (e.clientX - state.startX);
         state.offsetY = state.startOffsetY + (e.clientY - state.startY);

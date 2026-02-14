@@ -615,11 +615,52 @@
     "title": "Black Hole Sun",
     "image": "images/blackholesun.png",
     "dateBuilt": "2026-02-11",
-    "artistCredit": "https://www.instagram.com/p/DPGNPEhkRlP/",
+    "artistCredit": "https://www.pixilart.com/art/black-hole-sun-sr5z81b1bfdbd3aws3",
     "description": "",
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
   }
+  {
+    "title": "Cosmopolis ( Speed Racer )",
+    "image": "images/cosmopolis.png",
+    "dateBuilt": "2026-02-02",
+    "artistCredit": "https://www.deviantart.com/retronator/art/ZX-Cosmopolis-556164481",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  }
+  {
+    "title": "Cliff Sunset",
+    "image": "images/cliffsunset.png",
+    "dateBuilt": "2026-01-31",
+    "artistCredit": "https://www.deviantart.com/retronator/art/Cliff-Sunset-761257994",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  }
+{
+    "title": "Charizard",
+    "image": "images/charizard.png",
+    "dateBuilt": "2026-01-26",
+    "artistCredit": "https://www.instagram.com/ferga_y/p/DG42QdVvPIS/",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+}
+{
+    "title": "Sleep Token : Vessel",
+    "image": "images/sleeptokenvessel.png",
+    "dateBuilt": "2026-01-26",
+    "artistCredit": "https://www.instagram.com/ferga_y/p/DCRM6_NvkNa",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+}
 ]
+
 

@@ -660,7 +660,37 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
-}
+},
+  {
+    "title": "Arts of Win",
+    "image": "images/ArtsOfWin.png",
+    "dateBuilt": "2026-02-15",
+    "artistCredit": "https://www.instagram.com/p/Cz1M9Kfxf7l",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  },
+  {
+    "title": "Old Tower",
+    "image": "images/oldtower.png",
+    "dateBuilt": "2026-02-25",
+    "artistCredit": "https://lospec.com/gallery/helpcomputer0/old-tower",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  },
+  {
+    "title": "Moonlight Castle",
+    "image": "images/moonlightcastle.png",
+    "dateBuilt": "2026-02-25",
+    "artistCredit": "https://lospec.com/gallery/helpcomputer0/moonlight-castle",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
+  }
 ]
 
 

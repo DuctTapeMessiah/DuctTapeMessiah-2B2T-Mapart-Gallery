@@ -229,5 +229,25 @@
         "image": "screenshots/sleeptokenvessel_ss.png",
         "mapart": "Sleep Token : Vessel",
         "show": false
+    },
+    {
+        "image": "screenshots/2026-02-15_12.52.06.png",
+        "mapart": "Arts of Win",
+        "show": false
+    },
+    {
+        "image": "screenshots/2026-02-28_14.24.59.png",
+        "mapart": "Moonlight Castle",
+        "mapart": "Old Tower",
+        "show": false
+    },
+    {
+        "image": "screenshots/dtm_badgapple_vol_1.png"
+    },
+    {
+        "image": "screenshots/dtm_badgapple_vol_2.png"
+    },
+    {
+        "image": "screenshots/dtm_badgapple_vol_3.png"
     }
 ]

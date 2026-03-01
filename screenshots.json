@@ -246,12 +246,18 @@
         "show": false
     },
     {
-        "image": "screenshots/dtm_badgapple_vol_1.png"
+        "image": "screenshots/dtm_badgapple_vol_1.png",
+        "date": "2026-02-22"
     },
     {
-        "image": "screenshots/dtm_badgapple_vol_2.png"
+        "image": "screenshots/dtm_badgapple_vol_2.png",
+        "date": "2026-02-22"
     },
     {
-        "image": "screenshots/dtm_badgapple_vol_3.png"
+        "image": "screenshots/dtm_badgapple_vol_3.png",
+        "date": "2026-02-22"
+    },
+    {
+        "image": "screenshots/2026-03-01_09.16.39.png"
     }
 ]

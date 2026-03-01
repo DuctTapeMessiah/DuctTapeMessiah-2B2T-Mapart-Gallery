@@ -258,6 +258,8 @@
         "date": "2026-02-22"
     },
     {
-        "image": "screenshots/2026-03-01_09.16.39.png"
+        "image": "screenshots/2026-03-01_09.16.39.png",
+        "mapart": "This Sunset Is Beautiful",
+        "show": false
     }
 ]

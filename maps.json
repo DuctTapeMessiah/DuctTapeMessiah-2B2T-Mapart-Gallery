@@ -700,5 +700,15 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
+  },
+  {
+    "title": "Sega Akihabara 1st",
+    "image": "images/segaakihabarast",
+    "dateBuilt": "2026-03-02",
+    "artistCredit": "https://x.com/helpcomputer0/status/1645807016349421570/photo/3",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
   }
 ]

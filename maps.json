@@ -700,5 +700,15 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
+  },
+  {
+    "title": "This Sunset is Beautiful",
+    "image": "images/ThisSunsetIsBeautiful.png",
+    "dateBuilt": "2026-02-28",
+    "artistCredit": "https://lospec.com/gallery/patchesdog/sunset",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
   }
 ]

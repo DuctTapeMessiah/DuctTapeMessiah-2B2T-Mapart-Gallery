@@ -710,5 +710,15 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
+  },
+  {
+    "title": "California Sunset",
+    "image": "images/californiasunset.png",
+    "dateBuilt": "2026-03-06",
+    "artistCredit": "https://www.instagram.com/p/DEf--3GyxrM/",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
   }
 ]

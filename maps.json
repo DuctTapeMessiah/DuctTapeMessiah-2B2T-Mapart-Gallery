@@ -7,7 +7,9 @@
     "description": "",
     "layoutType": "staircased",
     "blockType": "fullblock",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Poly Shapes",
@@ -17,7 +19,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "carpet",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Inspiration: Kurzgesagt Stellar Engine",
@@ -27,7 +31,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 1
   },
   {
     "title": "Shin Gojira",
@@ -37,7 +43,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 2
   },
   {
     "title": "Nether Spawn",
@@ -47,7 +55,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "Hubble Ulta Deep Field (2004)",
@@ -57,7 +67,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 20,
+    "h": 20
   },
   {
     "title": "He is the One - The Matrix",
@@ -67,7 +79,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 9,
+    "h": 9
   },
   {
     "title": "Mapopoly Remake",
@@ -77,7 +91,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 11,
+    "h": 11
   },
   {
     "title": "Mapopoly Bonus Maps",
@@ -87,7 +103,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 6
   },
   {
     "title": "Fit Vs Rusher",
@@ -97,7 +115,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 8,
+    "h": 4
   },
   {
     "title": "Trigun",
@@ -107,7 +127,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 8
   },
   {
     "title": "Randar",
@@ -117,7 +139,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 10,
+    "h": 10
   },
   {
     "title": "Gordon Freeman",
@@ -127,7 +151,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "Simple Guide: Dithering",
@@ -137,7 +163,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "Logarithmic View Of The Universe",
@@ -147,7 +175,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 50,
+    "h": 50
   },
   {
     "title": "Dracula, Prince of Darkness",
@@ -157,7 +187,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "Nyarlathotep",
@@ -167,7 +199,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 9
   },
   {
     "title": "The Last Supper",
@@ -177,7 +211,9 @@
     "description": "Project started April 2019. Credit to artists known to have completed IDs: BarrenDome, BigGirlXOXO, BiggestMapManager, Boofer, Breithan, crazydude156, Harri, goujon, jkascpkmc, jordanl666, lamp, Number1Princess, Orange, pavigia, RussianMinecraft, swords, tdjj, The_GenderBender, ufo, Yqe, Zetlin All IDs re-mapped by me.",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 16,
+    "h": 9
   },
   {
     "title": "1-Bit Dragonslayer (Dark Souls)",
@@ -187,7 +223,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 3
   },
   {
     "title": "Grave Warrior",
@@ -197,7 +235,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "Morrigan",
@@ -207,7 +247,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "Cthulhu Card",
@@ -217,7 +259,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Dr Manhattan",
@@ -227,7 +271,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 4
   },
   {
     "title": "Sandman",
@@ -237,7 +283,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "ULTRAKILL: Gabriel, Apostate of Hate",
@@ -247,7 +295,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 5
   },
   {
     "title": "V for Vendetta",
@@ -257,7 +307,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 3
   },
   {
     "title": "Peacefield",
@@ -267,7 +319,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 4
   },
   {
     "title": "No Trees",
@@ -277,7 +331,9 @@
     "description": "Pre-processed: DuctTapeMessiah. Original Credit: Michelle @ 2B2T Artists - https://discord.gg/rfNWzf6tWk",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 4
   },
   {
     "title": "Remilia Scarlet",
@@ -287,7 +343,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 8
   },
   {
     "title": "Flandre Scarlet",
@@ -297,7 +355,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "The Last Ronin",
@@ -307,7 +367,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 6
   },
   {
     "title": "Megaman",
@@ -317,7 +379,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "Moon Knight",
@@ -327,7 +391,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "Cloud Strife",
@@ -337,7 +403,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 5
   },
   {
     "title": "Curated Work 21",
@@ -347,7 +415,9 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 4
   },
   {
     "title": "Agent 47",
@@ -357,17 +427,21 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
-    "title": "Hornet from Silksong\n",
+    "title": "Hornet from Silksong",
     "image": "images/Hornet.png",
     "dateBuilt": "2025-09-19",
     "artistCredit": "https://x.com/baladasathar/status/1964658489374224796",
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 4
   },
   {
     "title": "Llama Tarot",
@@ -377,7 +451,9 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 3
   },
   {
     "title": "Arcadia",
@@ -387,7 +463,9 @@
     "description": "Pre-processed: hemuli",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 3
   },
   {
     "title": "Universal Traveler",
@@ -397,7 +475,9 @@
     "description": "Pre-processed: hemuli",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
   {
     "title": "Cabin",
@@ -407,7 +487,9 @@
     "description": "Pre-processed: hemuli",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 2
   },
   {
     "title": "Madness Day",
@@ -417,7 +499,9 @@
     "description": "Pre-processed: hemuli",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 12
   },
   {
     "title": "Night Shop",
@@ -427,7 +511,9 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 3
   },
   {
     "title": "Blood Keeps",
@@ -437,7 +523,9 @@
     "description": "Pre-processed: Deafboy45",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 2
   },
   {
     "title": "Retro Nightmare Before Christmas",
@@ -447,7 +535,9 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 2
   },
   {
     "title": "Halloween House",
@@ -457,7 +547,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Pumpkin Eclipse",
@@ -467,7 +559,9 @@
     "description": "Pre-processed: Vorks",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 2
   },
   {
     "title": "Halloween",
@@ -477,7 +571,9 @@
     "description": "Pre-processed: Axopupel",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 2
   },
 
   {
@@ -488,7 +584,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "The Ancient Chest",
@@ -498,7 +596,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 2
   },
   {
     "title": "The Apothecary",
@@ -508,7 +608,9 @@
     "description": "Pre-processed: tutulalasisi",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 3
   },
   {
     "title": "DTM",
@@ -518,7 +620,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Kenjaku",
@@ -528,7 +632,9 @@
     "description": "Pre-processed: Ariaha",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 6
   },
   {
     "title": "Godzilla",
@@ -538,7 +644,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 17,
+    "h": 8
   },
   {
     "title": "2025 Oscars Poster",
@@ -549,7 +657,9 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true,
-    "excludeFromCount": true
+    "excludeFromCount": true,
+    "w": 1,
+    "h": 2
   },
   {
     "title": "Let There Be Carnage",
@@ -559,7 +669,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 6
   },
   {
     "title": "Sleep Token German Tour Poster",
@@ -569,7 +681,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 7
   },
   {
     "title": "ACOTAR: A Court of Thorns and Roses",
@@ -579,7 +693,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 15,
+    "h": 5
   },
   {
     "title": "World's Greatest Mom: Steve",
@@ -589,7 +705,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 3
   },
   {
     "title": "Princess Mononoke",
@@ -599,7 +717,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 6
   },
   {
     "title": "Maliketh The Black Blade - Elden Ring",
@@ -609,7 +729,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 7,
+    "h": 8
   },
   {
     "title": "Black Hole Sun",
@@ -619,7 +741,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 10,
+    "h": 4
   },
   {
     "title": "Cosmopolis ( Speed Racer )",
@@ -629,7 +753,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 8,
+    "h": 3
   },
   {
     "title": "Cliff Sunset",
@@ -639,9 +765,11 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 3
   },
-{
+  {
     "title": "Charizard",
     "image": "images/charizard.png",
     "dateBuilt": "2026-01-26",
@@ -649,9 +777,11 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
-},
-{
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 6
+  },
+  {
     "title": "Sleep Token : Vessel",
     "image": "images/sleeptokenvessel.png",
     "dateBuilt": "2026-01-26",
@@ -659,7 +789,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 7
 },
   {
     "title": "Arts of Win",
@@ -669,7 +801,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 1,
+    "h": 1
   },
   {
     "title": "Old Tower",
@@ -679,7 +813,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 3
   },
   {
     "title": "Moonlight Castle",
@@ -689,7 +825,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 3
   },
   {
     "title": "Sega Akihabara 1st",
@@ -699,7 +837,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 3
   },
   {
     "title": "This Sunset is Beautiful",
@@ -709,7 +849,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 2,
+    "h": 3
   },
   {
     "title": "California Sunset",
@@ -719,7 +861,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 10,
+    "h": 5
   },
   {
     "title": "Itachi",
@@ -729,7 +873,9 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 10,
+    "h": 4
   },
   {
     "title": "Cyberpunk 2077",
@@ -739,6 +885,8 @@
     "description": "",
     "layoutType": "flat",
     "blockType": "",
-    "commentsEnabled": true
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 3
   }
 ]

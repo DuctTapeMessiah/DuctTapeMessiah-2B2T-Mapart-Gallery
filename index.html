@@ -28,7 +28,7 @@
             --accent: #b6c7d6;
             --accent-bright: #d4e3f2;
             --glass: rgba(255,255,255,.06);
-            --overlay-glass: rgba(15,17,19,.45);
+            --overlay-glass: rgba(15,17,19,.55);
             --shadow: 0 10px 30px rgba(0,0,0,.65);
             --content-max: 1200px;
             font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -41,9 +41,7 @@
             overflow-x: hidden;
         }
 
-        html {
-            background: var(--bg);
-        }
+        html { background: var(--bg); }
 
         .panel {
             background: var(--glass);
@@ -66,9 +64,9 @@
             will-change: opacity, transform;
         }
 
-        .bg-layer.active    { opacity: 1; }
-        .bg-layer.fadeout   { opacity: 0; }
-        .bg-layer.animate   { animation: bgZoom 12s linear forwards; }
+        .bg-layer.active  { opacity: 1; }
+        .bg-layer.fadeout { opacity: 0; }
+        .bg-layer.animate { animation: bgZoom 12s linear forwards; }
 
         @keyframes bgZoom {
             from { transform: scale(1); }
@@ -83,13 +81,9 @@
             transition: opacity 1.2s ease;
         }
 
-        body.loaded .wrap {
-            opacity: 1;
-        }
+        body.loaded .wrap { opacity: 1; }
 
-        .info-section {
-            margin: 32px 0;
-        }
+        .info-section { margin: 32px 0; }
 
         .top-header-row {
             display: grid;
@@ -98,9 +92,7 @@
             margin-bottom: 32px;
         }
 
-        header, .award-banner, .contact-card {
-            padding: 20px;
-        }
+        header, .award-banner, .contact-card { padding: 20px; }
 
         header {
             display: flex;
@@ -118,31 +110,15 @@
         }
 
         .logo {
-            width: 70px;
-            height: 70px;
+            width: 70px; height: 70px;
             border-radius: 12px;
             overflow: hidden;
             flex-shrink: 0;
         }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
 
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .title-main {
-            font-size: 28px;
-            font-weight: 800;
-            color: #f1f5f9;
-            line-height: 1.1;
-        }
-
-        .title-sub {
-            font-size: 14px;
-            color: #cbd5e1;
-            font-weight: 500;
-        }
+        .title-main { font-size: 28px; font-weight: 800; color: #f1f5f9; line-height: 1.1; }
+        .title-sub  { font-size: 14px; color: #cbd5e1; font-weight: 500; }
 
         .award-banner {
             background: var(--glass);
@@ -156,76 +132,30 @@
             padding: 24px 20px;
         }
 
-        .award-icon {
-            font-size: 36px;
-            flex-shrink: 0;
-        }
+        .award-icon   { font-size: 36px; flex-shrink: 0; }
+        .award-title  { font-size: 16px; font-weight: 800; color: #f1f5f9; margin-bottom: 2px; }
+        .award-subtitle { font-size: 13px; color: #cbd5e1; }
 
-        .award-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: #f1f5f9;
-            margin-bottom: 2px;
-        }
+        .award-link { font-size: 11px; color: #a5b4fc; text-decoration: none; }
+        .award-link:hover { color: #c7d2fe; text-decoration: underline; }
 
-        .award-subtitle {
-            font-size: 13px;
-            color: #cbd5e1;
-        }
-
-        .award-link {
-            font-size: 11px;
-            color: #a5b4fc;
-            text-decoration: none;
-        }
-
-        .award-link:hover {
-            color: #c7d2fe;
-            text-decoration: underline;
-        }
-
-        .contact-card {
-            text-align: center;
-        }
+        .contact-card { text-align: center; }
 
         .social-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent-bright);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
+            font-size: 13px; font-weight: 700; color: var(--accent-bright);
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
         }
 
         .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            font-size: 14px;
-            margin-bottom: 12px;
-            justify-content: center;
+            display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px;
+            margin-bottom: 12px; justify-content: center;
         }
+        .social-links a { color: var(--accent); text-decoration: none; }
+        .social-links a:hover { color: var(--accent-bright); text-decoration: underline; }
 
-        .social-links a {
-            color: var(--accent);
-            text-decoration: none;
-        }
+        .free-maps { font-size: 15px; color: var(--accent-bright); font-weight: 600; }
 
-        .social-links a:hover {
-            color: var(--accent-bright);
-            text-decoration: underline;
-        }
-
-        .free-maps {
-            font-size: 15px;
-            color: var(--accent-bright);
-            font-weight: 600;
-        }
-
-        .stats-grid {
-            display: grid;
-            gap: 24px;
-        }
+        .stats-grid { display: grid; gap: 24px; }
 
         .stat-card {
             background: var(--glass);
@@ -240,27 +170,9 @@
             justify-content: center;
         }
 
-        .stat-label {
-            font-size: 12px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--accent-bright);
-            line-height: 1;
-        }
-
-        .stat-sublabel {
-            font-size: 11px;
-            color: var(--muted);
-            margin-top: 4px;
-        }
+        .stat-label    { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 700; }
+        .stat-value    { font-size: 28px; font-weight: 800; color: var(--accent-bright); line-height: 1; }
+        .stat-sublabel { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
         .group-projects {
             padding: 14px 16px;
@@ -269,63 +181,28 @@
         }
 
         .group-projects-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent-bright);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-            flex-shrink: 0;
+            font-size: 11px; font-weight: 700; color: var(--accent-bright);
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+            text-align: center; flex-shrink: 0;
         }
 
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
-            overflow-y: auto;
-        }
+        .project-list { display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto; }
 
         .project-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 8px;
-            background: rgba(255,255,255,.02);
-            border-radius: 6px;
-            font-size: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 4px 8px; background: rgba(255,255,255,.02); border-radius: 6px; font-size: 10px;
         }
 
-        .project-name {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .project-date {
-            color: var(--muted);
-            font-size: 9px;
-            margin-right: 6px;
-        }
-
-        .project-maps {
-            color: var(--accent-bright);
-            font-weight: 700;
-            font-size: 10px;
-        }
+        .project-name  { color: var(--accent); font-weight: 600; }
+        .project-date  { color: var(--muted); font-size: 9px; margin-right: 6px; }
+        .project-maps  { color: var(--accent-bright); font-weight: 700; font-size: 10px; }
 
         .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            align-items: center;
-            margin-bottom: 32px;
+            display: flex; flex-direction: column; gap: 14px;
+            align-items: center; margin-bottom: 32px;
         }
 
-        .tabs {
-            display: flex;
-            gap: 8px;
-        }
+        .tabs { display: flex; gap: 8px; }
 
         .tab-btn, .sort-btn {
             background: var(--panel);
@@ -339,16 +216,12 @@
         }
 
         .tab-btn.active, .sort-btn.active {
-            background: var(--accent);
-            color: #000;
-            font-weight: 700;
+            background: var(--accent); color: #000; font-weight: 700;
         }
 
         .sort-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            min-width: 280px;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 8px; min-width: 280px;
         }
 
         .search-input {
@@ -380,237 +253,230 @@
             flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-        }
+        .card:hover { transform: translateY(-6px); }
 
         .thumb-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 100%;
-            background: #111;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 4px solid rgba(160,170,180,0.3);
-            box-sizing: border-box;
+            position: relative; width: 100%; padding-top: 100%;
+            background: #111; border-radius: 6px; overflow: hidden;
+            border: 4px solid rgba(160,170,180,0.3); box-sizing: border-box;
         }
 
         .thumb {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            image-rendering: auto;
-            cursor: pointer;
-            transition: transform .2s;
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: contain; object-position: center;
+            image-rendering: auto; cursor: pointer; transition: transform .2s;
         }
 
-        .thumb:hover {
-            transform: scale(1.04);
-        }
+        .thumb:hover { transform: scale(1.04); }
 
         .meta {
-            padding: 8px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            text-align: center;
+            padding: 8px 10px; display: flex;
+            flex-direction: column; gap: 6px; text-align: center;
         }
 
         .thumb-preview {
-            position: fixed;
-            top: 5vh;
-            right: 5vw;
-            width: 35vw;
-            height: 35vw;
-            max-width: 450px;
-            max-height: 450px;
-            border: 3px solid var(--accent);
-            border-radius: 14px;
+            position: fixed; top: 5vh; right: 5vw;
+            width: 35vw; height: 35vw; max-width: 450px; max-height: 450px;
+            border: 3px solid var(--accent); border-radius: 14px;
             box-shadow: 0 20px 60px rgba(0,0,0,.8);
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity .25s;
-            background: #000;
-            image-rendering: pixelated;
-            object-fit: contain;
+            pointer-events: none; z-index: 999; opacity: 0; transition: opacity .25s;
+            background: #000; image-rendering: pixelated; object-fit: contain;
         }
 
-        .thumb-preview.visible {
-            opacity: 1;
-        }
+        .thumb-preview.visible { opacity: 1; }
 
         .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.85);
-            display: flex;
-            flex-direction: column;
-            z-index: 80;
-            opacity: 0;
-            pointer-events: none;
-            transition: .25s;
+            position: fixed; inset: 0; background: rgba(0,0,0,.85);
+            display: flex; flex-direction: column; z-index: 80;
+            opacity: 0; pointer-events: none; transition: .25s;
         }
 
-        .modal.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal.open { opacity: 1; pointer-events: auto; }
 
         .close-x {
-            position: absolute;
-            top: 16px;
-            right: 18px;
-            font-size: 22px;
-            background: var(--panel);
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 20;
+            position: absolute; top: 16px; right: 18px;
+            font-size: 22px; background: var(--panel);
+            padding: 8px 12px; border-radius: 10px; cursor: pointer; z-index: 20;
         }
 
         .modal-title-overlay {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: var(--overlay-glass);
-            backdrop-filter: blur(6px);
-            padding: 12px 24px;
-            border-radius: 12px;
-            max-width: var(--content-max);
-            z-index: 20;
-            font-size: 14px;
-            transition: opacity .4s;
-            opacity: 0;
-            text-align: center;
-            gap: 8px;
+            position: absolute; top: 16px; left: 16px;
+            background: var(--overlay-glass); backdrop-filter: blur(6px);
+            padding: 12px 24px; border-radius: 12px;
+            max-width: var(--content-max); z-index: 20;
+            font-size: 14px; transition: opacity .4s; opacity: 0;
+            text-align: center; gap: 8px;
         }
 
-        .modal-title-overlay.visible {
-            opacity: 1;
-        }
-
-        .modal-title-overlay strong {
-            font-size: 17px;
-            display: block;
-            margin-bottom: 0;
-        }
-
-        .modal-title-overlay .date {
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 10px;
-            display: block;
-        }
+        .modal-title-overlay.visible { opacity: 1; }
+        .modal-title-overlay strong  { font-size: 17px; display: block; margin-bottom: 0; }
+        .modal-title-overlay .date   { color: var(--muted); font-size: 13px; margin-bottom: 10px; display: block; }
 
         .modal-details {
             position: absolute;
-            background: var(--overlay-glass);
-            backdrop-filter: blur(6px);
-            padding: 20px;
-            border-radius: 12px;
-            max-width: var(--content-max);
-            z-index: 20;
-            font-size: 14px;
-            line-height: 1.5;
-            transition: opacity .4s .1s;
-            opacity: 0;
-            pointer-events: none;
-            overflow-y: auto;
-            max-height: 70vh;
-            text-align: center;
+            background: var(--overlay-glass); backdrop-filter: blur(6px);
+            padding: 20px; border-radius: 12px;
+            max-width: var(--content-max); z-index: 20;
+            font-size: 14px; line-height: 1.5;
+            transition: opacity .4s .1s; opacity: 0; pointer-events: none;
+            overflow-y: auto; max-height: 70vh; text-align: center;
         }
 
-        .modal-details.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-details.visible { opacity: 1; pointer-events: auto; }
 
         .modal-viewport {
-            flex: 1;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            touch-action: none;
-            cursor: move;
+            flex: 1; background: #000; position: relative;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+            touch-action: none; cursor: move;
         }
 
+        /* ─── REDESIGNED MODAL CONTROLS ─── */
         .modal-controls {
             position: absolute;
-            bottom: 16px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: row;
-            gap: 40px;
-            padding: 14px 20px;
-            background: var(--overlay-glass);
-            backdrop-filter: blur(6px);
-            border-radius: 12px;
+            gap: 12px;
+            padding: 0;
+            background: transparent;
             z-index: 20;
             transition: opacity .4s;
             opacity: 0;
-            width: calc(100% - 32px);
-            max-width: var(--content-max);
-            justify-content: space-between;
-            align-items: center;
+            width: calc(100% - 48px);
+            max-width: 720px;
+            align-items: flex-end;
         }
 
-        .modal-controls.visible {
-            opacity: 1;
-        }
+        .modal-controls.visible { opacity: 1; }
 
-        .view-controls, .action-controls {
+        /* Sliders panel */
+        .view-controls {
+            flex: 1;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            min-width: 220px;
-        }
-
-        .fit-fill-row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            justify-content: center;
+            min-width: 0;
         }
 
         .slider-row {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 10px;
         }
 
         .slider-label {
-            font-size: 11px;
-            opacity: .8;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.4);
+            width: 32px;
+            flex-shrink: 0;
         }
 
+        /* Custom range slider track + thumb */
         .slider-row input[type="range"] {
-            width: 100%;
-            height: 7px;
             -webkit-appearance: none;
-            background: rgba(255,255,255,0.15);
-            border-radius: 4px;
+            appearance: none;
+            flex: 1;
+            height: 3px;
+            background: rgba(255,255,255,.15);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
         }
 
         .slider-row input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: var(--accent);
+            appearance: none;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
+            background: var(--accent-bright);
+            box-shadow: 0 0 0 3px rgba(212,227,242,.2);
+            cursor: pointer;
+            transition: box-shadow .15s, transform .15s;
         }
+
+        .slider-row input[type="range"]::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 0 5px rgba(212,227,242,.25);
+            transform: scale(1.15);
+        }
+
+        .slider-row input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-bright);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Action buttons panel */
+        .action-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            background: var(--overlay-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .ctrl-btn-group { display: contents; }
+
+        .ctrl-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.06);
+            color: rgba(255,255,255,.7);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: background .15s, color .15s, border-color .15s, transform .1s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(255,255,255,.13);
+            color: #fff;
+            border-color: rgba(255,255,255,.18);
+            transform: translateY(-1px);
+        }
+
+        .ctrl-btn:active { transform: translateY(0); }
+
+        .ctrl-btn svg {
+            width: 13px;
+            height: 13px;
+            opacity: .75;
+            flex-shrink: 0;
+        }
+
+        /* Remove distinct view-btn / action-btn styles — all uniform now */
+        .ctrl-btn.view-btn,
+        .ctrl-btn.action-btn { /* intentionally inherits base .ctrl-btn only */ }
 
         .modal-notification {
             position: absolute;
-            bottom: 100px;
+            bottom: 110px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--overlay-glass);
@@ -623,54 +489,50 @@
             opacity: 0;
             transition: opacity 0.4s;
             z-index: 25;
+            white-space: nowrap;
         }
 
         #uiToggleBtn {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
+            position: absolute;
+            top: 64px;
+            right: 18px;
             background: var(--panel);
             border: 1px solid rgba(255,255,255,.08);
             box-shadow: var(--shadow);
-            padding: 9px 14px;
+            padding: 8px 12px;
             border-radius: 10px;
             font-size: 14px;
             color: inherit;
             cursor: pointer;
-            z-index: 1000;
-            transition: opacity .2s ease, transform .12s ease;
-        }
-
-        #uiToggleBtn:hover {
-            transform: translateY(-2px);
-        }
-
-        body.ui-hidden #uiToggleBtn {
-            opacity: 0.6;
-        }
-
-        body:not(.ui-hidden) #uiToggleBtn {
+            z-index: 20;
+            transition: background .15s, opacity .2s ease, transform .1s ease;
             opacity: 0.85;
         }
 
-        .modal.open ~ #uiToggleBtn {
-            display: none;
+        #uiToggleBtn:hover {
+            background: rgba(255,255,255,.1);
+            transform: translateY(-1px);
         }
 
         body.ui-hidden .wrap,
-        body.ui-hidden .modal > *:not(#uiToggleBtn),
         body.ui-hidden .thumb-preview {
             opacity: 0 !important;
             pointer-events: none !important;
         }
 
-        body.ui-hidden .bg-layer {
-            filter: brightness(1) blur(0px);
+        /* Hide all modal children except X and the toggle btn when UI is hidden */
+        body.ui-hidden .modal .modal-title-overlay,
+        body.ui-hidden .modal .modal-details,
+        body.ui-hidden .modal .modal-controls,
+        body.ui-hidden .modal .nav-arrow {
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
 
+        body.ui-hidden .bg-layer { filter: brightness(1) blur(0px); }
         @media (hover: none), (pointer: coarse) {
             .thumb-preview { display: none !important; }
-            .thumb:hover { transform: none; }
+            .thumb:hover   { transform: none; }
         }
 
         @media (min-width: 769px) {
@@ -681,10 +543,10 @@
             }
 
             .grand-total        { grid-column: 1; grid-row: 1; }
-            .total-maps          { grid-column: 1; grid-row: 2; }
+            .total-maps         { grid-column: 1; grid-row: 2; }
             .group-contributions { grid-column: 2; grid-row: 1; }
-            .maps-copied         { grid-column: 2; grid-row: 2; }
-            .group-projects      { grid-column: 3; grid-row: 1 / 3; }
+            .maps-copied        { grid-column: 2; grid-row: 2; }
+            .group-projects     { grid-column: 3; grid-row: 1 / 3; }
 
             .modal-title-overlay {
                 left: 50%;
@@ -693,27 +555,15 @@
             }
 
             .modal-details {
-                left: 50%;
-                top: 50%;
+                left: 50%; top: 50%;
                 transform: translate(-50%, -50%);
                 max-width: 60%;
                 padding: 24px;
             }
-
-            .modal-controls {
-                bottom: 32px;
-                gap: 60px;
-                padding: 20px 40px;
-            }
-
-            .view-controls { min-width: 260px; }
-            .fit-fill-row { flex-direction: row; }
         }
 
         @media (max-width: 768px) {
-            .wrap {
-                padding: 0 8px;
-            }
+            .wrap { padding: 0 8px; }
 
             .info-section {
                 display: grid;
@@ -722,62 +572,44 @@
                 align-items: start;
             }
 
-            .top-header-row,
-            .stats-grid {
-                display: contents;
-            }
+            .top-header-row, .stats-grid { display: contents; }
 
-            header,
-            .award-banner,
-            .contact-card,
-            .stat-card,
-            .group-projects {
-                padding: 16px;
-            }
+            header, .award-banner, .contact-card, .stat-card, .group-projects { padding: 16px; }
 
-            .grand-total         { grid-column: 1; grid-row: 2; }
-            .total-maps          { grid-column: 2; grid-row: 2; }
-            .group-contributions { grid-column: 1; grid-row: 3; }
-            .maps-copied         { grid-column: 2; grid-row: 3; }
-            .group-projects      { grid-column: 1; grid-row: 4; }
+            .grand-total          { grid-column: 1; grid-row: 2; }
+            .total-maps           { grid-column: 2; grid-row: 2; }
+            .group-contributions  { grid-column: 1; grid-row: 3; }
+            .maps-copied          { grid-column: 2; grid-row: 3; }
+            .group-projects       { grid-column: 1; grid-row: 4; }
 
-            header { grid-column: 1; grid-row: 1; }
+            header        { grid-column: 1; grid-row: 1; }
             .award-banner { grid-column: 2; grid-row: 1; }
             .contact-card { grid-column: 2; grid-row: 4; }
 
-            .logo {
-                width: 50px;
-                height: 50px;
-            }
-
-            .title-main { font-size: 21px; }
-            .title-sub  { font-size: 12px; }
-
-            .award-icon    { font-size: 28px; }
-            .award-title   { font-size: 14px; }
+            .logo { width: 50px; height: 50px; }
+            .title-main  { font-size: 21px; }
+            .title-sub   { font-size: 12px; }
+            .award-icon  { font-size: 28px; }
+            .award-title { font-size: 14px; }
             .award-subtitle { font-size: 11px; }
-
-            .stat-value { font-size: 24px; }
-            .stat-label { font-size: 11px; }
+            .stat-value  { font-size: 24px; }
+            .stat-label  { font-size: 11px; }
             .stat-sublabel { font-size: 10px; }
 
+            /* Hide sliders on mobile */
             .view-controls { display: none; }
 
             .modal-controls {
-                max-width: var(--content-max);
-                padding: 12px 16px;
-                gap: 12px;
+                width: calc(100% - 32px);
+                max-width: 100%;
+                bottom: 16px;
             }
 
             .action-controls {
                 width: 100%;
-                align-items: center;
-                gap: 12px;
             }
 
-            .action-controls button {
-                width: 100%;
-            }
+            .ctrl-btn { padding: 11px 10px; }
 
             .modal-title-overlay,
             .modal-details {
@@ -785,11 +617,13 @@
                 transform: translateX(-50%);
                 max-width: 90%;
             }
+
             .title-main {
                 font-size: 16px;
                 line-height: 1.05;
                 font-weight: 700;
             }
+
             .modal-details {
                 top: 50%;
                 transform: translate(-50%, -50%);
@@ -909,6 +743,7 @@
 
 <div id="modal" class="modal">
     <div class="close-x" id="modalClose">×</div>
+    <button id="uiToggleBtn">Hide UI</button>
     <div class="modal-title-overlay" id="modalTitleOverlay"></div>
     <div class="modal-details" id="modalDetails"></div>
     <div class="modal-viewport" id="modalViewport">
@@ -916,27 +751,68 @@
         <div class="nav-arrow prev" id="prevBtn">‹</div>
         <div class="nav-arrow next" id="nextBtn">›</div>
     </div>
+
+    <!-- Redesigned controls bar -->
     <div class="modal-controls" id="modalControls">
+
+        <!-- Slider panel (hidden on mobile) -->
         <div class="view-controls">
-            <div class="slider-row"><span class="slider-label">Zoom</span><input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1"></div>
-            <div class="slider-row"><span class="slider-label">Pan X</span><input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
-            <div class="slider-row"><span class="slider-label">Pan Y</span><input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0"></div>
-        </div>
-        <div class="action-controls">
-            <div class="fit-fill-row">
-                <button id="fitViewBtn">Fit</button>
-                <button id="fillViewBtn">Fill</button>
+            <div class="slider-row">
+                <span class="slider-label">Zoom</span>
+                <input id="zoomSlider" type="range" min="0.1" max="10" step="0.01" value="1">
             </div>
-            <div class="action-row">
-                <button id="copyBtn">Copy</button>
-                <button id="downloadBtn">Download</button>
+            <div class="slider-row">
+                <span class="slider-label">Pan X</span>
+                <input id="panXSlider" type="range" min="-1" max="1" step="0.01" value="0">
+            </div>
+            <div class="slider-row">
+                <span class="slider-label">Pan Y</span>
+                <input id="panYSlider" type="range" min="-1" max="1" step="0.01" value="0">
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="action-controls">
+            <!-- Fit / Fill -->
+            <div class="ctrl-btn-group">
+                <button id="fitViewBtn" class="ctrl-btn view-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <path d="M1 5V2h3M12 2h3v3M1 11v3h3M12 14h3v-3"/>
+                        <rect x="4" y="4" width="8" height="8" rx="1"/>
+                    </svg>
+                    Fit
+                </button>
+                <button id="fillViewBtn" class="ctrl-btn view-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <path d="M5 1H2v3M11 1h3v3M5 15H2v-3M11 15h3v-3"/>
+                        <rect x="1" y="1" width="14" height="14" rx="1" stroke-dasharray="0"/>
+                    </svg>
+                    Fill
+                </button>
+            </div>
+            <!-- Copy / Download -->
+            <div class="ctrl-btn-group">
+                <button id="copyBtn" class="ctrl-btn action-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <rect x="5" y="5" width="9" height="9" rx="1.5"/>
+                        <path d="M3 11H2a1 1 0 01-1-1V2a1 1 0 011-1h8a1 1 0 011 1v1"/>
+                    </svg>
+                    Copy
+                </button>
+                <button id="downloadBtn" class="ctrl-btn action-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <path d="M8 1v9M5 7l3 3 3-3"/>
+                        <path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2"/>
+                    </svg>
+                    Download
+                </button>
             </div>
         </div>
     </div>
+
     <div id="modalNotification" class="modal-notification"></div>
 </div>
 
-<button id="uiToggleBtn">Hide UI</button>
 
 <script>
     const gallery = document.getElementById('gallery');
@@ -983,40 +859,25 @@
     const isTouchDevice = /Mobi|Android/i.test(navigator.userAgent);
 
     let state = {
-        scale: 1,
-        offsetX: 0,
-        offsetY: 0,
-        startX: 0,
-        startY: 0,
-        startOffsetX: 0,
-        startOffsetY: 0,
-        isPanning: false,
-        detailsShown: false,
-        initialFitScale: 1
+        scale: 1, offsetX: 0, offsetY: 0,
+        startX: 0, startY: 0, startOffsetX: 0, startOffsetY: 0,
+        isPanning: false, detailsShown: false, initialFitScale: 1
     };
 
     let autoPanInterval = null;
     let panDirection = 1;
 
-    function onUserInteract() {
-        showUI();
-        resetUITimeout();
-    }
+    function onUserInteract() { showUI(); resetUITimeout(); }
 
     function calculateStats() {
         let totalIndividualMaps = 0;
-        DATA.forEach(m => {
-            if (m.excludeFromCount !== true && m.totalMaps) {
-                totalIndividualMaps += m.totalMaps;
-            }
-        });
+        DATA.forEach(m => { if (m.excludeFromCount !== true && m.totalMaps) totalIndividualMaps += m.totalMaps; });
 
         const groupTotal = GROUP_PROJECTS.reduce((sum, p) => sum + p.maps, 0);
         const grandTotal = totalIndividualMaps + groupTotal;
 
         const startDate = new Date('2024-01-13');
-        const currentDate = new Date();
-        const daysSince = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+        const daysSince = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
         const mapsPerDay = (grandTotal / daysSince).toFixed(2);
 
         document.getElementById('totalMaps').textContent = totalIndividualMaps.toLocaleString();
@@ -1031,21 +892,14 @@
         if (isTouchDevice) return;
         if (!modal.classList.contains('open') || autoPanInterval) return;
 
-        const vpW = modalViewport.clientWidth;
-        const vpH = modalViewport.clientHeight;
-        const imgW = modalImg.naturalWidth;
-        const imgH = modalImg.naturalHeight;
-
+        const vpW = modalViewport.clientWidth, vpH = modalViewport.clientHeight;
+        const imgW = modalImg.naturalWidth, imgH = modalImg.naturalHeight;
         if (!imgW || !imgH) return;
 
-        const scaledW = state.scale * imgW;
-        const scaledH = state.scale * imgH;
-
+        const scaledW = state.scale * imgW, scaledH = state.scale * imgH;
         const extraX = Math.max(0, (scaledW - vpW) / 2);
         const extraY = Math.max(0, (scaledH - vpH) / 2);
-
-        const wideRatio = scaledW / vpW;
-        const tallRatio = scaledH / vpH;
+        const wideRatio = scaledW / vpW, tallRatio = scaledH / vpH;
 
         if (wideRatio < 1.05 && tallRatio < 1.05) return;
 
@@ -1053,73 +907,41 @@
         const maxPan = isWide ? extraX : extraY;
         if (maxPan === 0) return;
 
-        const speed = 30;
-        const step = speed / 60;
-
+        const step = 30 / 60;
         clearInterval(autoPanInterval);
         autoPanInterval = setInterval(() => {
-            if (!modal.classList.contains('open')) {
-                clearInterval(autoPanInterval);
-                autoPanInterval = null;
-                return;
-            }
-
-            if (isWide) {
-                state.offsetX += step * panDirection;
-                if (Math.abs(state.offsetX) >= maxPan) panDirection *= -1;
-            } else {
-                state.offsetY += step * panDirection;
-                if (Math.abs(state.offsetY) >= maxPan) panDirection *= -1;
-            }
-
-            clampPan();
-            updateTransform();
-            syncSliders();
+            if (!modal.classList.contains('open')) { clearInterval(autoPanInterval); autoPanInterval = null; return; }
+            if (isWide) { state.offsetX += step * panDirection; if (Math.abs(state.offsetX) >= maxPan) panDirection *= -1; }
+            else        { state.offsetY += step * panDirection; if (Math.abs(state.offsetY) >= maxPan) panDirection *= -1; }
+            clampPan(); updateTransform(); syncSliders();
         }, 1000 / 60);
     }
 
-    function stopAutoPan() {
-        if (autoPanInterval) {
-            clearInterval(autoPanInterval);
-            autoPanInterval = null;
-        }
-    }
+    function stopAutoPan() { if (autoPanInterval) { clearInterval(autoPanInterval); autoPanInterval = null; } }
 
     async function loadJSON(url) {
-        try {
-            const res = await fetch(url);
-            return res.ok ? await res.json() : [];
-        } catch {
-            return [];
-        }
+        try { const res = await fetch(url); return res.ok ? await res.json() : []; } catch { return []; }
     }
 
     function toggleUIHide() {
         uiHidden = !uiHidden;
         document.body.classList.toggle('ui-hidden', uiHidden);
         uiToggleBtn.textContent = uiHidden ? 'Show UI' : 'Hide UI';
+        if (!uiHidden) onUserInteract();
     }
 
     function buildLinkMap() {
         linkMap = {};
-
         SCREENSHOTS.forEach((s, i) => {
             if (s.mapart) {
                 const match = DATA.find(m => m.title === s.mapart);
-                if (match) {
-                    linkMap[`screenshot-${i}`] = { type: 'mapart', title: match.title };
-                    linkMap[`mapart-${match.title}`] = { type: 'screenshot', index: i };
-                }
+                if (match) { linkMap[`screenshot-${i}`] = { type: 'mapart', title: match.title }; linkMap[`mapart-${match.title}`] = { type: 'screenshot', index: i }; }
             }
         });
-
         DATA.forEach(m => {
             if (m.screenshot) {
                 const idx = SCREENSHOTS.findIndex(s => s.title === m.screenshot);
-                if (idx !== -1) {
-                    linkMap[`mapart-${m.title}`] = { type: 'screenshot', index: idx };
-                    linkMap[`screenshot-${idx}`] = { type: 'mapart', title: m.title };
-                }
+                if (idx !== -1) { linkMap[`mapart-${m.title}`] = { type: 'screenshot', index: idx }; linkMap[`screenshot-${idx}`] = { type: 'mapart', title: m.title }; }
             }
         });
     }
@@ -1127,91 +949,61 @@
     function populateProjectList() {
         const list = document.querySelector('.project-list');
         list.innerHTML = '';
-
-        [...GROUP_PROJECTS]
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .forEach(p => {
-                const item = document.createElement('div');
-                item.className = 'project-item';
-
-                const d = new Date(p.date);
-                const dateStr = `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`;
-
-                item.innerHTML = `
-                    <span>
-                        <span class="project-date">${dateStr}</span>
-                        <span class="project-name">${p.name}</span>
-                    </span>
-                    <span class="project-maps">${p.maps.toLocaleString('en-US')}</span>
-                `;
-                list.appendChild(item);
-            });
+        [...GROUP_PROJECTS].sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(p => {
+            const item = document.createElement('div');
+            item.className = 'project-item';
+            const d = new Date(p.date);
+            const dateStr = `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`;
+            item.innerHTML = `<span><span class="project-date">${dateStr}</span><span class="project-name">${p.name}</span></span><span class="project-maps">${p.maps.toLocaleString('en-US')}</span>`;
+            list.appendChild(item);
+        });
     }
 
     async function boot() {
         DATA = await loadJSON('maps.json');
         SCREENSHOTS = await loadJSON('screenshots.json');
-
         buildLinkMap();
 
         await Promise.all(DATA.map(m => new Promise(resolve => {
             const img = new Image();
             img.src = m.image;
             img.onload = () => {
-                m.pixelWidth = img.naturalWidth;
-                m.pixelHeight = img.naturalHeight;
-                m.w = Math.round(img.naturalWidth / 128);
-                m.h = Math.round(img.naturalHeight / 128);
-                m.totalMaps = m.w * m.h;
-                resolve();
+                m.pixelWidth = img.naturalWidth; m.pixelHeight = img.naturalHeight;
+                m.w = Math.round(img.naturalWidth / 128); m.h = Math.round(img.naturalHeight / 128);
+                m.totalMaps = m.w * m.h; resolve();
             };
             img.onerror = () => { m.totalMaps = 0; resolve(); };
         })));
 
         calculateStats();
         populateProjectList();
-
         uiToggleBtn.onclick = toggleUIHide;
-
         startBackgroundSlideshow(9000);
         render();
     }
 
-    let bgToggle = false;
-    let bgTimer = null;
+    let bgToggle = false, bgTimer = null;
 
     function startBackgroundSlideshow(interval = 9000) {
         if (!SCREENSHOTS.length) return;
-
-        const bgA = document.getElementById('bgA');
-        const bgB = document.getElementById('bgB');
-
+        const bgA = document.getElementById('bgA'), bgB = document.getElementById('bgB');
         let shuffled = SCREENSHOTS.filter(s => s.show !== false);
         if (!shuffled.length) return;
-
         shuffled.sort(() => Math.random() - 0.5);
         let idx = 0;
 
         function next() {
             const src = shuffled[idx].image || `screenshots/${shuffled[idx].file}`;
-            const incoming  = bgToggle ? bgA : bgB;
-            const outgoing = bgToggle ? bgB : bgA;
-
+            const incoming = bgToggle ? bgA : bgB;
+            const outgoing  = bgToggle ? bgB : bgA;
             incoming.style.backgroundImage = `url('${src}')`;
             incoming.classList.add('active', 'animate');
             outgoing.classList.add('fadeout');
-
-            setTimeout(() => {
-                outgoing.classList.remove('active', 'animate', 'fadeout');
-                outgoing.style.backgroundImage = '';
-            }, 3000);
-
+            setTimeout(() => { outgoing.classList.remove('active', 'animate', 'fadeout'); outgoing.style.backgroundImage = ''; }, 3000);
             bgToggle = !bgToggle;
             idx = (idx + 1) % shuffled.length;
-
             if (idx === 0) shuffled.sort(() => Math.random() - 0.5);
         }
-
         next();
         bgTimer = setInterval(next, interval);
     }
@@ -1229,11 +1021,7 @@
                 return sort === 'date-desc' ? new Date(db) - new Date(da) : new Date(da) - new Date(db);
             });
         } else if (mode === 'mapart') {
-            arr.sort((a, b) => {
-                const as = a.totalMaps || 0;
-                const bs = b.totalMaps || 0;
-                return sort === 'size-desc' ? bs - as : as - bs;
-            });
+            arr.sort((a, b) => sort === 'size-desc' ? (b.totalMaps||0)-(a.totalMaps||0) : (a.totalMaps||0)-(b.totalMaps||0));
         }
     }
 
@@ -1241,12 +1029,7 @@
         gallery.innerHTML = '';
         const query = document.getElementById('search').value.toLowerCase();
         const all = mode === 'mapart' ? DATA : SCREENSHOTS;
-
-        items = all.filter(i => {
-            if (mode === 'screens' && i.show === false) return false;
-            return !query || (i.title || '').toLowerCase().includes(query);
-        });
-
+        items = all.filter(i => { if (mode === 'screens' && i.show === false) return false; return !query || (i.title || '').toLowerCase().includes(query); });
         applySort(items);
 
         document.getElementById('sortLarge').style.display = mode === 'mapart' ? '' : 'none';
@@ -1255,16 +1038,14 @@
         items.forEach((item, i) => {
             const card = document.createElement('div');
             card.className = 'card';
-
             const wrapper = document.createElement('div');
             wrapper.className = 'thumb-wrapper';
 
             if (mode === 'mapart' && item.w && item.h) {
                 let ratio = item.w / item.h;
-                let spanX = Math.min(item.w, 4);
-                let spanY = Math.min(item.h, 4);
-                if (ratio > 3)  { spanX = Math.min(item.w, 6); spanY = 1; }
-                if (ratio < 1/3){ spanX = 1; spanY = Math.min(item.h, 6); }
+                let spanX = Math.min(item.w, 4), spanY = Math.min(item.h, 4);
+                if (ratio > 3)   { spanX = Math.min(item.w, 6); spanY = 1; }
+                if (ratio < 1/3) { spanX = 1; spanY = Math.min(item.h, 6); }
                 wrapper.style.gridColumnEnd = `span ${spanX}`;
                 wrapper.style.gridRowEnd   = `span ${spanY}`;
             }
@@ -1290,12 +1071,7 @@
             if (mode === 'mapart') {
                 const maps = item.totalMaps ?? '?';
                 const note = item.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
-                meta.innerHTML = `
-                    <div class="title">${item.title || ''}</div>
-                    <div class="maps-tag">
-                        <div style="font-size:11px;opacity:.75;">Total Maps</div>
-                        <div style="font-size:14px;font-weight:800;">${maps}${note}</div>
-                    </div>`;
+                meta.innerHTML = `<div class="title">${item.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${note}</div></div>`;
             } else {
                 meta.innerHTML = `<div class="title">${item.title || ''}</div>`;
             }
@@ -1321,69 +1097,47 @@
         modalControls.classList.remove('visible');
     }
 
-    function resetUITimeout() {
-        clearTimeout(uiTimeout);
-        uiTimeout = setTimeout(hideUI, 3000);
-    }
+    function resetUITimeout() { clearTimeout(uiTimeout); uiTimeout = setTimeout(hideUI, 3000); }
 
     function showNotification(text) {
         modalNotification.textContent = text;
         modalNotification.style.opacity = '1';
         clearTimeout(modalNotification._timeout);
-        modalNotification._timeout = setTimeout(() => {
-            modalNotification.style.opacity = '0';
-        }, 3000);
+        modalNotification._timeout = setTimeout(() => { modalNotification.style.opacity = '0'; }, 3000);
     }
 
     function fitView() {
         if (!modalImg.naturalWidth) return;
-        const scale = Math.min(
-            modalViewport.clientWidth / modalImg.naturalWidth,
-            modalViewport.clientHeight / modalImg.naturalHeight
-        );
+        const scale = Math.min(modalViewport.clientWidth / modalImg.naturalWidth, modalViewport.clientHeight / modalImg.naturalHeight);
         state.initialFitScale = state.scale = scale;
         state.offsetX = state.offsetY = 0;
-        updateTransform();
-        syncSliders();
+        updateTransform(); syncSliders();
     }
 
     function fillView() {
         if (!modalImg.naturalWidth) return;
-        const scale = Math.max(
-            modalViewport.clientWidth / modalImg.naturalWidth,
-            modalViewport.clientHeight / modalImg.naturalHeight
-        );
-        state.scale = scale;
-        state.offsetX = state.offsetY = 0;
-        clampPan();
-        updateTransform();
-        syncSliders();
+        const scale = Math.max(modalViewport.clientWidth / modalImg.naturalWidth, modalViewport.clientHeight / modalImg.naturalHeight);
+        state.scale = scale; state.offsetX = state.offsetY = 0;
+        clampPan(); updateTransform(); syncSliders();
     }
 
     function syncSliders() {
         zoomSlider.value = state.scale;
-
         const scaledW = state.scale * modalImg.naturalWidth;
         const scaledH = state.scale * modalImg.naturalHeight;
-
         const maxX = Math.max(0, (scaledW - modalViewport.clientWidth)  / 2);
         const maxY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
-
         panXSlider.value = maxX ? state.offsetX / maxX : 0;
         panYSlider.value = maxY ? state.offsetY / maxY : 0;
     }
 
-    function updateTransform() {
-        modalImg.style.transform = `translate(${state.offsetX}px, ${state.offsetY}px) scale(${state.scale})`;
-    }
+    function updateTransform() { modalImg.style.transform = `translate(${state.offsetX}px, ${state.offsetY}px) scale(${state.scale})`; }
 
     function clampPan() {
         const scaledW = state.scale * modalImg.naturalWidth;
         const scaledH = state.scale * modalImg.naturalHeight;
-
         const extraX = Math.max(0, (scaledW - modalViewport.clientWidth)  / 2);
         const extraY = Math.max(0, (scaledH - modalViewport.clientHeight) / 2);
-
         state.offsetX = Math.max(-extraX, Math.min(extraX, state.offsetX));
         state.offsetY = Math.max(-extraY, Math.min(extraY, state.offsetY));
     }
@@ -1398,24 +1152,17 @@
         modalImg.src = item.image;
 
         let titleHtml = item.title ? `<strong>${item.title}</strong>` : '';
-
         let dateStr = item.date || item.dateBuilt || extractDateFromFilename(item.image);
         if (dateStr) {
             const d = new Date(dateStr);
-            titleHtml += `<div class="date">Date Created: ${
-                !isNaN(d) ? d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'2-digit' }) : dateStr
-            }</div>`;
+            titleHtml += `<div class="date">Date Created: ${!isNaN(d) ? d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'2-digit' }) : dateStr}</div>`;
         }
 
-        const desc = item.description || '';
-        const credit = item.artistCredit || '';
-        if (desc || credit) {
-            titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
-        }
+        const desc = item.description || '', credit = item.artistCredit || '';
+        if (desc || credit) titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
 
         const linkKey = mode === 'mapart' ? `mapart-${item.title}` : `screenshot-${SCREENSHOTS.indexOf(item)}`;
         const linked = linkMap[linkKey];
-
         if (linked) {
             const text = returnToMode
                 ? (returnToMode === 'mapart' ? '↩ Return to Mapart' : '↩ Return to Screenshot')
@@ -1424,10 +1171,7 @@
         }
 
         modalTitleOverlay.innerHTML = titleHtml || '&nbsp;';
-
-        modalDetails.innerHTML = (desc ? `<div class="desc">${desc}</div>` : '') +
-                                (credit ? `<div class="credit">Artist: ${credit}</div>` : '');
-
+        modalDetails.innerHTML = (desc ? `<div class="desc">${desc}</div>` : '') + (credit ? `<div class="credit">Artist: ${credit}</div>` : '');
         state.detailsShown = false;
         modalDetails.classList.remove('visible');
 
@@ -1440,28 +1184,16 @@
 
         document.getElementById('viewLinkedBtn')?.addEventListener('click', () => {
             if (returnToMode && returnToItem) {
-                const tempMode = returnToMode;
-                const tempItem = returnToItem;
+                const tempMode = returnToMode, tempItem = returnToItem;
                 returnToMode = returnToItem = null;
-
-                if (tempMode === 'mapart') switchToMapart(tempItem);
-                else switchToScreenshots(tempItem);
+                if (tempMode === 'mapart') switchToMapart(tempItem); else switchToScreenshots(tempItem);
             } else if (linked) {
-                if (linked.type === 'screenshot') {
-                    returnToMode = 'mapart';
-                    returnToItem = item.title;
-                    switchToScreenshots(linked.index);
-                } else {
-                    returnToMode = 'screens';
-                    returnToItem = SCREENSHOTS.indexOf(item);
-                    switchToMapart(linked.title);
-                }
+                if (linked.type === 'screenshot') { returnToMode = 'mapart'; returnToItem = item.title; switchToScreenshots(linked.index); }
+                else { returnToMode = 'screens'; returnToItem = SCREENSHOTS.indexOf(item); switchToMapart(linked.title); }
             }
         }, { once: true });
 
-        showUI();
-        resetUITimeout();
-
+        showUI(); resetUITimeout();
         prevBtn.style.display = idx > 0 ? 'flex' : 'none';
         nextBtn.style.display = idx < items.length - 1 ? 'flex' : 'none';
     }
@@ -1469,23 +1201,13 @@
     function switchToScreenshots(globalIdx) {
         const shot = SCREENSHOTS[globalIdx];
         if (!shot) return;
-
-        if (shot.show === false) {
-            items = [shot];
-            mode = 'screens';
-            openModal(0);
-            return;
-        }
-
+        if (shot.show === false) { items = [shot]; mode = 'screens'; openModal(0); return; }
         closeModal();
-
         mode = 'screens';
-        document.body.classList.add('screens');
-        document.body.classList.remove('mapart');
+        document.body.classList.add('screens'); document.body.classList.remove('mapart');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabScreens').classList.add('active');
         render();
-
         const target = items.findIndex(i => i === shot);
         if (target !== -1) setTimeout(() => openModal(target), 100);
     }
@@ -1493,155 +1215,82 @@
     function switchToMapart(title) {
         const mapart = DATA.find(m => m.title === title);
         if (!mapart) return;
-
         closeModal();
-
         mode = 'mapart';
-        document.body.classList.add('mapart');
-        document.body.classList.remove('screens');
+        document.body.classList.add('mapart'); document.body.classList.remove('screens');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tabMapart').classList.add('active');
         render();
-
         const target = items.findIndex(i => i === mapart);
         if (target !== -1) setTimeout(() => openModal(target), 100);
     }
 
     function closeModal() {
         if (returnToMode && returnToItem) {
-            const tempMode = returnToMode;
-            const tempItem = returnToItem;
+            const tempMode = returnToMode, tempItem = returnToItem;
             returnToMode = returnToItem = null;
-
             if (tempMode === 'mapart') {
-                mode = 'mapart';
-                document.body.classList.add('mapart');
-                document.body.classList.remove('screens');
+                mode = 'mapart'; document.body.classList.add('mapart'); document.body.classList.remove('screens');
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('tabMapart').classList.add('active');
-                render();
+                document.getElementById('tabMapart').classList.add('active'); render();
             } else {
-                mode = 'screens';
-                document.body.classList.add('screens');
-                document.body.classList.remove('mapart');
+                mode = 'screens'; document.body.classList.add('screens'); document.body.classList.remove('mapart');
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('tabScreens').classList.add('active');
-                render();
+                document.getElementById('tabScreens').classList.add('active'); render();
             }
-        } else {
-            returnToMode = returnToItem = null;
-        }
-
+        } else { returnToMode = returnToItem = null; }
         modal.classList.remove('open');
         document.body.style.overflow = '';
-        currentIndex = -1;
-        hideUI();
+        currentIndex = -1; hideUI();
     }
 
-    zoomSlider.oninput = () => {
-        state.scale = +zoomSlider.value;
-        clampPan();
-        updateTransform();
-        syncSliders();
-        onUserInteract();
-    };
-
-    panXSlider.oninput = () => {
-        const max = Math.max(0, (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2);
-        state.offsetX = +panXSlider.value * max;
-        updateTransform();
-        onUserInteract();
-    };
-
-    panYSlider.oninput = () => {
-        const max = Math.max(0, (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2);
-        state.offsetY = +panYSlider.value * max;
-        updateTransform();
-        onUserInteract();
-    };
+    zoomSlider.oninput = () => { state.scale = +zoomSlider.value; clampPan(); updateTransform(); syncSliders(); onUserInteract(); };
+    panXSlider.oninput = () => { const max = Math.max(0, (state.scale * modalImg.naturalWidth - modalViewport.clientWidth) / 2); state.offsetX = +panXSlider.value * max; updateTransform(); onUserInteract(); };
+    panYSlider.oninput = () => { const max = Math.max(0, (state.scale * modalImg.naturalHeight - modalViewport.clientHeight) / 2); state.offsetY = +panYSlider.value * max; updateTransform(); onUserInteract(); };
 
     modalViewport.addEventListener('wheel', e => {
         e.preventDefault();
-        const factor = e.deltaY > 0 ? 0.9 : 1.1;
-        state.scale = Math.max(0.1, Math.min(10, state.scale * factor));
-        clampPan();
-        updateTransform();
-        syncSliders();
-        onUserInteract();
+        state.scale = Math.max(0.1, Math.min(10, state.scale * (e.deltaY > 0 ? 0.9 : 1.1)));
+        clampPan(); updateTransform(); syncSliders(); onUserInteract();
     }, { passive: false });
 
     modalViewport.addEventListener('mousedown', e => {
         if (isTouchDevice) return;
-        state.isPanning = true;
-        state.startX = e.clientX;
-        state.startY = e.clientY;
-        state.startOffsetX = state.offsetX;
-        state.startOffsetY = state.offsetY;
+        state.isPanning = true; state.startX = e.clientX; state.startY = e.clientY;
+        state.startOffsetX = state.offsetX; state.startOffsetY = state.offsetY;
         modalViewport.style.cursor = 'grabbing';
     });
 
     document.addEventListener('mousemove', e => {
-        // Show UI on mouse movement when modal is open
-        if (modal.classList.contains('open')) {
-            onUserInteract();
-        }
-
+        if (modal.classList.contains('open')) onUserInteract();
         if (!state.isPanning) return;
         state.offsetX = state.startOffsetX + (e.clientX - state.startX);
         state.offsetY = state.startOffsetY + (e.clientY - state.startY);
-        clampPan();
-        updateTransform();
-        syncSliders();
+        clampPan(); updateTransform(); syncSliders();
     });
 
-    document.addEventListener('mouseup', () => {
-        if (state.isPanning) {
-            state.isPanning = false;
-            modalViewport.style.cursor = 'move';
-        }
-    });
+    document.addEventListener('mouseup', () => { if (state.isPanning) { state.isPanning = false; modalViewport.style.cursor = 'move'; } });
 
     let lastTouchDistance = null;
-
     modalViewport.addEventListener('touchstart', e => {
-        if (e.touches.length === 2) {
-            lastTouchDistance = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
-            state.startScale = state.scale;
-        } else if (e.touches.length === 1) {
-            state.startX = e.touches[0].clientX;
-            state.startY = e.touches[0].clientY;
-            state.startOffsetX = state.offsetX;
-            state.startOffsetY = state.offsetY;
-        }
+        if (e.touches.length === 2) { lastTouchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); state.startScale = state.scale; }
+        else if (e.touches.length === 1) { state.startX = e.touches[0].clientX; state.startY = e.touches[0].clientY; state.startOffsetX = state.offsetX; state.startOffsetY = state.offsetY; }
     }, { passive: true });
 
     modalViewport.addEventListener('touchmove', e => {
         if (e.touches.length === 2) {
-            const dist = Math.hypot(
-                e.touches[0].clientX - e.touches[1].clientX,
-                e.touches[0].clientY - e.touches[1].clientY
-            );
+            const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
             state.scale = Math.max(0.1, Math.min(10, state.startScale * (dist / lastTouchDistance)));
-            clampPan();
-            updateTransform();
-            syncSliders();
+            clampPan(); updateTransform(); syncSliders();
         } else if (e.touches.length === 1) {
             state.offsetX = state.startOffsetX + (e.touches[0].clientX - state.startX);
             state.offsetY = state.startOffsetY + (e.touches[0].clientY - state.startY);
-            clampPan();
-            updateTransform();
-            syncSliders();
+            clampPan(); updateTransform(); syncSliders();
         }
         onUserInteract();
     }, { passive: false });
 
-    function navigate(delta) {
-        const next = currentIndex + delta;
-        if (next >= 0 && next < items.length) openModal(next);
-    }
+    function navigate(delta) { const next = currentIndex + delta; if (next >= 0 && next < items.length) openModal(next); }
 
     prevBtn.onclick = () => { navigate(-1); onUserInteract(); };
     nextBtn.onclick = () => { navigate(1); onUserInteract(); };
@@ -1661,21 +1310,15 @@
     document.getElementById('modalClose').onclick = closeModal;
 
     document.getElementById('tabMapart').onclick = () => {
-        mode = 'mapart';
-        document.body.classList.add('mapart');
-        document.body.classList.remove('screens');
+        mode = 'mapart'; document.body.classList.add('mapart'); document.body.classList.remove('screens');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tabMapart').classList.add('active');
-        render();
+        document.getElementById('tabMapart').classList.add('active'); render();
     };
 
     document.getElementById('tabScreens').onclick = () => {
-        mode = 'screens';
-        document.body.classList.add('screens');
-        document.body.classList.remove('mapart');
+        mode = 'screens'; document.body.classList.add('screens'); document.body.classList.remove('mapart');
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('tabScreens').classList.add('active');
-        render();
+        document.getElementById('tabScreens').classList.add('active'); render();
     };
 
     document.getElementById('search').oninput = () => setTimeout(render, 150);
@@ -1684,8 +1327,7 @@
         btn.onclick = () => {
             sort = btn.dataset.sort;
             document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            render();
+            btn.classList.add('active'); render();
         };
     });
 
@@ -1697,9 +1339,7 @@
             const blob = await res.blob();
             await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
             showNotification('Copied to clipboard');
-        } catch {
-            showNotification('Copy failed');
-        }
+        } catch { showNotification('Copy failed'); }
     };
 
     document.getElementById('downloadBtn').onclick = () => {
@@ -1707,19 +1347,13 @@
         const a = document.createElement('a');
         a.href = modalImg.src;
         a.download = modalImg.src.split('/').pop() || 'image.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         showNotification('Download started');
     };
 
-    modalImg.onload = () => {
-        fitView();
-        onUserInteract();
-    };
+    modalImg.onload = () => { fitView(); onUserInteract(); };
 
     boot();
-
     window.addEventListener('load', () => document.body.classList.add('loaded'));
 </script>
 </body>

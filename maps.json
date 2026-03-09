@@ -730,5 +730,15 @@
     "layoutType": "flat",
     "blockType": "",
     "commentsEnabled": true
+  },
+  {
+    "title": "Cyberpunk 2077",
+    "image": "images/cyberpunk.png",
+    "dateBuilt": "2026-03-09",
+    "artistCredit": "https://www.deviantart.com/helpcomputer0/art/Cyberpunk-2077-910875900",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true
   }
 ]

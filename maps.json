@@ -673,6 +673,7 @@
     "w": 5,
     "h": 6
   },
+
   {
     "title": "Sleep Token German Tour Poster",
     "image": "images/SleepTokenPoster.png",
@@ -899,6 +900,30 @@
     "blockType": "",
     "commentsEnabled": true,
     "w": 6,
+    "h": 9
+  },
+  {
+    "title": "Road to Spectropolis",
+    "image": "images/roadtospectropolis.png",
+    "dateBuilt": "2026-03-07",
+    "artistCredit": "https://www.deviantart.com/retronator/art/Road-to-Spectropolis-810860273",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 4,
+    "h": 3
+  },
+  {
+    "title": "The Dark Knight",
+    "image": "images/thedarkknight.png",
+    "dateBuilt": "2026-04-03",
+    "artistCredit": "https://iamgabz.com/The-Dark-Knight-Trilogy",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 14,
     "h": 9
   }
 ]

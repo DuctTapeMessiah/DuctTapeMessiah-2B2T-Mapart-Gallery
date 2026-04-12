@@ -286,5 +286,16 @@
         "image": "screenshots/2026-03-10_13.52.43.png",
         "mapart": "Spiderman Vs Venom",
         "show": false
+    },
+    {
+        "image": "screenshots/2026-03-17_21.26.13.png",
+        "mapart": "Road to Spectropolis",
+        "show": false
+    },
+    {
+        "image": "screenshots/2026-04-03_08.22.26.png",
+        "mapart": "The Dark Knight",
+        "show": false
     }
+
 ]

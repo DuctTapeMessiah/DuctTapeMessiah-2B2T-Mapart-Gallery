@@ -925,5 +925,28 @@
     "commentsEnabled": true,
     "w": 14,
     "h": 9
-  }
-]
+  },
+  {
+    "title": "Vi",
+    "image": "images/vi.png",
+    "dateBuilt": "2026-04-15",
+    "artistCredit": "https://www.tumblr.com/fishieguyy/774248937765896192/puppy",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 6,
+    "h": 8
+  },
+  {
+    "title": "Jackson Pollock #5",
+    "image": "images/jacksonpollock.png",
+    "dateBuilt": "2026-05-30",
+    "artistCredit": "https://www.jackson-pollock.org/number-5.jsp",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 8,
+    "h": 5
+  }]

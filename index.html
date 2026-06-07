@@ -1064,8 +1064,20 @@
             if (mode === 'mapart') {
                 const maps = item.totalMaps ?? '?';
                 const note = item.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
-                const dims = (item.w && item.h) ? `<div style="font-size:10px;opacity:.55;margin-top:2px;">${item.w} × ${item.h}</div>` : '';
-                meta.innerHTML = `<div class="title">${item.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${note}</div>${dims}</div>`;
+                const dimsHtml = (item.w && item.h)
+                    ? '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.07);">'
+                    + '<div style="font-size:10px;opacity:.65;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;">Size</div>'
+                    + '<div style="font-size:13px;font-weight:800;">' + item.w + ' × ' + item.h + '</div>'
+                    + '</div>'
+                    : '';
+                meta.innerHTML = '<div class="title">' + (item.title || '') + '</div>'
+                    + '<div style="display:flex;gap:8px;justify-content:center;align-items:stretch;margin-top:2px;">'
+                    + '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.07);">'
+                    + '<div style="font-size:10px;opacity:.65;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;">Maps</div>'
+                    + '<div style="font-size:13px;font-weight:800;">' + maps + note + '</div>'
+                    + '</div>'
+                    + dimsHtml
+                    + '</div>';
             } else {
                 meta.innerHTML = `<div class="title">${item.title || ''}</div>`;
             }

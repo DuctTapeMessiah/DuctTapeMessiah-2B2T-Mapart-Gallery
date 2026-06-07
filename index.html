@@ -1064,7 +1064,8 @@
             if (mode === 'mapart') {
                 const maps = item.totalMaps ?? '?';
                 const note = item.excludeFromCount ? ' <span style="font-size:10px;opacity:0.6;">(not counted)</span>' : '';
-                meta.innerHTML = `<div class="title">${item.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${note}</div></div>`;
+                const dims = (item.w && item.h) ? `<div style="font-size:10px;opacity:.55;margin-top:2px;">${item.w} × ${item.h}</div>` : '';
+                meta.innerHTML = `<div class="title">${item.title || ''}</div><div class="maps-tag"><div style="font-size:11px;opacity:.75;">Total Maps</div><div style="font-size:14px;font-weight:800;">${maps}${note}</div>${dims}</div>`;
             } else {
                 meta.innerHTML = `<div class="title">${item.title || ''}</div>`;
             }
@@ -1150,9 +1151,12 @@
             const d = new Date(dateStr);
             titleHtml += `<div class="date">Date Created: ${!isNaN(d) ? d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'2-digit' }) : dateStr}</div>`;
         }
+        if (mode === 'mapart' && item.w && item.h) {
+            titleHtml += `<div style="font-size:12px;color:var(--muted);margin-top:-6px;margin-bottom:4px;">${item.w} \xd7 ${item.h} maps</div>`;
+        }
 
         const desc = item.description || '', credit = item.artistCredit || '';
-        if (desc || credit) titleHtml += `<button class="details-btn" id="toggleDetails">View Details</button>`;
+        if (credit) titleHtml += `<div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Artist: ${credit}</div>`;
 
         const linkKey = mode === 'mapart' ? `mapart-${item.title}` : `screenshot-${SCREENSHOTS.indexOf(item)}`;
         const linked = linkMap[linkKey];
@@ -1167,13 +1171,6 @@
         modalDetails.innerHTML = (desc ? `<div class="desc">${desc}</div>` : '') + (credit ? `<div class="credit">Artist: ${credit}</div>` : '');
         state.detailsShown = false;
         modalDetails.classList.remove('visible');
-
-        document.getElementById('toggleDetails')?.addEventListener('click', () => {
-            state.detailsShown = !state.detailsShown;
-            document.getElementById('toggleDetails').textContent = state.detailsShown ? 'Hide Details' : 'View Details';
-            modalDetails.classList.toggle('visible', state.detailsShown);
-            onUserInteract();
-        }, { once: true });
 
         document.getElementById('viewLinkedBtn')?.addEventListener('click', () => {
             if (returnToMode && returnToItem) {

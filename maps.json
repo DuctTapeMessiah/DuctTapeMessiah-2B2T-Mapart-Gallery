@@ -949,4 +949,41 @@
     "commentsEnabled": true,
     "w": 8,
     "h": 5
-  }]
+  },
+  {
+    "title": "Ozymandias",
+    "image": "images/ozymandias.png",
+    "dateBuilt": "2026-06-02",
+    "artistCredit": "https://www.reddit.com/r/Watchmen/comments/1qv96as/one_positive_thing_you_can_say_about_this_person/",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 8,
+    "h": 4
+  },
+  {
+    "title": "The Trading Post - Spawnpearl : ZigguratOfAsh",
+    "image": "images/ZigguratOfAsh.png",
+    "dateBuilt": "2026-05-23",
+    "artistCredit": "",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 11,
+    "h": 8
+  },
+  {
+    "title": "DTM Custom Frame",
+    "image": "images/DTMFrame.png",
+    "dateBuilt": "2026-06-02",
+    "artistCredit": "",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 3,
+    "h": 3
+  }
+]

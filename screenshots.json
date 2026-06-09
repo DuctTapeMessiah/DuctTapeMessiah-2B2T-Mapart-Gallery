@@ -301,6 +301,20 @@
         "image": "screenshots/2026-05-30_23.16.01.png",
         "mapart": "Jackson Pollock #5",
         "show": false
+    },
+    {
+        "image": "screenshots/2026-06-02_16.47.24.png",
+        "mapart": "Ozymandias",
+        "show": false
+    },
+    {
+        "image": "screenshots/ZigguratOfAsh_ss.png",
+        "mapart": "The Trading Post - Spawnpearl : ZigguratOfAsh",
+        "show": false
+    },
+    {
+        "image": "screenshots/2026-06-01_17.33.34.png",
+        "mapart": "DTM Custom Frame",
+        "show": false
     }
-
 ]

@@ -20,6 +20,13 @@
     <meta property="twitter:description" content="A collection of mapart created and screenshots captured by DuctTapeMessiah on the Oldest Anarchy server in Minecraft, 2B2T.">
     <meta property="twitter:image" content="https://ducttapemessiah.art/preview1.jpeg">
 
+    <link rel="icon" href="images/DTM.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/DTM.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg: #0b0b0d;
@@ -645,9 +652,10 @@
         "url": "https://ducttapemessiah.art",
         "image": "https://ducttapemessiah.art/preview1.jpeg",
         "sameAs": [
-            "https://www.youtube.com",
-            "https://x.com",
-            "https://github.com"
+            "https://youtube.com/DuctTapeMessiah",
+            "https://www.reddit.com/user/DuctTapeMessiah/",
+            "https://github.com/DuctTapeMessiah/",
+            "https://discord.com/users/ducttapemessiah"
         ],
         "description": "Mapartist and builder on the Oldest anarchy server in Minecraft, 2B2T. Known for large-scale Minecraft projects and community events",
         "knowsAbout": ["2B2T", "Minecraft", "Anarchy Servers", "Map Art", "Pixel Art"]
@@ -660,7 +668,7 @@
     <div class="info-section">
         <div class="top-header-row">
             <header>
-                <div class="logo"><img src="images/DTM.png" alt="Logo"></div>
+                <div class="logo"><img src="images/DTM.png" alt="Logo" width="70" height="70"></div>
                 <div class="title-wrap">
                     <div class="title-main">DuctTapeMessiah</div>
                     <div class="title-sub">Mapartist since 1/13/2024</div>
@@ -856,7 +864,8 @@
     let returnToMode = null;
     let returnToItem = null;
 
-    const GROUP_PROJECTS = [
+    // Fallback used only if group-projects.json hasn't been added to the site yet.
+    let GROUP_PROJECTS = [
         { name: '2024 Family Feud',      date: '06/30/2024', maps: 116 },
         { name: '2024 Advent Calendar',  date: '12/25/2024', maps: 38 },
         { name: 'Bad Apple',             date: '10/02/2025', maps: 3599 },
@@ -971,6 +980,8 @@
     async function boot() {
         DATA = await loadJSON('maps.json');
         SCREENSHOTS = await loadJSON('screenshots.json');
+        const fetchedProjects = await loadJSON('group-projects.json');
+        if (Array.isArray(fetchedProjects) && fetchedProjects.length) GROUP_PROJECTS = fetchedProjects;
         buildLinkMap();
 
         DATA.forEach(m => {

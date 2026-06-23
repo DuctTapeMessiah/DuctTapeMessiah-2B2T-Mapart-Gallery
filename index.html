@@ -537,16 +537,17 @@
 
         @media (min-width: 769px) {
             .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 grid-template-rows: repeat(2, 1fr);
                 align-items: stretch;
             }
 
-            .grand-total        { grid-column: 1; grid-row: 1; }
-            .total-maps         { grid-column: 1; grid-row: 2; }
-            .group-contributions { grid-column: 2; grid-row: 1; }
-            .maps-copied        { grid-column: 2; grid-row: 2; }
-            .group-projects     { grid-column: 3; grid-row: 1 / 3; }
+            .grand-total          { grid-column: 1; grid-row: 1; }
+            .total-maps           { grid-column: 2; grid-row: 1; }
+            .mapart-pieces        { grid-column: 3; grid-row: 1; }
+            .group-contributions  { grid-column: 1; grid-row: 2; }
+            .maps-copied          { grid-column: 2; grid-row: 2; }
+            .group-projects       { grid-column: 4; grid-row: 1 / 3; }
 
             .modal-title-overlay {
                 left: 50%;
@@ -578,9 +579,10 @@
 
             .grand-total          { grid-column: 1; grid-row: 2; }
             .total-maps           { grid-column: 2; grid-row: 2; }
-            .group-contributions  { grid-column: 1; grid-row: 3; }
-            .maps-copied          { grid-column: 2; grid-row: 3; }
-            .group-projects       { grid-column: 1; grid-row: 4; }
+            .mapart-pieces        { grid-column: 1; grid-row: 3; }
+            .group-contributions  { grid-column: 2; grid-row: 3; }
+            .maps-copied          { grid-column: 1; grid-row: 4; }
+            .group-projects       { grid-column: 1 / 3; grid-row: 5; }
 
             header        { grid-column: 1; grid-row: 1; }
             .award-banner { grid-column: 2; grid-row: 1; }
@@ -696,7 +698,13 @@
             <div class="stat-card total-maps">
                 <div class="stat-label">Individual Maparts</div>
                 <div class="stat-value" id="totalMaps">-</div>
-                <div class="stat-sublabel">Individual Maparts created</div>
+                <div class="stat-sublabel">Total physical maps used</div>
+            </div>
+
+            <div class="stat-card mapart-pieces">
+                <div class="stat-label">Mapart Pieces</div>
+                <div class="stat-value" id="mapartPieces">-</div>
+                <div class="stat-sublabel">Solo builds (excludes collab & private)</div>
             </div>
 
             <div class="stat-card group-contributions">
@@ -881,6 +889,7 @@
         const mapsPerDay = (grandTotal / daysSince).toFixed(2);
 
         document.getElementById('totalMaps').textContent = totalIndividualMaps.toLocaleString();
+        document.getElementById('mapartPieces').textContent = DATA.length.toLocaleString();
         document.getElementById('groupMaps').textContent = groupTotal.toLocaleString();
         document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
 

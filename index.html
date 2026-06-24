@@ -250,6 +250,11 @@
             margin-top: 16px;
         }
 
+        /* Mapart thumbnails at 75% of the default minimum width so more fit per row */
+        body.mapart .grid {
+            grid-template-columns: repeat(auto-fill, minmax(188px, 1fr));
+        }
+
         .card {
             background: var(--glass);
             border-radius: 12px;
@@ -556,6 +561,30 @@
             .maps-copied            { grid-column: 2; grid-row: 2; }
             .group-projects         { grid-column: 3; grid-row: 2; }
 
+            /* Shrink the 9 header/stat/project cards via tighter padding & gaps — text stays full size */
+            .top-header-row { gap: 10px; margin-bottom: 19px; }
+
+            header, .award-banner, .contact-card { padding: 12px; }
+            header { padding: 14px 12px; gap: 7px; }
+            .logo { width: 42px; height: 42px; }
+
+            .award-banner { padding: 14px 12px; gap: 7px; }
+            .award-title    { margin-bottom: 1px; }
+
+            .social-label  { margin-bottom: 6px; }
+            .social-links  { gap: 12px; margin-bottom: 7px; }
+
+            .stats-grid { gap: 14px; }
+            .stat-card  { padding: 14px; }
+            .stat-label    { margin-bottom: 5px; }
+            .stat-sublabel { margin-top: 2px; }
+
+            .group-projects       { padding: 8px 10px; max-height: 100px; overflow: hidden; }
+            .group-projects-title { margin-bottom: 5px; }
+            .project-list  { gap: 2px; }
+            .project-item  { padding: 2px 5px; }
+            .project-date  { margin-right: 4px; }
+
             .modal-title-overlay {
                 left: 50%;
                 transform: translateX(-50%);
@@ -675,7 +704,7 @@
                 </div>
             </header>
 
-            <div class="award-banner">
+            <div class="award-banner panel">
                 <div class="award-icon">🏆</div>
                 <div>
                     <div class="award-title">Best Mapartist of the Year</div>
@@ -700,7 +729,7 @@
             <div class="stat-card grand-total">
                 <div class="stat-label">Grand Total</div>
                 <div class="stat-value" id="grandTotal">-</div>
-                <div class="stat-sublabel">All maps created (excludes private)</div>
+                <div class="stat-sublabel">All maps created</div>
             </div>
 
             <div class="stat-card total-maps">
@@ -724,7 +753,7 @@
             <div class="stat-card maps-copied">
                 <div class="stat-label">Maps Copied</div>
                 <div class="stat-value">567,887</div>
-                <div class="stat-sublabel">As of June 23nd, 2026</div>
+                <div class="stat-sublabel">As of June 23rd, 2026</div>
             </div>
 
             <div class="group-projects panel">

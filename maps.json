@@ -997,5 +997,17 @@
     "commentsEnabled": true,
     "w": 15,
     "h": 7
+  },
+  {
+    "title": "2B2T Spawn",
+    "image": "images/2btspawn.png",
+    "dateBuilt": "2026-06-25",
+    "artistCredit": "https://discord.com/channels/349201680023289867/349277718954901514/1516995254136475658",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 15,
+    "h": 8
   }
 ]

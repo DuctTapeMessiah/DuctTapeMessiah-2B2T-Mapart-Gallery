@@ -1009,5 +1009,17 @@
     "commentsEnabled": true,
     "w": 15,
     "h": 8
+  },
+  {
+    "title": "Tribute by Retronator",
+    "image": "images/retrotribute.png",
+    "dateBuilt": "2026-07-25",
+    "artistCredit": "https://www.retronator.com/tribute",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 5,
+    "h": 7
   }
 ]

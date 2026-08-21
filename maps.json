@@ -1021,5 +1021,17 @@
     "commentsEnabled": true,
     "w": 5,
     "h": 7
+  },
+  {
+    "title": "Quarters Web",
+    "image": "images/quartersweb.png",
+    "dateBuilt": "2026-08-20",
+    "artistCredit": "https://www.srhillustration.com/#/quarters/",
+    "description": "",
+    "layoutType": "flat",
+    "blockType": "",
+    "commentsEnabled": true,
+    "w": 8,
+    "h": 8
   }
 ]

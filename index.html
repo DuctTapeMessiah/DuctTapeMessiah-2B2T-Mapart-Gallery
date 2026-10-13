@@ -145,6 +145,7 @@
 
         .award-link { font-size: 11px; color: #a5b4fc; text-decoration: none; }
         .award-link:hover { color: #c7d2fe; text-decoration: underline; }
+        .award-census { margin-top: 4px; line-height: 1.5; }
 
         .contact-card { text-align: center; }
 
@@ -700,7 +701,7 @@
                 <div class="logo"><img src="images/DTM.png" alt="Logo" width="70" height="70"></div>
                 <div class="title-wrap">
                     <div class="title-main">DuctTapeMessiah</div>
-                    <div class="title-sub">Mapartist since 1/13/2024</div>
+                    <div class="title-sub">Mapartist 1/13/2024 – Retired 9/29/2026</div>
                 </div>
             </header>
 
@@ -708,20 +709,23 @@
                 <div class="award-icon">🏆</div>
                 <div>
                     <div class="award-title">Best Mapartist of the Year</div>
-                    <div class="award-subtitle">2025 Oscars Winner</div>
-                    <a href="https://2b2toscars.com/" target="_blank" class="award-link">2b2tOscars.com →</a>
+                    <div class="award-subtitle">Winner at the 2025 Oscars &amp; 2025 Census</div>
+                    <div class="award-census">
+                        <a href="https://2b2toscars.com/" target="_blank" rel="noopener" class="award-link">2b2tOscars.com →</a>
+                        <br>
+                        <a href="https://www.reddit.com/r/2b2t/comments/1wrylsi/2b2t_2025_census_results_are_live/" target="_blank" rel="noopener" class="award-link">2b2t Census Results →</a>
+                    </div>
                 </div>
             </div>
 
             <div class="contact-card panel">
-                <div class="social-label">Socials & Contact</div>
+                <div class="social-label">Socials</div>
                 <div class="social-links">
                     <a href="https://discord.com/users/ducttapemessiah" target="_blank" rel="noopener">Discord</a>
                     <a href="http://youtube.com/DuctTapeMessiah" target="_blank" rel="noopener">YouTube</a>
                     <a href="https://www.reddit.com/user/DuctTapeMessiah/" target="_blank" rel="noopener">Reddit</a>
                     <a href="https://github.com/DuctTapeMessiah/" target="_blank" rel="noopener">GitHub</a>
                 </div>
-                <div class="free-maps">Please contact me for free maps!</div>
             </div>
         </div>
 
@@ -752,8 +756,7 @@
 
             <div class="stat-card maps-copied">
                 <div class="stat-label">Maps Copied</div>
-                <div class="stat-value">637, 271</div>
-                <div class="stat-sublabel">As of August 20th, 2026</div>
+                <div class="stat-value">650k+</div>
             </div>
 
             <div class="group-projects panel">
@@ -922,17 +925,10 @@
         const groupTotal = GROUP_PROJECTS.reduce((sum, p) => sum + p.maps, 0);
         const grandTotal = totalIndividualMaps + groupTotal;
 
-        const startDate = new Date('2024-01-13');
-        const daysSince = Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24));
-        const mapsPerDay = (grandTotal / daysSince).toFixed(2);
-
         document.getElementById('totalMaps').textContent = totalIndividualMaps.toLocaleString();
         document.getElementById('mapartPieces').textContent = DATA.length.toLocaleString();
         document.getElementById('groupMaps').textContent = groupTotal.toLocaleString();
         document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
-
-        document.querySelector('.title-sub').innerHTML =
-            `Mapartist since 1/13/2024<br><span style="font-size:11px;opacity:0.7;">${mapsPerDay} maps per day</span>`;
     }
 
     function startAutoPan() {
